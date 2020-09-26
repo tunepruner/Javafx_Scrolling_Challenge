@@ -1,0 +1,46 @@
+@startuml
+'types:
+interface Tjsdk
+abstract Class Hieurh
+class ArrayList {
+Object[] elementData
+{static} size()
+{method} (andSomeOtherMethod)
+}
+enum Grjklwe{
+ONE
+TWO
+THREE
+{abstract} doSomething()
+}
+
+Class01 <|-- Class02 : extension
+Class03 *-- Class04 : composition
+
+Class05 o-- Class06 : aggregation
+
+Class07 .. Class08
+note top of Object : In java, every class\nextends this one.
+Class09 -- Class10
+Class11 <|.. Class12
+Customer --> " 0..*" Product : purchasedItem
+note right: The asterisk means "or more". The open arrowhead means Product doesn't know about Customer
+Class15 ..> Class16
+Class17 ..|> Class18
+Class19 <--* Class20
+Class21 #-- Class22
+Class23 x-- Class24
+Class25 }-- Class26
+Class27 +-- Class28
+Class29 ^-- Class30
+Student "0..4" -- "0..1" Apartment
+Passenger "many" - "many" Car : <- carries/polishes ->
+
+enum TimeUnit {
+DAYS
+HOURS
+MINUTES
+{abstract} doThis()
+}
+
+@enduml
