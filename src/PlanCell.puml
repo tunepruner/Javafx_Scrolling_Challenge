@@ -1,0 +1,70 @@
+@startuml
+
+class PlanCell{
+-{static} int cellCount = 0
+-{static} double preCalcSceneX, preCalcSceneY, originalSceneX, originalSceneY
+-{static} double originalSceneOffsetX, originalSceneOffsetY
+-{static} boolean currentlyAnimating
+{static} int currentDraggedFromInt
+-{static} int currentDraggedThroughInt
+-int cellIdentifier
++PlanCell()
++PlanCell(HBox hBox, VBox vBox, Label label)
++void displayCell(ListArea listArea, String string, Grid grid)
++void handleDragAndDrop(ListArea listArea, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell)
++void cueListChangeReposition(ListArea listArea, HBox hBox, VBox vBox, Cell cell)
++void repositionActivated(ListArea listArea, HBox hBox, VBox vBox, Cell cell)
+}
+
+class Cell{
+~HBox hBox
+~VBox vBox
+~Label label
+~boolean isInListArea = false
+~Point currentPosition = new Point()
+~SimpleDoubleProperty followableX
+~SimpleDoubleProperty followableY
+-CellState cellState
++{abstract} void displayCell(ListArea listArea, String string, Grid grid)
++void handleDragAndDrop(ListArea listArea, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell)
++{abstract} void cueListChangeReposition(ListArea listArea, HBox hBox, VBox vBox, Cell cell)
++abstract void repositionActivated(ListArea listArea, HBox hBox, VBox vBox, Cell cell)
++void displayAllCells(ListArea listArea)
+}
+Cell<|--PlanCell
+
+class Grid {
+ObservableMap<Integer, Point> gridMap
+SimpleDoubleProperty scrollActivity = new SimpleDoubleProperty(0)
++int currentDraggedFromIndex
+static double currentScrollDirectionX = 0
+static double currentScrollDirectionY = 0
++void setGridMap(ObservableMap<Integer, Point> gridMap)
++ObservableMap<Integer, Point> getGridMap()
++{abstract} int getIndexOfXY (ListArea listArea, Point currentPoint)
++{abstract} boolean animationPermitted(ListArea listArea, HBox hBox, Cell cell)
++{abstract} void setCellOpacity(ListArea listArea, HBox hBox, VBox vBox, Cell cell)
++void scrollGrid(ListArea listArea, double deltaX, double deltaY, HBox hBox, VBox vBox, Cell cell)
+}
+class PlanGrid{
++PlanGrid(ListArea listArea)
++int getIndexOfXY(ListArea listArea, Point currentPoint)
++boolean animationPermitted(ListArea listArea, HBox hBox, Cell cell)
++void setCellOpacity(ListArea listArea, HBox hBox, VBox vBox, Cell cell)
+}
+Grid <|--PlanGrid
+class ListArea{
+String uniqueID
+Pane pane
+ListFromFile listFromFile
+Grid grid
+Point topLeft, topRight, bottomLeft
+int cellHeight, cellPadding
+ObservableList<String> list = FXCollections.observableArrayList()
+Stage stage
+}
+class PlanListArea{
+public PlanListArea (String uniqueID, Pane pane, PlanListFromFile planListFromFile, Point topLeft, Point topRight, Point bottomLeft, int cellHeight, int cellPadding, Stage stage)
+}
+ListArea <|-- PlanListArea
+@enduml

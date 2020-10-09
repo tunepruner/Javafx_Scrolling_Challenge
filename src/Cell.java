@@ -40,7 +40,7 @@ public abstract class Cell {
         /*Default implementation goes here.
          * Store (lbl.getText) in String lblTxt "".
          * Store ObservableList.indexOf(lblTxt) in int lblTxtIndex.
-         * ObserverbleList.remove(lblTxtIndex)
+         * ObservarbleList.remove(lblTxtIndex)
          * Drag handler moves hBox, calls getIndexOfXY,
          * and adds empty string back into ObservableList.
          * At drop, it removes that empty string and adds lblTxt.
@@ -48,17 +48,16 @@ public abstract class Cell {
          * */
     }
 
-    public abstract void cueListChangeReposition(ListArea listArea, HBox hBox, VBox vBox, Cell cell);
-    public abstract void repositionActivated(ListArea listArea, HBox hBox, VBox vBox, Cell cell);
+    public abstract void cueReposition(ListArea listArea, HBox hBox, VBox vBox, Cell cell);
+    public abstract void executeReposition(ListArea listArea, HBox hBox, VBox vBox, Cell cell);
     public void displayAllCells(ListArea listArea) {
-        /*Default implementation goes here.
-         * for each (String string : list)
-         *   call displayCell
-         *   call handleDragAndDrop
-         *   call handleReposition
-         *   call ListFromFile.handleSyncToFile
-         * **/
-
+        ObservableList list = listArea.getList();
+        listArea.setGrid(new PlanGrid(listArea));
+        for (int i = 0; i < listArea.getList().size(); i++) {
+            String string = (String) listArea.getList().get(i);
+            listArea.getListFromFile().handleSyncToFile(listArea);
+            displayCell(listArea, string, listArea.getGrid());
+        }
     }
 
 }

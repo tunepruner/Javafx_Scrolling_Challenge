@@ -1,27 +1,19 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.beans.NamedArg;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.control.Button;
 import java.awt.*;
-import java.util.logging.Handler;
 
 import javafx.scene.control.ProgressBar;
 
@@ -31,8 +23,7 @@ public class PlanCell extends Cell {
     private static double originalSceneOffsetX, originalSceneOffsetY;
     private static boolean currentlyAnimating;
     static int currentDraggedFromInt;
-    static double currentScrollDirectionX = 0;
-    static double currentScrollDirectionY = 0;
+
     private static int currentDraggedThroughInt;
     //this value is assigned in the ListArea method call, because the Grid also needs it.
     private int cellIdentifier;
@@ -182,15 +173,15 @@ public class PlanCell extends Cell {
         listArea.getPane().setOnScroll(event -> {
             double deltaX = event.getDeltaX();
             double deltaY = event.getDeltaY();
-            currentScrollDirectionX = deltaX;
-            currentScrollDirectionY = deltaY;
-            listArea.getGrid().scrollActivity.setValue(listArea.getGrid().scrollActivity.get() + currentScrollDirectionY);
-            scrollGrid(listArea, deltaX, deltaY, hBox, vBox, cell);
+            grid.currentScrollDirectionX = deltaX;
+            grid.currentScrollDirectionY = deltaY;
+            listArea.getGrid().scrollActivity.setValue(listArea.getGrid().scrollActivity.get() + grid.currentScrollDirectionY);
+            grid.scrollGrid(listArea, deltaX, deltaY, hBox, vBox, cell);
         });
 
         javafx.beans.value.ChangeListener scrollLevelListener = (observable, oldValue, newValue) -> {
-            hBox.setLayoutX(hBox.getLayoutX() + currentScrollDirectionY/8);
-            hBox.setLayoutY(hBox.getLayoutY() - currentScrollDirectionY/8);
+            hBox.setLayoutX(hBox.getLayoutX() + grid.currentScrollDirectionY/8);
+            hBox.setLayoutY(hBox.getLayoutY() - grid.currentScrollDirectionY/8);
 
 
             listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x = (int) hBox.getLayoutX();
@@ -236,13 +227,13 @@ public class PlanCell extends Cell {
         vBox.toFront();
 
         handleDragAndDrop(listArea, hBox, vBox, currentDraggedFromInt, cell);
-        cueListChangeReposition(listArea, hBox, vBox, cell);
+        cueReposition(listArea, hBox, vBox, cell);
         listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
     }
 
     public void handleDragAndDrop(ListArea listArea, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell){
         hBox.setOnMousePressed(event -> {
-            listArea.getGrid().currentDraggedFromInt =  listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
+            listArea.getGrid().currentDraggedFromIndex =  listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
             originalSceneX = event.getSceneX();
@@ -253,7 +244,7 @@ public class PlanCell extends Cell {
         });
 
         vBox.setOnMousePressed(event -> {
-            listArea.getGrid().currentDraggedFromInt =  listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
+            listArea.getGrid().currentDraggedFromIndex =  listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
 
@@ -304,8 +295,8 @@ public class PlanCell extends Cell {
 
             Label lbl = ((Label) hBox.getChildren().get(1));
             String itemToRemove = lbl.getText();
-            int localCurrentDraggedFromInt = listArea.getGrid().currentDraggedFromInt;
-            int updatedInsertionInt = listArea.getGrid().currentDraggedFromInt;
+            int localCurrentDraggedFromInt = listArea.getGrid().currentDraggedFromIndex;
+            int updatedInsertionInt = listArea.getGrid().currentDraggedFromIndex;
 
             if (listArea.getList().contains(itemToRemove)) {
                 listArea.getList().remove(itemToRemove);
@@ -359,8 +350,8 @@ public class PlanCell extends Cell {
 
             Label lbl = ((Label) hBox.getChildren().get(1));
             String itemToRemove = lbl.getText();
-            int localCurrentDraggedFromInt = listArea.getGrid().currentDraggedFromInt;
-            int updatedInsertionInt = listArea.getGrid().currentDraggedFromInt;
+            int localCurrentDraggedFromInt = listArea.getGrid().currentDraggedFromIndex;
+            int updatedInsertionInt = listArea.getGrid().currentDraggedFromIndex;
 
             if (listArea.getList().contains(itemToRemove)) {
                 listArea.getList().remove(itemToRemove);
@@ -437,7 +428,7 @@ public class PlanCell extends Cell {
 
 
     @Override
-    public void cueListChangeReposition(ListArea listArea, HBox hBox, VBox vBox, Cell cell) {
+    public void cueReposition(ListArea listArea, HBox hBox, VBox vBox, Cell cell) {
         /*(Everything enclosed in listener to the ObservableList)
          * Animate a timeline transform for HBox, then for VBox.
          */
@@ -453,7 +444,7 @@ public class PlanCell extends Cell {
                     boolean animationPermitted = listArea.getGrid().animationPermitted(listArea,/*maybe add point here*/hBox, cell);
 
                     if (animationPermitted == true) {
-                        cell.repositionActivated(listArea, hBox, vBox, cell);
+                        cell.executeReposition(listArea, hBox, vBox, cell);
                     }
                 }
             }
@@ -462,7 +453,7 @@ public class PlanCell extends Cell {
     }
 
     @Override
-    public void repositionActivated(ListArea listArea, HBox hBox, VBox vBox, Cell cell) {
+    public void executeReposition(ListArea listArea, HBox hBox, VBox vBox, Cell cell) {
         System.out.println("repositionActivated();");
         final Duration SEC_2 = Duration.millis(200);
         Timeline timeline = new Timeline();
@@ -489,83 +480,5 @@ public class PlanCell extends Cell {
         cell.currentPosition.y = listArea.getGrid().getGridMap().get(targetIndex).y;
     }
 
-
-
-    @Override
-    public void displayAllCells(ListArea listArea) {
-        /*Default implementation goes here.
-         * for each (String string : list)
-         *   call displayCell
-
-         *   call ListFromFile.handleSyncToFile
-         * **/
-        ObservableList list = listArea.getList();
-        listArea.setGrid(new PlanGrid(listArea));
-        for (int i = 0; i < listArea.getList().size(); i++) {
-            String string = (String) listArea.getList().get(i);
-            listArea.getListFromFile().handleSyncToFile(listArea);
-            displayCell(listArea, string, listArea.getGrid());
-        }
-
-    }
-    public void scrollGrid(ListArea listArea, double deltaX, double deltaY, HBox hBox, VBox vBox, Cell cell) {
-        double xDiff = Math.abs(listArea.getTopLeft().x - listArea.getBottomLeft().x);
-        double yDiff = Math.abs(listArea.getTopLeft().y - listArea.getBottomLeft().y);
-
-        Point topPoint = listArea.getGrid().getGridMap().get(0);
-        Point bottomPoint = listArea.getGrid().getGridMap().get(listArea.getGrid().getGridMap().size()-1);
-
-        boolean listAreaIsAtBottom = topPoint.y >= listArea.getTopLeft().getY();
-        boolean listAreaIsAtTop = bottomPoint.y <= listArea.getBottomLeft().getY();
-
-        System.out.println("listAreaIsAtBottom" + listAreaIsAtBottom);
-        System.out.println("listAreaIsAtTop" + listAreaIsAtTop);
-        listArea.getGrid().scrollActivity.setValue(listArea.getGrid().scrollActivity.get() + currentScrollDirectionY);
-
-//        System.out.println("listAreaIsAtBottom" + listAreaIsAtBottom);
-//        System.out.println(" listAreaIsAtTop " + listAreaIsAtTop);
-
-//            for (int i = 0; i < listArea.getGrid().getGridMap().size(); i++) {
-//        if (listAreaIsAtBottom) {
-//                double scrollDirection = deltaY/10;
-//                hBox.setLayoutX(listArea.getGrid().getGridMap().get(i).x + (int) (xDiff/100));
-//                hBox.setLayoutY(listArea.getGrid().getGridMap().get(i).y + (int) (-yDiff/100));
-//
-//                cell.followableX.setValue(hBox.getLayoutX());
-//                cell.followableY.setValue(hBox.getLayoutY());
-//
-//                listArea.getGrid().getGridMap().get(i).x = (int) cell.followableX.get();
-//                listArea.getGrid().getGridMap().get(i).y = (int) cell.followableY.get();
-//
-//
-//            }
-////
-//        }
-//        else if(listAreaIsAtTop){
-//            for (int i = 0; i < listArea.getGrid().getGridMap().size(); i++) {
-//                hBox.setLayoutX(listArea.getGrid().getGridMap().get(i).x + (int) (-xDiff/100));
-//                hBox.setLayoutY(listArea.getGrid().getGridMap().get(i).y + (int) (yDiff/100));
-//                cell.followableX.setValue(hBox.getLayoutX());
-//                cell.followableY.setValue(hBox.getLayoutY());
-//
-//                listArea.getGrid().getGridMap().get(i).x = (int) cell.followableX.get();
-//                listArea.getGrid().getGridMap().get(i).y = (int) cell.followableY.get();
-//            }
-//        }else{
-//            for (int i = 0; i < listArea.getGrid().getGridMap().size(); i++) {
-//                double scrollDirection = deltaY/10;
-//                hBox.setLayoutX(listArea.getGrid().getGridMap().get(i).x + (int) (scrollDirection * xDiff/100));
-//                hBox.setLayoutY(listArea.getGrid().getGridMap().get(i).y + (int) (-scrollDirection * yDiff/100));
-//
-//                cell.followableX.setValue(hBox.getLayoutX());
-//                cell.followableY.setValue(hBox.getLayoutY());
-//
-//                listArea.getGrid().getGridMap().get(i).x = (int) hBox.getLayoutX();
-//                listArea.getGrid().getGridMap().get(i).y = (int) hBox.getLayoutY();
-//                System.out.println("hBox.getLayoutX()" + hBox.getLayoutX());
-//                System.out.println("hBox.getLayoutX()" + hBox.getLayoutX());
-//            }
-//        }
-    }
 
 }

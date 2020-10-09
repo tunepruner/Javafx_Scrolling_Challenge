@@ -96,7 +96,7 @@ public class Main extends Application {
                             new KeyValue(line.endXProperty(), line.getEndX() - 500));
             timeline.getKeyFrames().add(end);
             timeline.setCycleCount(Animation.INDEFINITE);
-//            timeline.play();
+            timeline.play();
         }
     }
 }

@@ -1,14 +1,7 @@
-import com.sun.codemodel.internal.JForEach;
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Line;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class PlanGrid extends Grid {
@@ -37,7 +30,7 @@ public class PlanGrid extends Grid {
 
     @Override
     public int getIndexOfXY(ListArea listArea, Point currentPoint) {
-        int resultingIndex = currentDraggedFromInt;
+        int resultingIndex = currentDraggedFromIndex;
         for (int i = 0; i < listArea.getGrid().getGridMap().size(); i++) {
             if (
                     Math.abs(currentPoint.y - (listArea.getGrid().getGridMap().get(i).y)) < listArea.getCellHeight() &&
