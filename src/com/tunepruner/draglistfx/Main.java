@@ -1,5 +1,6 @@
 package com.tunepruner.draglistfx;
 
+import com.tunepruner.draglistfx.*;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -53,8 +54,6 @@ public class Main extends Application {
         this.rectBackground.widthProperty().bind(scene.widthProperty());
         this.rectBackground.heightProperty().bind(scene.heightProperty());
 
-
-
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -62,6 +61,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+
     public static void animateBackground (Pane pane){
         for (int i = 0; i < 40; i++) {
             Line line = new Line();
