@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -202,53 +203,51 @@ public class PlanCell extends Cell {
         listArea.getGrid().scrollActivity.addListener(scrollLevelListener);
 //        cell.followableY.addListener(hBoxYListenerForOpacity);
 
-        Pane cellPane = new Pane();
-        cellPane.getChildren().addAll(hBox, vBox);
-        listArea.getPane().getChildren().add(cellPane);
+        Group cellGroup = new Group();
+        cellGroup.getChildren().addAll(hBox, vBox);
+        listArea.getPane().getChildren().add(cellGroup);
 ;
 //
 //        vBox.toFront();
 
-        handleDragAndDrop(listArea, cellPane, svgPath, hBox, vBox, currentDraggedFromInt, cell);
+        handleDragAndDrop(listArea, cellGroup, svgPath, hBox, vBox, currentDraggedFromInt, cell);
         cueReposition(listArea, hBox, vBox, cell);
         listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
-        cellPane.toFront();
     }
 
-    public void handleDragAndDrop(ListArea listArea, Pane cellPane, SVGPath svgPath, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
-//        cellPane.setOnMouseEntered(event -> System.out.println("Hover"));
-        cellPane.setOnMouseExited(event -> System.out.println("Left"));
-        cellPane.setOnMousePressed(event -> {
+    public void handleDragAndDrop(ListArea listArea, Group cellGroup, SVGPath svgPath, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
+        cellGroup.setOnMouseEntered(event -> {
+            System.out.println(listArea.getGrid().currentDraggedFromIndex);
+            System.out.println("Hover");
+        });
+        cellGroup.setOnMousePressed(event -> {
             listArea.getGrid().currentDraggedFromIndex = listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
+
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
             originalSceneX = event.getSceneX();
             originalSceneY = event.getSceneY();
-            Pane d = (Pane) (event.getSource());
+            Group d = (Group) (event.getSource());
             cell.isInListArea = false;
-            System.out.println("Mouse pressed");
-        });
-        cellPane.setOnMouseExited(event -> cellPane.toBack());
 
-        cellPane.setOnDragDetected(event -> {
-//
-//            cellPane.startFullDrag();
-            System.out.println("Drag detected");
+        });
+        cellGroup.setOnMouseExited(event -> cellGroup.toBack());
+
+        cellGroup.setOnDragDetected(event -> {
         });
 
-        cellPane.setOnMouseDragged(event -> {
-            System.out.println("Dragging");
+        cellGroup.setOnMouseDragged(event -> {
             double offsetX = event.getSceneX() - preCalcSceneX;
             double offsetY = event.getSceneY() - preCalcSceneY;
 
-            Pane d = (Pane) (event.getSource());
+            Group d = (Group) (event.getSource());
 
 
-            cellPane.setLayoutX(cellPane.getLayoutX() + offsetX);
-            cellPane.setLayoutY(cellPane.getLayoutY() + offsetY);
+            cellGroup.setLayoutX(cellGroup.getLayoutX() + offsetX);
+            cellGroup.setLayoutY(cellGroup.getLayoutY() + offsetY);
             /*Report the current position in SimpleDoubleProperty format.*/
-            cell.followableX.setValue(cellPane.getLayoutX() + offsetX);
-            cell.followableY.setValue(cellPane.getLayoutY() + offsetY);
+            cell.followableX.setValue(cellGroup.getLayoutX() + offsetX);
+            cell.followableY.setValue(cellGroup.getLayoutY() + offsetY);
 
             /*Report the current position in Point format,
              * for use by the animation algorithm.*/
@@ -287,8 +286,8 @@ public class PlanCell extends Cell {
             listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
         });
 
-        cellPane.setOnMouseReleased(event -> {
-            Pane d = (Pane) (event.getSource());
+        cellGroup.setOnMouseReleased(event -> {
+            Group d = (Group) (event.getSource());
             Label lbl = new Label();
             lbl = ((Label) hBox.getChildren().get(1));
             String stringToAdd = (String) lbl.getText();
@@ -334,7 +333,6 @@ public class PlanCell extends Cell {
 
     @Override
     public void executeReposition(ListArea listArea, HBox hBox, VBox vBox, Cell cell) {
-        System.out.println("repositionActivated();");
         final Duration SEC_2 = Duration.millis(200);
         Timeline timeline = new Timeline();
         Label lbl = ((Label) hBox.getChildren().get(1));
