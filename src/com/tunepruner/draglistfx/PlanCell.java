@@ -129,17 +129,17 @@ public class PlanCell extends Cell {
         vBox.setVgrow(paneInsideVBox2, Priority.ALWAYS);
 
         Point point = listArea.getGrid().getGridMap().get(list.indexOf(string));
+
         hBox.setLayoutX(point.x);
         hBox.setLayoutY(point.y);
+//        System.out.println(point.x);
+//        System.out.println(point.y);
 
 
         cell.followableX = new SimpleDoubleProperty();
         cell.followableY = new SimpleDoubleProperty();
         cell.followableX.set(point.x);
         cell.followableY.set(point.y);
-
-        vBox.setLayoutX((int) cell.followableX.get() + listArea.getCellWidth());
-        vBox.setLayoutY((int) cell.followableY.get());
 
         btn.setOnAction(event -> {
             Popup popup = new Popup();

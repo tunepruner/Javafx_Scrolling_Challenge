@@ -24,8 +24,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Pane planPane = new Pane();
-        rectBackground = new Rectangle();
-        planPane.setStyle("-background-image: url(\"Ocean+from+Above+Drone+Footage.png\")");
         planPane.toFront();
 
         rectBackground = new Rectangle();
@@ -42,13 +40,13 @@ public class Main extends Application {
                 10,
                 primaryStage
         );
-        planListArea.drawListArea(planListArea);
+        planPane = planListArea.drawListArea(planListArea);
 
         Group root = new Group();
         root.getChildren().addAll(planPane, rectBackground);
         rectBackground.toBack();
 
-        animateBackground(planPane);
+//        animateBackground(planPane);
 
         Scene scene = new Scene(root, 1300, 700);
         this.rectBackground.widthProperty().bind(scene.widthProperty());
@@ -74,17 +72,17 @@ public class Main extends Application {
             line.setStroke(new Color(0, 0, .2, .2));
 
 
-//            line.toBack();
-//            pane.getChildren().add(line);
-//
-//            Timeline timeline = new Timeline();
-//            KeyFrame end =
-//                    new KeyFrame(Duration.seconds(15),
-//                            new KeyValue(line.startXProperty(), line.getStartX() - 500),
-//                            new KeyValue(line.endXProperty(), line.getEndX() - 500));
-//            timeline.getKeyFrames().add(end);
-//            timeline.setCycleCount(Animation.INDEFINITE);
-//            timeline.play();
+            line.toBack();
+            pane.getChildren().add(line);
+
+            Timeline timeline = new Timeline();
+            KeyFrame end =
+                    new KeyFrame(Duration.seconds(15),
+                            new KeyValue(line.startXProperty(), line.getStartX() - 500),
+                            new KeyValue(line.endXProperty(), line.getEndX() - 500));
+            timeline.getKeyFrames().add(end);
+            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.play();
         }
     }
 }

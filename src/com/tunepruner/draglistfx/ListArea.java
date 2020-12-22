@@ -59,7 +59,7 @@ public abstract class ListArea {
         return stage;
     }
 
-    public static void drawListArea(ListArea listArea) {
+    public static Pane drawListArea(ListArea listArea) {
         try {
             listArea.listFromFile.syncFromFile(listArea);
         } catch (IOException e) {
@@ -67,6 +67,7 @@ public abstract class ListArea {
         }
         PlanCell cell = new PlanCell();//just so I can use an instance method
         cell.displayAllCells(listArea);
+        return listArea.getPane();
     }
 
 
