@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 
@@ -27,7 +28,7 @@ public abstract class Cell {
     public abstract void displayCell(ListArea listArea, String string, Grid grid);
 
 
-    public void handleDragAndDrop(ListArea listArea, SVGPath svgPath, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
+    public void handleDragAndDrop(ListArea listArea, Pane cellPane, SVGPath svgPath, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
         /*Default implementation goes here.
          * Store (lbl.getText) in String lblTxt "".
          * Store ObservableList.indexOf(lblTxt) in int lblTxtIndex.

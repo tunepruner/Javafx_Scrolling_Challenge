@@ -60,6 +60,9 @@ public class PlanCell extends Cell {
 
         SVGPath svgPath = new SVGPath();
         svgPath.setContent("M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z");
+        svgPath.setRotate(90);
+        svgPath.setScaleX(.5);
+        svgPath.setScaleY(.8);
 
         hBox.setMinWidth(listArea.getCellWidth());
         hBox.setMaxWidth(listArea.getCellWidth());
@@ -101,7 +104,6 @@ public class PlanCell extends Cell {
         label.setAlignment(Pos.BOTTOM_CENTER);
         label.setTextFill(Color.WHITE);
 //        label.setOpaqueInsets(new Insets(10));
-
 
         hBox.getChildren().add(paneInsideHBox1);
         hBox.setHgrow(paneInsideHBox1, Priority.ALWAYS);
@@ -167,11 +169,11 @@ public class PlanCell extends Cell {
 //            textField.selectAll();
         });
 
-        javafx.beans.value.ChangeListener vBoxXListener = (observable, oldValue, newValue) -> vBox.setLayoutX((int) cell.followableX.get() + listArea.getCellWidth());
+//        javafx.beans.value.ChangeListener vBoxXListener = (observable, oldValue, newValue) -> vBox.setLayoutX((int) cell.followableX.get() + listArea.getCellWidth());
 
-        javafx.beans.value.ChangeListener vBoxYListener = (observable, oldValue, newValue) -> {
-            vBox.setLayoutY((int) cell.followableY.get());
-        };
+//        javafx.beans.value.ChangeListener vBoxYListener = (observable, oldValue, newValue) -> {
+//            vBox.setLayoutY((int) cell.followableY.get());
+//        };
 
         listArea.getPane().setOnScroll(event -> {
             double deltaX = event.getDeltaX();
@@ -195,88 +197,57 @@ public class PlanCell extends Cell {
             listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
         };
 
-        cell.followableX.addListener(vBoxXListener);
-        cell.followableY.addListener(vBoxYListener);
+//        cell.followableX.addListener(vBoxXListener);
+//        cell.followableY.addListener(vBoxYListener);
         listArea.getGrid().scrollActivity.addListener(scrollLevelListener);
 //        cell.followableY.addListener(hBoxYListenerForOpacity);
 
         Pane cellPane = new Pane();
         cellPane.getChildren().addAll(hBox, vBox);
         listArea.getPane().getChildren().add(cellPane);
-
-        cellPane.toFront();
+;
 //
 //        vBox.toFront();
 
-        handleDragAndDrop(listArea, svgPath, hBox, vBox, currentDraggedFromInt, cell);
+        handleDragAndDrop(listArea, cellPane, svgPath, hBox, vBox, currentDraggedFromInt, cell);
         cueReposition(listArea, hBox, vBox, cell);
         listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
     }
 
-    public void handleDragAndDrop(ListArea listArea, SVGPath svgPath, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
+    public void handleDragAndDrop(ListArea listArea, Pane cellPane, SVGPath svgPath, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
+        svgPath.setOnMouseEntered(event -> System.out.println("Hover"));
+        svgPath.setOnMouseExited(event -> System.out.println("Left"));
         svgPath.setOnMousePressed(event -> {
             listArea.getGrid().currentDraggedFromIndex = listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
-            preCalcSceneX = listArea.getPane().getLayoutX();
-            preCalcSceneY = listArea.getPane().getLayoutY();
-            originalSceneX = listArea.getPane().getLayoutX();
-            originalSceneY = listArea.getPane().getLayoutY();
-            //not sure about that change. Keeping code below in case.
-//            preCalcSceneX = event.getSceneX();
-//            preCalcSceneY = event.getSceneY();
-//            originalSceneX = event.getSceneX();
-//            originalSceneY = event.getSceneY();
+            preCalcSceneX = event.getSceneX();
+            preCalcSceneY = event.getSceneY();
+            originalSceneX = event.getSceneX();
+            originalSceneY = event.getSceneY();
             SVGPath d = (SVGPath) (event.getSource());
-            listArea.getPane().toFront();
             cell.isInListArea = false;
+            System.out.println("Mouse pressed");
         });
-//        hBox.setOnMousePressed(event -> {
-//            listArea.getGrid().currentDraggedFromIndex = listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
-//            preCalcSceneX = event.getSceneX();
-//            preCalcSceneY = event.getSceneY();
-//            originalSceneX = event.getSceneX();
-//            originalSceneY = event.getSceneY();
-//            HBox d = (HBox) (event.getSource());
-//            d.toFront();
-//            cell.isInListArea = false;
-//        });
-
-//        vBox.setOnMousePressed(event -> {
-//            listArea.getGrid().currentDraggedFromIndex = listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
-//            preCalcSceneX = event.getSceneX();
-//            preCalcSceneY = event.getSceneY();
-//
-//            originalSceneX = event.getSceneX();
-//            originalSceneY = event.getSceneY();
-//            VBox d = (VBox) (event.getSource());
-//            d.toFront();
-//            cell.isInListArea = false;
-//        });
+        svgPath.setOnMouseExited(event -> cellPane.toBack());
 
         svgPath.setOnDragDetected(event -> {
-            svgPath.startFullDrag();
+//
+//            svgPath.startFullDrag();
+            System.out.println("Drag detected");
         });
-//        hBox.setOnDragDetected(event -> {
-//            hBox.startFullDrag();
-//        });
-
-//        vBox.setOnDragDetected(event -> {
-//            vBox.startFullDrag();
-//        });
 
         svgPath.setOnMouseDragged(event -> {
-
+            System.out.println("Dragging");
             double offsetX = event.getSceneX() - preCalcSceneX;
             double offsetY = event.getSceneY() - preCalcSceneY;
 
             SVGPath d = (SVGPath) (event.getSource());
 
-            listArea.getPane().toFront();
 
-            listArea.getPane().setLayoutX(listArea.getPane().getLayoutX() + offsetX);
-            listArea.getPane().setLayoutY(listArea.getPane().getLayoutY() + offsetY);
+            cellPane.setLayoutX(cellPane.getLayoutX() + offsetX);
+            cellPane.setLayoutY(cellPane.getLayoutY() + offsetY);
             /*Report the current position in SimpleDoubleProperty format.*/
-            cell.followableX.setValue(d.getLayoutX() + offsetX);
-            cell.followableY.setValue(d.getLayoutY() + offsetY);
+            cell.followableX.setValue(cellPane.getLayoutX() + offsetX);
+            cell.followableY.setValue(cellPane.getLayoutY() + offsetY);
 
             /*Report the current position in Point format,
              * for use by the animation algorithm.*/
@@ -315,113 +286,8 @@ public class PlanCell extends Cell {
             listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
         });
 
-//        hBox.setOnMouseDragged(event -> {
-//
-//            double offsetX = event.getSceneX() - preCalcSceneX;
-//            double offsetY = event.getSceneY() - preCalcSceneY;
-//
-//            HBox d = (HBox) (event.getSource());
-//
-//            d.toFront();
-//
-//            d.setLayoutX(d.getLayoutX() + offsetX);
-//            d.setLayoutY(d.getLayoutY() + offsetY);
-//            /*Report the current position in SimpleDoubleProperty format.*/
-//            cell.followableX.setValue(d.getLayoutX() + offsetX);
-//            cell.followableY.setValue(d.getLayoutY() + offsetY);
-//
-//            /*Report the current position in Point format,
-//             * for use by the animation algorithm.*/
-//            Point newPoint;
-//            int x = (int) (d.getLayoutX() + offsetX);
-//            int y = (int) (d.getLayoutY() + offsetY);
-//            newPoint = new Point(x, y);
-//            cell.currentPosition = newPoint;
-//
-//
-//            preCalcSceneX = event.getSceneX();
-//            preCalcSceneY = event.getSceneY();
-//
-//            originalSceneOffsetX = originalSceneX - preCalcSceneX;
-//            originalSceneOffsetY = originalSceneY - preCalcSceneY;
-//
-//            Label lbl = ((Label) hBox.getChildren().get(1));
-//            String itemToRemove = lbl.getText();
-//            int localCurrentDraggedFromInt = listArea.getGrid().currentDraggedFromIndex;
-//            int updatedInsertionInt = listArea.getGrid().currentDraggedFromIndex;
-//
-//            if (listArea.getList().contains(itemToRemove)) {
-//                listArea.getList().remove(itemToRemove);
-//                listArea.getList().add(localCurrentDraggedFromInt, "");
-//            }
-//
-//            if (listArea.getList().contains("")) {
-//                updatedInsertionInt = listArea.getGrid().getIndexOfXY(listArea, cell.currentPosition);
-//                listArea.getList().remove("");
-//            }
-//
-//            if (!listArea.getList().contains("")) {
-//                listArea.getList().add(updatedInsertionInt, "");
-//            }
-//
-//            listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
-//        });
-
-//        vBox.setOnMouseDragged(event -> {
-//
-//            double offsetX = event.getSceneX() - preCalcSceneX;
-//            double offsetY = event.getSceneY() - preCalcSceneY;
-//
-//            VBox d = (VBox) (event.getSource());
-//
-//            d.toFront();
-//            hBox.toFront();
-//
-//            hBox.setLayoutX(hBox.getLayoutX() + offsetX);
-//            hBox.setLayoutY(hBox.getLayoutY() + offsetY);
-//            /*Report the current position in SimpleDoubleProperty format.*/
-//            cell.followableX.setValue(hBox.getLayoutX());
-//            cell.followableY.setValue(hBox.getLayoutY());
-//
-//            /*Report the current position in Point format,
-//             * for use by the animation algorithm.*/
-//            Point newPoint;
-//            int x = (int) (hBox.getLayoutX());
-//            int y = (int) (hBox.getLayoutY());
-//            newPoint = new Point(x, y);
-//            cell.currentPosition = newPoint;
-//
-//
-//            preCalcSceneX = event.getSceneX();
-//            preCalcSceneY = event.getSceneY();
-//
-//            originalSceneOffsetX = originalSceneX - preCalcSceneX;
-//            originalSceneOffsetY = originalSceneY - preCalcSceneY;
-//
-//            Label lbl = ((Label) hBox.getChildren().get(1));
-//            String itemToRemove = lbl.getText();
-//            int localCurrentDraggedFromInt = listArea.getGrid().currentDraggedFromIndex;
-//            int updatedInsertionInt = listArea.getGrid().currentDraggedFromIndex;
-//
-//            if (listArea.getList().contains(itemToRemove)) {
-//                listArea.getList().remove(itemToRemove);
-//                listArea.getList().add(localCurrentDraggedFromInt, "");
-//            }
-//
-//            if (listArea.getList().contains("")) {
-//                updatedInsertionInt = listArea.getGrid().getIndexOfXY(listArea, cell.currentPosition);
-//                listArea.getList().remove("");
-//            }
-//
-//            if (!listArea.getList().contains("")) {
-//                listArea.getList().add(updatedInsertionInt, "");
-//            }
-//
-//            listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
-//        });
-
-        hBox.setOnMouseReleased(event -> {
-            HBox d = (HBox) (event.getSource());
+        svgPath.setOnMouseReleased(event -> {
+            SVGPath d = (SVGPath) (event.getSource());
             Label lbl = new Label();
             lbl = ((Label) hBox.getChildren().get(1));
             String stringToAdd = (String) lbl.getText();
@@ -436,30 +302,6 @@ public class PlanCell extends Cell {
                 cell.isInListArea = false;
             }
 
-        });
-
-        vBox.setOnMouseReleased(event -> {
-            VBox d = (VBox) (event.getSource());
-            Label lbl = new Label();
-            lbl = ((Label) hBox.getChildren().get(1));
-            String stringToAdd = (String) lbl.getText();
-            int indexToInsert = 0;
-
-            if (listArea.getList().contains("")) {
-//                System.out.println("List area contains: \"\"");
-                if (!listArea.getList().contains(stringToAdd)) {
-//                    System.out.println("List area doesn't contain: " + stringToAdd);
-                    indexToInsert = listArea.getList().indexOf("");
-//                    System.out.println("Index to insert: " + indexToInsert);
-                    listArea.getList().remove("");
-                    listArea.getList().add(indexToInsert, stringToAdd);
-//                    System.out.println(listArea.getList());
-                }
-
-                cell.isInListArea = false;
-            }
-
-//            hBox.setMouseTransparent(false);
         });
     }
 
