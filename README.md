@@ -1,7 +1,7 @@
 # Fancy List
 <i>README updated at commit 2feae92<i/>
 
-![](../VidForReadme.gif)
+![](VidForReadme.gif)
 
 This is a list view of strings, implemented in JavaFX, 
 without using any of the built-in JavaFX listview features. 
