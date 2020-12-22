@@ -20,11 +20,12 @@ public class PlanGrid extends Grid {
 
         /*Distribute points on that line.*/
         for (int i = 0; i < listArea.getList().size(); i++) {
-            int size = listArea.getList().size();
             Point topLeft = listArea.getTopLeft();
             Point iteratedPoint = new Point(((int) (topLeft.getX())) + ((int) (-xGridFactor) * i), (int)(topLeft.getY()) + ((int) (yGridFactor) * i));
             gridMap.put(i, iteratedPoint);
+            System.out.println("iteratedPoint = " + iteratedPoint);
         }
+
 
     }
 

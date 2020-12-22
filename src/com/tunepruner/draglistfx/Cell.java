@@ -2,6 +2,7 @@ package com.tunepruner.draglistfx;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -13,6 +14,7 @@ import java.awt.*;
 public abstract class Cell {
     HBox hBox;
     VBox vBox;
+    Group cellGroup;
     Label label;
     boolean isInListArea = false;
     Point currentPosition = new Point();
@@ -46,7 +48,7 @@ public abstract class Cell {
         ObservableList list = listArea.getList();
         listArea.setGrid(new PlanGrid(listArea));
         for (int i = 0; i < listArea.getList().size(); i++) {
-            String string = (String) listArea.getList().get(i);
+            String string = listArea.getList().get(i);
             listArea.getListFromFile().handleSyncToFile(listArea);
             displayCell(listArea, string, listArea.getGrid());
         }

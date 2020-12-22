@@ -11,6 +11,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
@@ -36,12 +37,13 @@ public class PlanCell extends Cell {
     public PlanCell() {
     }
 
-    public PlanCell(HBox hBox, VBox vBox, Label label) {
+    public PlanCell(HBox hBox, VBox vBox, Label label, Group cellGroup) {
         cellCount++;
         cellIdentifier = cellCount;
         this.hBox = hBox;
         this.vBox = vBox;
         this.label = label;
+        this.cellGroup = cellGroup;
     }
 
     public void displayCell(ListArea listArea, String string, Grid grid) {
@@ -57,7 +59,10 @@ public class PlanCell extends Cell {
         javafx.scene.control.Label label = new Label(string);
         Button btn = new Button();
         ProgressBar progressBar = new ProgressBar(1);
-        Cell cell = new PlanCell(hBox, vBox, label);
+        Group cellGroup = new Group();
+        cellGroup.getChildren().addAll(hBox, vBox);
+
+        Cell cell = new PlanCell(hBox, vBox, label, cellGroup);
 
         SVGPath svgPath = new SVGPath();
         svgPath.setContent("M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z");
@@ -71,8 +76,10 @@ public class PlanCell extends Cell {
         hBox.setMaxHeight(listArea.getCellHeight());
         hBox.setBackground(new Background(new BackgroundFill(new Color(0.5784314f, .7, 1, .6), new CornerRadii((2)), Insets.EMPTY)));
         hBox.setManaged(true);
-        hBox.setBorder(new Border(new BorderStroke(new Color(0.1584314f, 0.18705883f, 0.5019608f, .5),
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+//        cellGroup.setB
+//
+//                (new Border(new BorderStroke(new Color(0.1584314f, 0.18705883f, 0.5019608f, .5),
+//                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
         progressBar.setRotate(-90);
         progressBar.setScaleX(3.5);
@@ -151,30 +158,7 @@ public class PlanCell extends Cell {
             popup.setAnchorY(hBox.getLayoutY() + listArea.getCellHeight() / 2);
             popup.setHeight(300);
             popup.show(listArea.getStage());
-//            hBox.getChildren().remove(1);
-//            TextField textField = new TextField();
-//            textField.toFront();
-//            hBox.getChildren().add(1, textField);
-//            textField.setScaleY(.6);
-//            textField.setScaleX(.6);
-//            textField.setOnAction(event1 -> {
-//               String text = textField.getText();
-//                int indexOf = listArea.getList().indexOf(string);
-//                listArea.getList().remove(indexOf);
-//                listArea.getList().add(indexOf, text);
-//               hBox.getChildren().remove(1);
-//               hBox.getChildren().add(1, label);
-//               label.setText(text);
-//            });
-//            textField.setText(string);
-//            textField.selectAll();
         });
-
-//        javafx.beans.value.ChangeListener vBoxXListener = (observable, oldValue, newValue) -> vBox.setLayoutX((int) cell.followableX.get() + listArea.getCellWidth());
-
-//        javafx.beans.value.ChangeListener vBoxYListener = (observable, oldValue, newValue) -> {
-//            vBox.setLayoutY((int) cell.followableY.get());
-//        };
 
         listArea.getPane().setOnScroll(event -> {
             double deltaX = event.getDeltaX();
@@ -186,29 +170,23 @@ public class PlanCell extends Cell {
         });
 
         javafx.beans.value.ChangeListener scrollLevelListener = (observable, oldValue, newValue) -> {
-            hBox.setLayoutX(hBox.getLayoutX() + grid.currentScrollDirectionY / 8);
-            hBox.setLayoutY(hBox.getLayoutY() - grid.currentScrollDirectionY / 8);
+            cellGroup.setLayoutX(cellGroup.getLayoutX() + grid.currentScrollDirectionY / 8);
+            cellGroup.setLayoutY(cellGroup.getLayoutY() - grid.currentScrollDirectionY / 8);
 
-            listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x = (int) hBox.getLayoutX();
-            listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y = (int) hBox.getLayoutY();
+            listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x = (int) cellGroup.getLayoutX();
+            listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y = (int) cellGroup.getLayoutY();
 
-            cell.followableX.setValue(hBox.getLayoutX());
-            cell.followableY.setValue(hBox.getLayoutY());
+            System.out.println(cellGroup.getLayoutY());
+//            cell.followableX.setValue(hBox.getLayoutX());
+//            cell.followableY.setValue(hBox.getLayoutY());
 
             listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
         };
 
-//        cell.followableX.addListener(vBoxXListener);
-//        cell.followableY.addListener(vBoxYListener);
         listArea.getGrid().scrollActivity.addListener(scrollLevelListener);
-//        cell.followableY.addListener(hBoxYListenerForOpacity);
 
-        Group cellGroup = new Group();
-        cellGroup.getChildren().addAll(hBox, vBox);
         listArea.getPane().getChildren().add(cellGroup);
 ;
-//
-//        vBox.toFront();
 
         handleDragAndDrop(listArea, cellGroup, svgPath, hBox, vBox, currentDraggedFromInt, cell);
         cueReposition(listArea, hBox, vBox, cell);
@@ -345,13 +323,12 @@ public class PlanCell extends Cell {
             targetIndex = listArea.getList().indexOf("");
         }
 
+
+
         KeyFrame end = new KeyFrame(SEC_2,
-                new KeyValue(hBox.layoutXProperty(), listArea.getGrid().getGridMap().get(targetIndex).x),
-                new KeyValue(hBox.layoutYProperty(), listArea.getGrid().getGridMap().get(targetIndex).y),
-                new KeyValue(vBox.layoutXProperty(), listArea.getGrid().getGridMap().get(targetIndex).x + listArea.getCellWidth()),
-                new KeyValue(vBox.layoutYProperty(), listArea.getGrid().getGridMap().get(targetIndex).y));
-        /*new KeyValue(hBox.opacityProperty(), listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell))*/
-        ;
+                new KeyValue(cell.cellGroup.layoutXProperty(), listArea.getGrid().getGridMap().get(targetIndex).x),
+                new KeyValue(cell.cellGroup.layoutYProperty(), listArea.getGrid().getGridMap().get(targetIndex).y));
+
 
         timeline.getKeyFrames().add(end);
         timeline.play();
