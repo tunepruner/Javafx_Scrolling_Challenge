@@ -212,35 +212,36 @@ public class PlanCell extends Cell {
         handleDragAndDrop(listArea, cellPane, svgPath, hBox, vBox, currentDraggedFromInt, cell);
         cueReposition(listArea, hBox, vBox, cell);
         listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
+        cellPane.toFront();
     }
 
     public void handleDragAndDrop(ListArea listArea, Pane cellPane, SVGPath svgPath, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
-        svgPath.setOnMouseEntered(event -> System.out.println("Hover"));
-        svgPath.setOnMouseExited(event -> System.out.println("Left"));
-        svgPath.setOnMousePressed(event -> {
+//        cellPane.setOnMouseEntered(event -> System.out.println("Hover"));
+        cellPane.setOnMouseExited(event -> System.out.println("Left"));
+        cellPane.setOnMousePressed(event -> {
             listArea.getGrid().currentDraggedFromIndex = listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
             originalSceneX = event.getSceneX();
             originalSceneY = event.getSceneY();
-            SVGPath d = (SVGPath) (event.getSource());
+            Pane d = (Pane) (event.getSource());
             cell.isInListArea = false;
             System.out.println("Mouse pressed");
         });
-        svgPath.setOnMouseExited(event -> cellPane.toBack());
+        cellPane.setOnMouseExited(event -> cellPane.toBack());
 
-        svgPath.setOnDragDetected(event -> {
+        cellPane.setOnDragDetected(event -> {
 //
-//            svgPath.startFullDrag();
+//            cellPane.startFullDrag();
             System.out.println("Drag detected");
         });
 
-        svgPath.setOnMouseDragged(event -> {
+        cellPane.setOnMouseDragged(event -> {
             System.out.println("Dragging");
             double offsetX = event.getSceneX() - preCalcSceneX;
             double offsetY = event.getSceneY() - preCalcSceneY;
 
-            SVGPath d = (SVGPath) (event.getSource());
+            Pane d = (Pane) (event.getSource());
 
 
             cellPane.setLayoutX(cellPane.getLayoutX() + offsetX);
@@ -286,8 +287,8 @@ public class PlanCell extends Cell {
             listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
         });
 
-        svgPath.setOnMouseReleased(event -> {
-            SVGPath d = (SVGPath) (event.getSource());
+        cellPane.setOnMouseReleased(event -> {
+            Pane d = (Pane) (event.getSource());
             Label lbl = new Label();
             lbl = ((Label) hBox.getChildren().get(1));
             String stringToAdd = (String) lbl.getText();
