@@ -1,3 +1,5 @@
+package com.tunepruner.draglistfx;
+
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -44,8 +46,6 @@ public class PlanGrid extends Grid {
 
     @Override
     public boolean animationPermitted(ListArea listArea, HBox hBox, Cell cell) {
-        //The following is the logic
-        //for pushing around cells
         String hBoxContent = (((Label) hBox.getChildren().get(1)).getText());
         boolean isInList = listArea.getList().contains(hBoxContent);
         boolean isOnGrid = false;
@@ -54,25 +54,18 @@ public class PlanGrid extends Grid {
         boolean isCurrentlyDragging;
         boolean justGotDropped;
         boolean animationPermitted;
-//        System.out.println("Grid: " + listArea.getGrid().getGridMap());
-//        System.out.println("cell.currentPosition - > " + cell.currentPosition);
-//        System.out.println("cell.currentPosition.x - > " + cell.currentPosition.x);
-//        System.out.println("cell.currentPosition.y - > " + cell.currentPosition.y);
         for (int i = 0; i < listArea.getGrid().getGridMap().size(); i++) {
             if (cell.currentPosition.equals(listArea.getGrid().getGridMap().get(i))) {
                 isOnGrid = true;
             }
         }
-//        System.out.println(hBoxContent + " is on grid: " + isOnGrid);
         if (isOnGrid){
                 cell.isInListArea = true;
-//                System.out.println(hBoxContent + " is in List Area.");
         }
 
         if (isOnGrid && isInList) {
             if (listArea.getList().indexOf(hBoxContent) != listArea.getGrid().getIndexOfXY(listArea, cell.currentPosition)) {
                 needsAnUpdate = true;
-//                System.out.println(hBoxContent + " needs an update.");
 
             }
         }
@@ -80,15 +73,11 @@ public class PlanGrid extends Grid {
 
 
         isCurrentlyDragging = !isInList;
-//                System.out.println(hBoxContent + "isCurrentlyDragging - > " + isCurrentlyDragging);
 
         justGotDropped = false;
         if (isInList) {
-//                System.out.println(hBoxContent + " is in list.");
             if (!isOnGrid) {
-//                System.out.println("cell.isInListArea" + cell.isInListArea);
                 if (!cell.isInListArea) {
-//                    System.out.println(hBoxContent + " just got dropped.");
                     justGotDropped = true;
                 }
             }
@@ -96,7 +85,6 @@ public class PlanGrid extends Grid {
 
         if (needsAnUpdate || justGotDropped) {
             animationPermitted = true;
-//                System.out.println(hBoxContent + " animation permitted.");
         } else if (isCurrentlyDragging) {
             animationPermitted = false;
         } else {
@@ -104,12 +92,11 @@ public class PlanGrid extends Grid {
         }
         cell.isInListArea = false;
 
-//        System.out.println("-----------------------------------------");
         return animationPermitted;
     }
     public String getListID(){
 
-        //TODO the method getIndexOFXY will need the string that this returns
+        //TODO the method getIndexOfXY will need the string that this returns
         // It will use it to return the list from the correct
         // listArea so that the D&D can add to the correct one.
         String listID = "";
@@ -121,7 +108,7 @@ public class PlanGrid extends Grid {
         listArea.getTopLeft();
         listArea.getBottomLeft();
         hBox.getLayoutX();
-        ;
+
         int topDistance = Math.abs((int) (listArea.getTopLeft().getY() - hBox.getLayoutY()));
         int bottomDistance = Math.abs((int) (listArea.getBottomLeft().getY() - hBox.getLayoutY()));
         int opaqueEdgeSize = (listArea.getCellHeight() + listArea.getCellPadding()) * 3;
@@ -132,17 +119,12 @@ public class PlanGrid extends Grid {
             ){
             int distance = Math.min(topDistance, bottomDistance);
             if (distance < opaqueEdgeSize) {
-//                System.out.println(distance);
                 hBox.setOpacity((double) distance/ (double) opaqueEdgeSize);
                 vBox.setOpacity((double) distance/ (double) opaqueEdgeSize);
             }
-
-
         }else{
             hBox.setOpacity(0);
             vBox.setOpacity(0);
         }
-
-
     }
 }

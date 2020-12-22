@@ -1,3 +1,5 @@
+package com.tunepruner.draglistfx;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -5,29 +7,15 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.w3c.dom.css.Rect;
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 
 
 import java.awt.*;
-import java.sql.Time;
-import java.time.Clock;
 
 public class Main extends Application {
     private Rectangle rectBackground;
@@ -41,7 +29,6 @@ public class Main extends Application {
 
         rectBackground = new Rectangle();
         rectBackground.setFill(new Color(0.1019608f, 0.3519608f, 0.58039216f, 1));
-
 
         ListArea planListArea = new PlanListArea(
                 "PlanList",
@@ -86,17 +73,17 @@ public class Main extends Application {
             line.setStroke(new Color(0, 0, .2, .2));
 
 
-            line.toBack();
-            pane.getChildren().add(line);
-
-            Timeline timeline = new Timeline();
-            KeyFrame end =
-                    new KeyFrame(Duration.seconds(15),
-                            new KeyValue(line.startXProperty(), line.getStartX() - 500),
-                            new KeyValue(line.endXProperty(), line.getEndX() - 500));
-            timeline.getKeyFrames().add(end);
-            timeline.setCycleCount(Animation.INDEFINITE);
-            timeline.play();
+//            line.toBack();
+//            pane.getChildren().add(line);
+//
+//            Timeline timeline = new Timeline();
+//            KeyFrame end =
+//                    new KeyFrame(Duration.seconds(15),
+//                            new KeyValue(line.startXProperty(), line.getStartX() - 500),
+//                            new KeyValue(line.endXProperty(), line.getEndX() - 500));
+//            timeline.getKeyFrames().add(end);
+//            timeline.setCycleCount(Animation.INDEFINITE);
+//            timeline.play();
         }
     }
 }

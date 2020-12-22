@@ -1,5 +1,5 @@
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
+package com.tunepruner.draglistfx;
+
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 

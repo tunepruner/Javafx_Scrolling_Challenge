@@ -1,3 +1,5 @@
+package com.tunepruner.draglistfx;
+
 public enum CellState {
     IS_DRAGGING,
     JUST_DROPPED,

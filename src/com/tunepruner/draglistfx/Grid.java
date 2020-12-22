@@ -1,3 +1,5 @@
+package com.tunepruner.draglistfx;
+
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;

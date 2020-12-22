@@ -1,8 +1,6 @@
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+package com.tunepruner.draglistfx;
 
 import java.io.*;
-import java.util.List;
 
 public abstract class ListFromFile{
     File file;

@@ -1,22 +1,13 @@
-import com.sun.codemodel.internal.JForEach;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleBooleanProperty;
+package com.tunepruner.draglistfx;
+
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableBooleanValue;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.control.Label;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import netscape.javascript.JSUtil;
+import javafx.scene.shape.SVGPath;
 
 import java.awt.*;
-import java.util.Observable;
 
 public abstract class Cell {
     HBox hBox;
@@ -36,7 +27,7 @@ public abstract class Cell {
     public abstract void displayCell(ListArea listArea, String string, Grid grid);
 
 
-    public void handleDragAndDrop(ListArea listArea, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
+    public void handleDragAndDrop(ListArea listArea, SVGPath svgPath, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
         /*Default implementation goes here.
          * Store (lbl.getText) in String lblTxt "".
          * Store ObservableList.indexOf(lblTxt) in int lblTxtIndex.

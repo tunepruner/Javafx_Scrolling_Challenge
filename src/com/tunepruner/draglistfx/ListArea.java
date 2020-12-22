@@ -1,12 +1,8 @@
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableBooleanValue;
+package com.tunepruner.draglistfx;
+
 import  javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.awt.*;

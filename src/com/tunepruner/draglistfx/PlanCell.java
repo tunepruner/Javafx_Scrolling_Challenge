@@ -1,3 +1,5 @@
+package com.tunepruner.draglistfx;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -10,9 +12,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.Popup;
 import javafx.util.Duration;
 import javafx.scene.control.Button;
+
 import java.awt.*;
 
 import javafx.scene.control.ProgressBar;
@@ -28,7 +32,7 @@ public class PlanCell extends Cell {
     //this value is assigned in the ListArea method call, because the Grid also needs it.
     private int cellIdentifier;
 
-    public PlanCell(){
+    public PlanCell() {
     }
 
     public PlanCell(HBox hBox, VBox vBox, Label label) {
@@ -54,7 +58,8 @@ public class PlanCell extends Cell {
         ProgressBar progressBar = new ProgressBar(1);
         Cell cell = new PlanCell(hBox, vBox, label);
 
-
+        SVGPath svgPath = new SVGPath();
+        svgPath.setContent("M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z");
 
         hBox.setMinWidth(listArea.getCellWidth());
         hBox.setMaxWidth(listArea.getCellWidth());
@@ -64,7 +69,6 @@ public class PlanCell extends Cell {
         hBox.setManaged(true);
         hBox.setBorder(new Border(new BorderStroke(new Color(0.1584314f, 0.18705883f, 0.5019608f, .5),
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
 
         progressBar.setRotate(-90);
         progressBar.setScaleX(3.5);
@@ -78,7 +82,6 @@ public class PlanCell extends Cell {
 //        progressBar.setStyle("-fx-text-box-border: forestgreen");
         progressBar.setStyle("-fx-control-inner-background: rgb(1, 500, 500); -fx-text-box-border: rgb(100, 200, 250); -fx-background: rgb(1, 500, 500); -fx-accent: rgb(100, 200, 250); ");
 //        progressBar.setBackground(new Background(new BackgroundFill(new Color(50,30,100, 50), new CornerRadii(0), new Insets(0))));
-
 
         btn.setOpaqueInsets(new Insets(0));
         btn.setScaleX(.6);
@@ -100,13 +103,13 @@ public class PlanCell extends Cell {
 //        label.setOpaqueInsets(new Insets(10));
 
 
-
         hBox.getChildren().add(paneInsideHBox1);
         hBox.setHgrow(paneInsideHBox1, Priority.ALWAYS);
         hBox.getChildren().add(label);
         hBox.getChildren().add(paneInsideHBox2);
         hBox.setHgrow(paneInsideHBox2, Priority.ALWAYS);
         hBox.getChildren().add(btn);
+        hBox.getChildren().add(svgPath);
 
         vBox.getChildren().add(paneInsideVBox1);
         vBox.setVgrow(paneInsideVBox1, Priority.ALWAYS);
@@ -141,7 +144,7 @@ public class PlanCell extends Cell {
             vBox1.setPadding(new Insets(5, 10, 5, 10));
             vBox1.getChildren().addAll(lbl1, lbl2, lbl3);
             popup.getContent().addAll(vBox1);
-            popup.setAnchorX(hBox.getLayoutX() + listArea.getCellWidth()/2);
+            popup.setAnchorX(hBox.getLayoutX() + listArea.getCellWidth() / 2);
             popup.setAnchorY(hBox.getLayoutY() + listArea.getCellHeight() / 2);
             popup.setHeight(300);
             popup.show(listArea.getStage());
@@ -180,9 +183,8 @@ public class PlanCell extends Cell {
         });
 
         javafx.beans.value.ChangeListener scrollLevelListener = (observable, oldValue, newValue) -> {
-            hBox.setLayoutX(hBox.getLayoutX() + grid.currentScrollDirectionY/8);
-            hBox.setLayoutY(hBox.getLayoutY() - grid.currentScrollDirectionY/8);
-
+            hBox.setLayoutX(hBox.getLayoutX() + grid.currentScrollDirectionY / 8);
+            hBox.setLayoutY(hBox.getLayoutY() - grid.currentScrollDirectionY / 8);
 
             listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x = (int) hBox.getLayoutX();
             listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y = (int) hBox.getLayoutY();
@@ -192,97 +194,95 @@ public class PlanCell extends Cell {
 
             listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
         };
-//        javafx.beans.value.ChangeListener hBoxYListenerForOpacity = new ChangeListener(){
-//            @Override
-//            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-//                System.out.println("cell.followableY.get()" + cell.followableY.get());
-//                System.out.println("listArea.getTopLeft().getY()" + listArea.getTopLeft().getY());
-//                System.out.println("cell.followableY.get()" + cell.followableY.get());
-//                System.out.println("listArea.getBottomLeft().getY()" + listArea.getBottomLeft().getY());
-//
-//                if (cell.followableY.get() >= listArea.getTopLeft().getY()
-//                        ||
-//                        cell.followableY.get() <= listArea.getBottomLeft().getY()) {
-//                    hBox.setBackground(new Background(new BackgroundFill(new Color(0.5784314f, .7, 1, 0), new CornerRadii((2)), Insets.EMPTY)));
-//                    hBox.setBorder(new Border(new BorderStroke(new Color(0.1584314f, 0.18705883f, 0.5019608f, 0),
-//                            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-//                    vBox.setBackground(new Background(new BackgroundFill(new Color(0.5784314f, .7, 1, 0), new CornerRadii((2)), Insets.EMPTY)));
-//                    vBox.setBorder(new Border(new BorderStroke(new Color(0.1584314f, 0.18705883f, 0.5019608f, 0),
-//                            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-//                }
-//            }
-//        };
 
         cell.followableX.addListener(vBoxXListener);
         cell.followableY.addListener(vBoxYListener);
         listArea.getGrid().scrollActivity.addListener(scrollLevelListener);
 //        cell.followableY.addListener(hBoxYListenerForOpacity);
 
+        Pane cellPane = new Pane();
+        cellPane.getChildren().addAll(hBox, vBox);
+        listArea.getPane().getChildren().add(cellPane);
 
-        listArea.getPane().getChildren().add(hBox);
-        listArea.getPane().getChildren().add(vBox);
+        cellPane.toFront();
+//
+//        vBox.toFront();
 
-        hBox.toFront();
-
-        vBox.toFront();
-
-        handleDragAndDrop(listArea, hBox, vBox, currentDraggedFromInt, cell);
+        handleDragAndDrop(listArea, svgPath, hBox, vBox, currentDraggedFromInt, cell);
         cueReposition(listArea, hBox, vBox, cell);
         listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
     }
 
-    public void handleDragAndDrop(ListArea listArea, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell){
-        hBox.setOnMousePressed(event -> {
-            listArea.getGrid().currentDraggedFromIndex =  listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
-            preCalcSceneX = event.getSceneX();
-            preCalcSceneY = event.getSceneY();
-            originalSceneX = event.getSceneX();
-            originalSceneY = event.getSceneY();
-            HBox d = (HBox) (event.getSource());
-            d.toFront();
+    public void handleDragAndDrop(ListArea listArea, SVGPath svgPath, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
+        svgPath.setOnMousePressed(event -> {
+            listArea.getGrid().currentDraggedFromIndex = listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
+            preCalcSceneX = listArea.getPane().getLayoutX();
+            preCalcSceneY = listArea.getPane().getLayoutY();
+            originalSceneX = listArea.getPane().getLayoutX();
+            originalSceneY = listArea.getPane().getLayoutY();
+            //not sure about that change. Keeping code below in case.
+//            preCalcSceneX = event.getSceneX();
+//            preCalcSceneY = event.getSceneY();
+//            originalSceneX = event.getSceneX();
+//            originalSceneY = event.getSceneY();
+            SVGPath d = (SVGPath) (event.getSource());
+            listArea.getPane().toFront();
             cell.isInListArea = false;
         });
+//        hBox.setOnMousePressed(event -> {
+//            listArea.getGrid().currentDraggedFromIndex = listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
+//            preCalcSceneX = event.getSceneX();
+//            preCalcSceneY = event.getSceneY();
+//            originalSceneX = event.getSceneX();
+//            originalSceneY = event.getSceneY();
+//            HBox d = (HBox) (event.getSource());
+//            d.toFront();
+//            cell.isInListArea = false;
+//        });
 
-        vBox.setOnMousePressed(event -> {
-            listArea.getGrid().currentDraggedFromIndex =  listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
-            preCalcSceneX = event.getSceneX();
-            preCalcSceneY = event.getSceneY();
+//        vBox.setOnMousePressed(event -> {
+//            listArea.getGrid().currentDraggedFromIndex = listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
+//            preCalcSceneX = event.getSceneX();
+//            preCalcSceneY = event.getSceneY();
+//
+//            originalSceneX = event.getSceneX();
+//            originalSceneY = event.getSceneY();
+//            VBox d = (VBox) (event.getSource());
+//            d.toFront();
+//            cell.isInListArea = false;
+//        });
 
-            originalSceneX = event.getSceneX();
-            originalSceneY = event.getSceneY();
-            VBox d = (VBox) (event.getSource());
-            d.toFront();
-            cell.isInListArea = false;
+        svgPath.setOnDragDetected(event -> {
+            svgPath.startFullDrag();
         });
+//        hBox.setOnDragDetected(event -> {
+//            hBox.startFullDrag();
+//        });
 
-        hBox.setOnDragDetected(event -> {
-            hBox.startFullDrag();
-        });
+//        vBox.setOnDragDetected(event -> {
+//            vBox.startFullDrag();
+//        });
 
-        vBox.setOnDragDetected(event -> {
-            vBox.startFullDrag();
-        });
-
-        hBox.setOnMouseDragged(event -> {
+        svgPath.setOnMouseDragged(event -> {
 
             double offsetX = event.getSceneX() - preCalcSceneX;
             double offsetY = event.getSceneY() - preCalcSceneY;
 
-            HBox d = (HBox) (event.getSource());
+            SVGPath d = (SVGPath) (event.getSource());
 
-            d.toFront();
+            listArea.getPane().toFront();
 
-            d.setLayoutX(d.getLayoutX() + offsetX);
-            d.setLayoutY(d.getLayoutY() + offsetY);
+            listArea.getPane().setLayoutX(listArea.getPane().getLayoutX() + offsetX);
+            listArea.getPane().setLayoutY(listArea.getPane().getLayoutY() + offsetY);
             /*Report the current position in SimpleDoubleProperty format.*/
             cell.followableX.setValue(d.getLayoutX() + offsetX);
             cell.followableY.setValue(d.getLayoutY() + offsetY);
 
             /*Report the current position in Point format,
-            * for use by the animation algorithm.*/
+             * for use by the animation algorithm.*/
             Point newPoint;
             int x = (int) (d.getLayoutX() + offsetX);
-            int y= (int) (d.getLayoutY() + offsetY);
+            int y = (int) (d.getLayoutY() + offsetY);
             newPoint = new Point(x, y);
             cell.currentPosition = newPoint;
 
@@ -290,63 +290,8 @@ public class PlanCell extends Cell {
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
 
-            originalSceneOffsetX = originalSceneX-preCalcSceneX;
-            originalSceneOffsetY = originalSceneY-preCalcSceneY;
-
-            Label lbl = ((Label) hBox.getChildren().get(1));
-            String itemToRemove = lbl.getText();
-            int localCurrentDraggedFromInt = listArea.getGrid().currentDraggedFromIndex;
-            int updatedInsertionInt = listArea.getGrid().currentDraggedFromIndex;
-
-            if (listArea.getList().contains(itemToRemove)) {
-                listArea.getList().remove(itemToRemove);
-                listArea.getList().add(localCurrentDraggedFromInt, "");
-            }
-
-            if (listArea.getList().contains("")) {
-                updatedInsertionInt = listArea.getGrid().getIndexOfXY(listArea, cell.currentPosition);
-                listArea.getList().remove("");
-            }
-
-            if (!listArea.getList().contains("")) {
-                listArea.getList().add(updatedInsertionInt, "");
-            }
-
-//            hBox.setMouseTransparent(true);
-            listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
-        });
-
-        vBox.setOnMouseDragged(event -> {
-
-            double offsetX = event.getSceneX() - preCalcSceneX;
-            double offsetY = event.getSceneY() - preCalcSceneY;
-
-            VBox d = (VBox) (event.getSource());
-
-            d.toFront();
-            hBox.toFront();
-
-            hBox.setLayoutX(hBox.getLayoutX() + offsetX);
-            hBox.setLayoutY(hBox.getLayoutY() + offsetY);
-            /*Report the current position in SimpleDoubleProperty format.*/
-            cell.followableX.setValue(hBox.getLayoutX());
-            cell.followableY.setValue(hBox.getLayoutY());
-
-
-            /*Report the current position in Point format,
-            * for use by the animation algorithm.*/
-            Point newPoint;
-            int x = (int) (hBox.getLayoutX());
-            int y= (int) (hBox.getLayoutY());
-            newPoint = new Point(x, y);
-            cell.currentPosition = newPoint;
-
-
-            preCalcSceneX = event.getSceneX();
-            preCalcSceneY = event.getSceneY();
-
-            originalSceneOffsetX = originalSceneX-preCalcSceneX;
-            originalSceneOffsetY = originalSceneY-preCalcSceneY;
+            originalSceneOffsetX = originalSceneX - preCalcSceneX;
+            originalSceneOffsetY = originalSceneY - preCalcSceneY;
 
             Label lbl = ((Label) hBox.getChildren().get(1));
             String itemToRemove = lbl.getText();
@@ -368,14 +313,111 @@ public class PlanCell extends Cell {
             }
 
             listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
-//            hBox.setMouseTransparent(true);
         });
 
-//        hBox.setOnDragEntered(event -> {
+//        hBox.setOnMouseDragged(event -> {
+//
+//            double offsetX = event.getSceneX() - preCalcSceneX;
+//            double offsetY = event.getSceneY() - preCalcSceneY;
+//
+//            HBox d = (HBox) (event.getSource());
+//
+//            d.toFront();
+//
+//            d.setLayoutX(d.getLayoutX() + offsetX);
+//            d.setLayoutY(d.getLayoutY() + offsetY);
+//            /*Report the current position in SimpleDoubleProperty format.*/
+//            cell.followableX.setValue(d.getLayoutX() + offsetX);
+//            cell.followableY.setValue(d.getLayoutY() + offsetY);
+//
+//            /*Report the current position in Point format,
+//             * for use by the animation algorithm.*/
+//            Point newPoint;
+//            int x = (int) (d.getLayoutX() + offsetX);
+//            int y = (int) (d.getLayoutY() + offsetY);
+//            newPoint = new Point(x, y);
+//            cell.currentPosition = newPoint;
+//
+//
+//            preCalcSceneX = event.getSceneX();
+//            preCalcSceneY = event.getSceneY();
+//
+//            originalSceneOffsetX = originalSceneX - preCalcSceneX;
+//            originalSceneOffsetY = originalSceneY - preCalcSceneY;
+//
+//            Label lbl = ((Label) hBox.getChildren().get(1));
+//            String itemToRemove = lbl.getText();
+//            int localCurrentDraggedFromInt = listArea.getGrid().currentDraggedFromIndex;
+//            int updatedInsertionInt = listArea.getGrid().currentDraggedFromIndex;
+//
+//            if (listArea.getList().contains(itemToRemove)) {
+//                listArea.getList().remove(itemToRemove);
+//                listArea.getList().add(localCurrentDraggedFromInt, "");
+//            }
+//
+//            if (listArea.getList().contains("")) {
+//                updatedInsertionInt = listArea.getGrid().getIndexOfXY(listArea, cell.currentPosition);
+//                listArea.getList().remove("");
+//            }
+//
+//            if (!listArea.getList().contains("")) {
+//                listArea.getList().add(updatedInsertionInt, "");
+//            }
+//
+//            listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
 //        });
-//        hBox.setOnMouseDragOver(event -> {
-//        });
-//        hBox.setOnMouseDragExited(event -> {
+
+//        vBox.setOnMouseDragged(event -> {
+//
+//            double offsetX = event.getSceneX() - preCalcSceneX;
+//            double offsetY = event.getSceneY() - preCalcSceneY;
+//
+//            VBox d = (VBox) (event.getSource());
+//
+//            d.toFront();
+//            hBox.toFront();
+//
+//            hBox.setLayoutX(hBox.getLayoutX() + offsetX);
+//            hBox.setLayoutY(hBox.getLayoutY() + offsetY);
+//            /*Report the current position in SimpleDoubleProperty format.*/
+//            cell.followableX.setValue(hBox.getLayoutX());
+//            cell.followableY.setValue(hBox.getLayoutY());
+//
+//            /*Report the current position in Point format,
+//             * for use by the animation algorithm.*/
+//            Point newPoint;
+//            int x = (int) (hBox.getLayoutX());
+//            int y = (int) (hBox.getLayoutY());
+//            newPoint = new Point(x, y);
+//            cell.currentPosition = newPoint;
+//
+//
+//            preCalcSceneX = event.getSceneX();
+//            preCalcSceneY = event.getSceneY();
+//
+//            originalSceneOffsetX = originalSceneX - preCalcSceneX;
+//            originalSceneOffsetY = originalSceneY - preCalcSceneY;
+//
+//            Label lbl = ((Label) hBox.getChildren().get(1));
+//            String itemToRemove = lbl.getText();
+//            int localCurrentDraggedFromInt = listArea.getGrid().currentDraggedFromIndex;
+//            int updatedInsertionInt = listArea.getGrid().currentDraggedFromIndex;
+//
+//            if (listArea.getList().contains(itemToRemove)) {
+//                listArea.getList().remove(itemToRemove);
+//                listArea.getList().add(localCurrentDraggedFromInt, "");
+//            }
+//
+//            if (listArea.getList().contains("")) {
+//                updatedInsertionInt = listArea.getGrid().getIndexOfXY(listArea, cell.currentPosition);
+//                listArea.getList().remove("");
+//            }
+//
+//            if (!listArea.getList().contains("")) {
+//                listArea.getList().add(updatedInsertionInt, "");
+//            }
+//
+//            listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
 //        });
 
         hBox.setOnMouseReleased(event -> {
@@ -386,19 +428,14 @@ public class PlanCell extends Cell {
             int indexToInsert = 0;
 
             if (listArea.getList().contains("")) {
-//                System.out.println("List area contains: \"\"");
-                if (!listArea.getList().contains(stringToAdd)){
-//                    System.out.println("List area doesn't contain: " + stringToAdd);
+                if (!listArea.getList().contains(stringToAdd)) {
                     indexToInsert = listArea.getList().indexOf("");
-//                    System.out.println("Index to insert: " + indexToInsert);
                     listArea.getList().remove("");
                     listArea.getList().add(indexToInsert, stringToAdd);
-//                    System.out.println(listArea.getList());
                 }
                 cell.isInListArea = false;
             }
 
-//            hBox.setMouseTransparent(false);
         });
 
         vBox.setOnMouseReleased(event -> {
@@ -410,7 +447,7 @@ public class PlanCell extends Cell {
 
             if (listArea.getList().contains("")) {
 //                System.out.println("List area contains: \"\"");
-                if (!listArea.getList().contains(stringToAdd)){
+                if (!listArea.getList().contains(stringToAdd)) {
 //                    System.out.println("List area doesn't contain: " + stringToAdd);
                     indexToInsert = listArea.getList().indexOf("");
 //                    System.out.println("Index to insert: " + indexToInsert);
@@ -448,7 +485,7 @@ public class PlanCell extends Cell {
                     }
                 }
             }
-            });
+        });
 
     }
 
@@ -472,7 +509,8 @@ public class PlanCell extends Cell {
                 new KeyValue(hBox.layoutYProperty(), listArea.getGrid().getGridMap().get(targetIndex).y),
                 new KeyValue(vBox.layoutXProperty(), listArea.getGrid().getGridMap().get(targetIndex).x + listArea.getCellWidth()),
                 new KeyValue(vBox.layoutYProperty(), listArea.getGrid().getGridMap().get(targetIndex).y));
-                /*new KeyValue(hBox.opacityProperty(), listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell))*/;
+        /*new KeyValue(hBox.opacityProperty(), listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell))*/
+        ;
 
         timeline.getKeyFrames().add(end);
         timeline.play();
