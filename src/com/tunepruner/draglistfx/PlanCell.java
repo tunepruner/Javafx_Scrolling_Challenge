@@ -10,12 +10,14 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Popup;
 import javafx.util.Duration;
 import javafx.scene.control.Button;
+import javafx.scene.shape.Polygon;
 
 import java.awt.*;
 
@@ -35,13 +37,15 @@ public class PlanCell extends Cell {
     public PlanCell() {
     }
 
-    public PlanCell(HBox hBox, VBox vBox, Label label, Group cellGroup) {
+    public PlanCell(HBox hBox, VBox vBox, Label label, Group cellGroup, ListArea listArea) {
         cellCount++;
         cellIdentifier = cellCount;
         this.hBox = hBox;
         this.vBox = vBox;
         this.label = label;
         this.cellGroup = cellGroup;
+        this.leftTriangle = new Polygon();
+        this.rightTriangle = new Polygon();
     }
 
     public void displayCell(ListArea listArea, String string, Grid grid) {
@@ -49,6 +53,8 @@ public class PlanCell extends Cell {
 
         HBox hBox = new HBox();
         VBox vBox = new VBox();
+        Polygon leftTriangle = new Polygon();
+        Polygon rightTriangle = new Polygon();
         Pane paneInsideHBox1 = new Pane();
         Pane paneInsideHBox2 = new Pane();
         Pane paneInsideVBox1 = new Pane();
@@ -57,9 +63,17 @@ public class PlanCell extends Cell {
         Button btn = new Button();
         ProgressBar progressBar = new ProgressBar(1);
         Group cellGroup = new Group();
-        cellGroup.getChildren().addAll(hBox, vBox);
+        cellGroup.getChildren().addAll(hBox, vBox, leftTriangle, rightTriangle);
 
-        Cell cell = new PlanCell(hBox, vBox, label, cellGroup);
+        leftTriangle.getPoints().addAll((double) -listArea.getCellHeight() + 100.0, listArea.getCellHeight() + 100.0,
+                0.00 + 100.0, 0.0 + 100.0,
+                0.0 + 100.0, (double) listArea.getCellHeight() + 100.0);
+
+        rightTriangle.getPoints().addAll((double) listArea.getCellWidth() + 100.0, (double) listArea.getCellWidth() + listArea.getCellHeight() + 100.0,
+                (double) listArea.getCellWidth() + 100.0, (double) listArea.getCellWidth() + 100.0,
+                (double) listArea.getCellWidth() + listArea.getCellHeight() + 100.0, (double) listArea.getCellWidth() + 100.0);
+
+        Cell cell = new PlanCell(hBox, vBox, label, cellGroup, listArea);
 
         SVGPath svgPath = new SVGPath();
         svgPath.setContent("M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z");
@@ -71,12 +85,12 @@ public class PlanCell extends Cell {
         hBox.setMaxWidth(listArea.getCellWidth());
         hBox.setMinHeight(listArea.getCellHeight());
         hBox.setMaxHeight(listArea.getCellHeight());
-        hBox.setBackground(new Background(new BackgroundFill(new Color(0.5784314f, .7, 1, .6), new CornerRadii((2)), Insets.EMPTY)));
+        Color color = new Color(0.3084314f, .5, .6, 1);
+        hBox.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
         hBox.setManaged(true);
-//        cellGroup.setB
-//
-//                (new Border(new BorderStroke(new Color(0.1584314f, 0.18705883f, 0.5019608f, .5),
+//        cellGroup.setBorder(new Border(new BorderStroke(new Color(0.1584314f, 0.18705883f, 0.5019608f, .5),
 //                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        cellGroup.setEffect(new DropShadow(2, Color.BLACK));
 
         progressBar.setRotate(-90);
         progressBar.setScaleX(3.5);
@@ -103,11 +117,13 @@ public class PlanCell extends Cell {
         vBox.setMaxHeight(listArea.getCellWidth());
         vBox.setBackground(hBox.getBackground());
         vBox.setManaged(true);
-        vBox.setBorder(hBox.getBorder());
 
         label.setAlignment(Pos.BOTTOM_CENTER);
         label.setTextFill(Color.WHITE);
 //        label.setOpaqueInsets(new Insets(10));
+
+        leftTriangle.setFill(color);
+        rightTriangle.setFill(color);
 
         hBox.getChildren().add(paneInsideHBox1);
         hBox.setHgrow(paneInsideHBox1, Priority.ALWAYS);
@@ -123,6 +139,7 @@ public class PlanCell extends Cell {
 //        vBox.setVgrow(progressBar, Priority.ALWAYS);
         vBox.getChildren().add(paneInsideVBox2);
         vBox.setVgrow(paneInsideVBox2, Priority.ALWAYS);
+
 
         Point point = listArea.getGrid().getGridMap().get(list.indexOf(string));
 
@@ -147,7 +164,7 @@ public class PlanCell extends Cell {
             Label lbl3 = new Label("the other thing");
             lbl3.setTextFill(Color.WHITE);
             VBox vBox1 = new VBox();
-            vBox1.setBackground(new Background(new BackgroundFill(new Color(.1, .5, .7, .5), new CornerRadii(10), Insets.EMPTY)));
+            vBox1.setBackground(new Background(new BackgroundFill(new Color(.1, .5, .7, .5), CornerRadii.EMPTY, Insets.EMPTY)));
             vBox1.setPadding(new Insets(5, 10, 5, 10));
             vBox1.getChildren().addAll(lbl1, lbl2, lbl3);
             popup.getContent().addAll(vBox1);

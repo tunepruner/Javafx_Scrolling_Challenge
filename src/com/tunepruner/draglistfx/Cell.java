@@ -8,12 +8,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
+import javafx.scene.shape.Polygon;
 
 import java.awt.*;
 
 public abstract class Cell {
     HBox hBox;
     VBox vBox;
+    Polygon leftTriangle;
+    Polygon rightTriangle;
     Group cellGroup;
     Label label;
     boolean isInListArea = false;
