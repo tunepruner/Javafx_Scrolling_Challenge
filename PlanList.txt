@@ -1,14 +1,22 @@
-One
-Two
-Three
-Four
-Five
-Six
-Seven
-Eight
-Nine
-Ten
-Eleven
-Twelve
-This is a test to see how long lines work.
-This is another really long one!
+The strings
+seen here
+are persisted
+in a text file!
+-------
+The cells
+are made of
+custom shapes!
+--------
+The positioning
+is determined
+in a custom
+grid of points!
+---------
+It supports
+SCROLLING!
+----------
+It also
+supports
+DROP
+DRAG AND
+REORDERING!
