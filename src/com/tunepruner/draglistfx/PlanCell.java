@@ -6,7 +6,6 @@ import javafx.animation.Timeline;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -125,14 +124,14 @@ public class PlanCell extends Cell {
         vBox.getChildren().add(paneInsideVBox2);
         vBox.setVgrow(paneInsideVBox2, Priority.ALWAYS);
 
-        Point point = listArea.getGrid().getAbsoluteGridMap().get(list.indexOf(string));
+        Point point = listArea.getGrid().getGridMap().get(list.indexOf(string));
 
 //        hBox.relocate(point.x, point.y);
 //        vBox.relocate(point.x + listArea.getCellWidth(), point.y);
-        cellGroup.setLayoutX(point.x);
-        cellGroup.setLayoutY(point.y);
         hBox.relocate(100, 100);
         vBox.relocate(listArea.getCellWidth() + 100, 100);
+        cellGroup.setLayoutX(point.x);
+        cellGroup.setLayoutY(point.y);
 
 
 
@@ -175,8 +174,8 @@ public class PlanCell extends Cell {
             cellGroup.setLayoutX(cellGroup.getLayoutX() + grid.currentScrollDirectionY / 8);
             cellGroup.setLayoutY(cellGroup.getLayoutY() - grid.currentScrollDirectionY / 8);
 
-            listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(string)).x = (int) cellGroup.getLayoutX();
-            listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(string)).y = (int) cellGroup.getLayoutY();
+            listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x = (int) cellGroup.getLayoutX();
+            listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y = (int) cellGroup.getLayoutY();
 
 //            cell.followableX.setValue(hBox.getLayoutX());
 //            cell.followableY.setValue(hBox.getLayoutY());
@@ -200,10 +199,10 @@ public class PlanCell extends Cell {
         System.out.println("vBox.getLayoutY() = " + vBox.getLayoutY());
         System.out.println("cellGroup.getLayoutX() = " + cellGroup.getLayoutX());
         System.out.println("cellGroup.getLayoutY() = " + cellGroup.getLayoutY());
-        System.out.println("listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(string)).x = " + listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(string)).x);
-        System.out.println("listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(string)).y = " + listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(string)).y);
-        System.out.println("listArea.getGrid().getAbsoluteGridMap().get(listArea.getList().indexOf(string)).x = " + listArea.getGrid().getAbsoluteGridMap().get(listArea.getList().indexOf(string)).x);
-        System.out.println("listArea.getGrid().getAbsoluteGridMap().get(listArea.getList().indexOf(string)).y = " + listArea.getGrid().getAbsoluteGridMap().get(listArea.getList().indexOf(string)).y);
+        System.out.println("listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(string)).x = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x);
+        System.out.println("listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(string)).y = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y);
+        System.out.println("listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x);
+        System.out.println("listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y);
         System.out.println("–––––––––––");
     }
 
@@ -335,10 +334,10 @@ public class PlanCell extends Cell {
         System.out.println("vBox.getLayoutY() = " + vBox.getLayoutY());
         System.out.println("cellGroup.getLayoutX() = " + cellGroup.getLayoutX());
         System.out.println("cellGroup.getLayoutY() = " + cellGroup.getLayoutY());
-        System.out.println("listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(lbl.getText())).x = " + listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(string)).x);
-        System.out.println("listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(lbl.getText())).y = " + listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(string)).y);
-        System.out.println("listArea.getGrid().getAbsoluteGridMap().get(listArea.getList().indexOf(lbl.getText())).x = " + listArea.getGrid().getAbsoluteGridMap().get(listArea.getList().indexOf(string)).x);
-        System.out.println("listArea.getGrid().getAbsoluteGridMap().get(listArea.getList().indexOf(lbl.getText())).y = " + listArea.getGrid().getAbsoluteGridMap().get(listArea.getList().indexOf(string)).y);
+        System.out.println("listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(lbl.getText())).x = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x);
+        System.out.println("listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(lbl.getText())).y = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y);
+        System.out.println("listArea.getGrid().getGridMap().get(listArea.getList().indexOf(lbl.getText())).x = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x);
+        System.out.println("listArea.getGrid().getGridMap().get(listArea.getList().indexOf(lbl.getText())).y = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y);
         System.out.println("–––––––––––");
 
         if (listArea.getList().contains(string)) {
@@ -348,13 +347,13 @@ public class PlanCell extends Cell {
         }
 
         KeyFrame end = new KeyFrame(SEC_2,
-                new KeyValue(cell.cellGroup.layoutXProperty(), listArea.getGrid().getRelativeGridMap().get(targetIndex).x),
-                new KeyValue(cell.cellGroup.layoutYProperty(), listArea.getGrid().getRelativeGridMap().get(targetIndex).y));
+                new KeyValue(cell.cellGroup.layoutXProperty(), listArea.getGrid().getGridMap().get(targetIndex).x),
+                new KeyValue(cell.cellGroup.layoutYProperty(), listArea.getGrid().getGridMap().get(targetIndex).y));
 
         timeline.getKeyFrames().add(end);
         timeline.play();
-        cell.currentPosition.x = listArea.getGrid().getRelativeGridMap().get(targetIndex).x;
-        cell.currentPosition.y = listArea.getGrid().getRelativeGridMap().get(targetIndex).y;
+        cell.currentPosition.x = listArea.getGrid().getGridMap().get(targetIndex).x;
+        cell.currentPosition.y = listArea.getGrid().getGridMap().get(targetIndex).y;
         timeline.setOnFinished(event -> {
             System.out.println("RIGHT AFTER ANIMATION: " + string);
             System.out.println("hBox.getLayoutX() = " + hBox.getLayoutX());
@@ -363,10 +362,10 @@ public class PlanCell extends Cell {
             System.out.println("vBox.getLayoutY() = " + vBox.getLayoutY());
             System.out.println("cellGroup.getLayoutX() = " + cellGroup.getLayoutX());
             System.out.println("cellGroup.getLayoutY() = " + cellGroup.getLayoutY());
-            System.out.println("listArea.getGrid().getRelativeGridMap().get(targetIndex).x = " + listArea.getGrid().getRelativeGridMap().get(targetIndex).x);
-            System.out.println("listArea.getGrid().getRelativeGridMap().get(targetIndex).y = " + listArea.getGrid().getRelativeGridMap().get(targetIndex).y);
-            System.out.println("listArea.getGrid().getAbsoluteGridMap().get(targetIndex).x = " + listArea.getGrid().getAbsoluteGridMap().get(targetIndex).x);
-            System.out.println("listArea.getGrid().getAbsoluteGridMap().get(targetIndex).y = " + listArea.getGrid().getAbsoluteGridMap().get(targetIndex).y);
+            System.out.println("listArea.getGrid().getRelativeGridMap().get(targetIndex).x = " + listArea.getGrid().getGridMap().get(targetIndex).x);
+            System.out.println("listArea.getGrid().getRelativeGridMap().get(targetIndex).y = " + listArea.getGrid().getGridMap().get(targetIndex).y);
+            System.out.println("listArea.getGrid().getGridMap().get(targetIndex).x = " + listArea.getGrid().getGridMap().get(targetIndex).x);
+            System.out.println("listArea.getGrid().getGridMap().get(targetIndex).y = " + listArea.getGrid().getGridMap().get(targetIndex).y);
             System.out.println("–––––––––––");
         });
     }

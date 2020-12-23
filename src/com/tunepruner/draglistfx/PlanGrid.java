@@ -20,42 +20,22 @@ public class PlanGrid extends Grid {
 
         /*Distribute points on that line.*/
         for (int i = 0; i < listArea.getList().size(); i++) {
-            Point topLeft = new Point(0,0);
-            Point iteratedPoint = new Point(((int) (topLeft.getX())) + ((int) (-xGridFactor) * i), (int)(topLeft.getY()) + ((int) (yGridFactor) * i));
-            relativeGridMap.put(i, iteratedPoint);
-
-        }
-
-        createAbsoluteGridMap(listArea);
-
-    }
-
-    public void createAbsoluteGridMap(ListArea listArea) {
-        /*Calculate the angle of the left edge of the ListArea.*/
-        double xDiff = Math.abs(listArea.getTopLeft().x - listArea.getBottomLeft().x);
-        double yDiff = Math.abs(listArea.getTopLeft().y - listArea.getBottomLeft().y);
-        double angleInRadians = Math.toDegrees(Math.atan2(xDiff, yDiff));
-
-        /*Calculate the y difference and the x difference between one cell and the next.*/
-        double xGridFactor = ((listArea.getCellHeight() + listArea.getCellPadding()) * xDiff)/yDiff;
-        double yGridFactor = (listArea.getCellHeight() + listArea.getCellPadding());
-
-        /*Distribute points on that line.*/
-        for (int i = 0; i < listArea.getList().size(); i++) {
             Point topLeft = listArea.getTopLeft();
             Point iteratedPoint = new Point(((int) (topLeft.getX())) + ((int) (-xGridFactor) * i), (int)(topLeft.getY()) + ((int) (yGridFactor) * i));
-            absoluteGridMap.put(i, iteratedPoint);
+            gridMap.put(i, iteratedPoint);
         }
+
     }
+
 
 
     @Override
     public int getIndexOfXY(ListArea listArea, Point currentPoint) {
         int resultingIndex = currentDraggedFromIndex;
-        for ( int i = 0; i < listArea.getGrid().getRelativeGridMap().size(); i++) {
+        for ( int i = 0; i < listArea.getGrid().getGridMap().size(); i++) {
             if (
-                    Math.abs(currentPoint.y - (listArea.getGrid().getRelativeGridMap().get(i).y)) < listArea.getCellHeight() &&
-                    Math.abs(currentPoint.x - (listArea.getGrid().getRelativeGridMap().get(i).x)) < listArea.getCellWidth())
+                    Math.abs(currentPoint.y - (listArea.getGrid().getGridMap().get(i).y)) < listArea.getCellHeight() &&
+                    Math.abs(currentPoint.x - (listArea.getGrid().getGridMap().get(i).x)) < listArea.getCellWidth())
             {
                 resultingIndex =  i;
             }
@@ -73,8 +53,8 @@ public class PlanGrid extends Grid {
         boolean isCurrentlyDragging;
         boolean justGotDropped;
         boolean animationPermitted;
-        for ( int i = 0; i < listArea.getGrid().getRelativeGridMap().size(); i++) {
-            if (cell.currentPosition.equals(listArea.getGrid().getRelativeGridMap().get(i))) {
+        for ( int i = 0; i < listArea.getGrid().getGridMap().size(); i++) {
+            if (cell.currentPosition.equals(listArea.getGrid().getGridMap().get(i))) {
                 isOnGrid = true;
             }
         }
