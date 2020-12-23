@@ -106,24 +106,24 @@ public class PlanGrid extends Grid {
     public void setCellOpacity(ListArea listArea, HBox hBox, VBox vBox, Cell cell) {
         listArea.getTopLeft();
         listArea.getBottomLeft();
-        hBox.getLayoutX();
+        cell.cellGroup.getLayoutX();
 
-        int topDistance = Math.abs((int) (listArea.getTopLeft().getY() - hBox.getLayoutY()));
-        int bottomDistance = Math.abs((int) (listArea.getBottomLeft().getY() - hBox.getLayoutY()));
+        int topDistance = Math.abs((int) (listArea.getTopLeft().getY() - cell.cellGroup.getLayoutY()));
+        int bottomDistance = Math.abs((int) (listArea.getBottomLeft().getY() - cell.cellGroup.getLayoutY()));
         int opaqueEdgeSize = (listArea.getCellHeight() + listArea.getCellPadding()) * 3;
 
-        if (hBox.getLayoutY() > listArea.getTopLeft().getY()
+        if (cell.cellGroup.getLayoutY() > listArea.getTopLeft().getY()
             &&
-            hBox.getLayoutY() < listArea.getBottomLeft().getY()
+            cell.cellGroup.getLayoutY() < listArea.getBottomLeft().getY()
             ){
             int distance = Math.min(topDistance, bottomDistance);
             if (distance < opaqueEdgeSize) {
-                hBox.setOpacity((double) distance/ (double) opaqueEdgeSize);
-                vBox.setOpacity((double) distance/ (double) opaqueEdgeSize);
+                cell.cellGroup.setOpacity((double) distance/ (double) opaqueEdgeSize);
+                cell.cellGroup.setOpacity((double) distance/ (double) opaqueEdgeSize);
             }
         }else{
-            hBox.setOpacity(0);
-            vBox.setOpacity(0);
+            cell.cellGroup.setOpacity(0);
+            cell.cellGroup.setOpacity(0);
         }
     }
 }

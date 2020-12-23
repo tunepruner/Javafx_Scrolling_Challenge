@@ -133,9 +133,6 @@ public class PlanCell extends Cell {
         cellGroup.setLayoutX(point.x);
         cellGroup.setLayoutY(point.y);
 
-
-
-
         cell.followableX = new SimpleDoubleProperty();
         cell.followableY = new SimpleDoubleProperty();
         cell.followableX.set(point.x);
@@ -186,7 +183,6 @@ public class PlanCell extends Cell {
         listArea.getGrid().scrollActivity.addListener(scrollLevelListener);
 
         listArea.getPane().getChildren().add(cellGroup);
-;
 
         handleDragAndDrop(listArea, cellGroup, svgPath, hBox, vBox, currentDraggedFromInt, cell);
         cueReposition(listArea, hBox, vBox, cell);
