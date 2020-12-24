@@ -16,7 +16,7 @@ public class ListArea {
     Pane parentPane;
     ListFromFile listFromFile;
     Grid grid;
-    Point topLeft, topRight, bottomLeft;
+    Point topLeft;
     int areaHeight, areaWidth, cellHeight, cellWidth, cellPadding;
     ObservableList<String> list = FXCollections.observableArrayList();
     Stage stage;
@@ -40,8 +40,6 @@ public class ListArea {
 //        this.pane = pane;
         this.listFromFile = listFromFile;
         this.topLeft = topLeft;
-        this.topRight = topRight;
-        this.bottomLeft = bottomLeft;
         this.areaHeight = areaHeight;
         this.areaWidth = areaWidth;
         this.cellHeight = cellHeight;
@@ -77,12 +75,6 @@ public class ListArea {
     }
     public Point getTopLeft() {
         return topLeft;
-    }
-    public Point getTopRight() {
-        return topRight;
-    }
-    public Point getBottomLeft() {
-        return bottomLeft;
     }
     public Pane getParentPane() {
         return parentPane;
