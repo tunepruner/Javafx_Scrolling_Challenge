@@ -196,43 +196,20 @@ public class Cell {
             double deltaY = event.getDeltaY();
             grid.currentScrollDirectionX = deltaX;
             grid.currentScrollDirectionY = deltaY;
-            listArea.getGrid().scrollActivity.setValue(listArea.getGrid().scrollActivity.get() + grid.currentScrollDirectionY);
-            grid.scrollGrid(listArea, deltaX, deltaY, hBox, vBox, cell);
+
+            System.out.println("Scrolling");
+
+            listArea.getPane().setLayoutX(listArea.getPane().getLayoutX() + grid.currentScrollDirectionY / 8);
+            listArea.getPane().setLayoutY(listArea.getPane().getLayoutY() - grid.currentScrollDirectionY / 8);
+
         });
-
-        javafx.beans.value.ChangeListener scrollLevelListener = (observable, oldValue, newValue) -> {
-            cellGroup.setLayoutX(cellGroup.getLayoutX() + grid.currentScrollDirectionY / 8);
-            cellGroup.setLayoutY(cellGroup.getLayoutY() - grid.currentScrollDirectionY / 8);
-
-            listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x = (int) cellGroup.getLayoutX();
-            listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y = (int) cellGroup.getLayoutY();
-
-//            cell.followableX.setValue(hBox.getLayoutX());
-//            cell.followableY.setValue(hBox.getLayoutY());
-
-            listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
-        };
-
-        listArea.getGrid().scrollActivity.addListener(scrollLevelListener);
 
         listArea.getPane().getChildren().add(cellGroup);
 
         handleDragAndDrop(listArea, cellGroup, svgPath, hBox, vBox, currentDraggedFromInt, cell);
         cueReposition(listArea, hBox, vBox, cell);
-        listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
+//        listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
 
-        System.out.println("AFTER BUILDING: " + string);
-        System.out.println("hBox.getLayoutX() = " + hBox.getLayoutX());
-        System.out.println("hBox.getLayoutY() = " + hBox.getLayoutY());
-        System.out.println("vBox.getLayoutX() = " + vBox.getLayoutX());
-        System.out.println("vBox.getLayoutY() = " + vBox.getLayoutY());
-        System.out.println("cellGroup.getLayoutX() = " + cellGroup.getLayoutX());
-        System.out.println("cellGroup.getLayoutY() = " + cellGroup.getLayoutY());
-        System.out.println("listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(string)).x = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x);
-        System.out.println("listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(string)).y = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y);
-        System.out.println("listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x);
-        System.out.println("listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y);
-        System.out.println("–––––––––––");
     }
 
     public void handleDragAndDrop(ListArea listArea, Group cellGroup, SVGPath svgPath, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
@@ -302,7 +279,7 @@ public class Cell {
                 listArea.getList().add(updatedInsertionInt, "");
             }
 
-            listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
+//            listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
         });
 
         cellGroup.setOnMouseReleased(event -> {
@@ -355,18 +332,6 @@ public class Cell {
         Label lbl = ((Label) hBox.getChildren().get(1));
         String string = lbl.getText();
         int targetIndex;
-        System.out.println("RIGHT BEFORE ANIMATION: " + string);
-        System.out.println("hBox.getLayoutX() = " + hBox.getLayoutX());
-        System.out.println("hBox.getLayoutY() = " + hBox.getLayoutY());
-        System.out.println("vBox.getLayoutX() = " + vBox.getLayoutX());
-        System.out.println("vBox.getLayoutY() = " + vBox.getLayoutY());
-        System.out.println("cellGroup.getLayoutX() = " + cellGroup.getLayoutX());
-        System.out.println("cellGroup.getLayoutY() = " + cellGroup.getLayoutY());
-        System.out.println("listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(lbl.getText())).x = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x);
-        System.out.println("listArea.getGrid().getRelativeGridMap().get(listArea.getList().indexOf(lbl.getText())).y = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y);
-        System.out.println("listArea.getGrid().getGridMap().get(listArea.getList().indexOf(lbl.getText())).x = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).x);
-        System.out.println("listArea.getGrid().getGridMap().get(listArea.getList().indexOf(lbl.getText())).y = " + listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string)).y);
-        System.out.println("–––––––––––");
 
         if (listArea.getList().contains(string)) {
             targetIndex = listArea.getList().indexOf(string);
@@ -383,18 +348,6 @@ public class Cell {
         cell.currentPosition.x = listArea.getGrid().getGridMap().get(targetIndex).x;
         cell.currentPosition.y = listArea.getGrid().getGridMap().get(targetIndex).y;
         timeline.setOnFinished(event -> {
-            System.out.println("RIGHT AFTER ANIMATION: " + string);
-            System.out.println("hBox.getLayoutX() = " + hBox.getLayoutX());
-            System.out.println("hBox.getLayoutY() = " + hBox.getLayoutY());
-            System.out.println("vBox.getLayoutX() = " + vBox.getLayoutX());
-            System.out.println("vBox.getLayoutY() = " + vBox.getLayoutY());
-            System.out.println("cellGroup.getLayoutX() = " + cellGroup.getLayoutX());
-            System.out.println("cellGroup.getLayoutY() = " + cellGroup.getLayoutY());
-            System.out.println("listArea.getGrid().getRelativeGridMap().get(targetIndex).x = " + listArea.getGrid().getGridMap().get(targetIndex).x);
-            System.out.println("listArea.getGrid().getRelativeGridMap().get(targetIndex).y = " + listArea.getGrid().getGridMap().get(targetIndex).y);
-            System.out.println("listArea.getGrid().getGridMap().get(targetIndex).x = " + listArea.getGrid().getGridMap().get(targetIndex).x);
-            System.out.println("listArea.getGrid().getGridMap().get(targetIndex).y = " + listArea.getGrid().getGridMap().get(targetIndex).y);
-            System.out.println("–––––––––––");
         });
     }
     public void displayAllCells(ListArea listArea) {

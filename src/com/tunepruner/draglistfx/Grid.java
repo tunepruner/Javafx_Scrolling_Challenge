@@ -11,14 +11,14 @@ import java.awt.*;
 
 public class Grid {
     ObservableMap<Integer, Point> gridMap = FXCollections.observableHashMap();
-
-    SimpleDoubleProperty scrollActivity = new SimpleDoubleProperty(0);
     public int currentDraggedFromIndex;
-    static double currentScrollDirectionX = 0;
-    static double currentScrollDirectionY = 0;
+    double currentScrollDirectionX = 0;
+    double currentScrollDirectionY = 0;
+
     public void setGridMap(ObservableMap<Integer, Point> gridMap) {
         this.gridMap = gridMap;
     }
+
     public ObservableMap<Integer, Point> getGridMap() {return gridMap;}
 
     public Grid(ListArea listArea) {
@@ -40,9 +40,6 @@ public class Grid {
 
     }
 
-
-
-    
     public int getIndexOfXY(ListArea listArea, Point currentPoint) {
         int resultingIndex = currentDraggedFromIndex;
         for ( int i = 0; i < listArea.getGrid().getGridMap().size(); i++) {
@@ -56,7 +53,7 @@ public class Grid {
         return resultingIndex;
     }
 
-    
+
     public boolean animationPermitted(ListArea listArea, HBox hBox, Cell cell) {
         String hBoxContent = (((Label) hBox.getChildren().get(1)).getText());
         boolean isInList = listArea.getList().contains(hBoxContent);
@@ -116,41 +113,28 @@ public class Grid {
         return listID;
     }
 
-    public void setCellOpacity(ListArea listArea, HBox hBox, VBox vBox, Cell cell) {
-        listArea.getTopLeft();
-        listArea.getBottomLeft();
-        cell.cellGroup.getLayoutX();
+//    public void setCellOpacity(ListArea listArea, HBox hBox, VBox vBox, Cell cell) {
+//        listArea.getTopLeft();
+//        listArea.getBottomLeft();
+//        cell.cellGroup.getLayoutX();
+//
+//        int topDistance = Math.abs((int) (listArea.getTopLeft().getY() - cell.cellGroup.getLayoutY()));
+//        int bottomDistance = Math.abs((int) (listArea.getBottomLeft().getY() - cell.cellGroup.getLayoutY()));
+//        int opaqueEdgeSize = (listArea.getCellHeight() + listArea.getCellPadding()) * 3;
+//
+//        if (cell.cellGroup.getLayoutY() > listArea.getTopLeft().getY()
+//            &&
+//            cell.cellGroup.getLayoutY() < listArea.getBottomLeft().getY()
+//            ){
+//            int distance = Math.min(topDistance, bottomDistance);
+//            if (distance < opaqueEdgeSize) {
+//                cell.cellGroup.setOpacity((double) distance/ (double) opaqueEdgeSize);
+//                cell.cellGroup.setOpacity((double) distance/ (double) opaqueEdgeSize);
+//            }
+//        }else{
+//            cell.cellGroup.setOpacity(0);
+//            cell.cellGroup.setOpacity(0);
+//        }
+//    }
 
-        int topDistance = Math.abs((int) (listArea.getTopLeft().getY() - cell.cellGroup.getLayoutY()));
-        int bottomDistance = Math.abs((int) (listArea.getBottomLeft().getY() - cell.cellGroup.getLayoutY()));
-        int opaqueEdgeSize = (listArea.getCellHeight() + listArea.getCellPadding()) * 3;
-
-        if (cell.cellGroup.getLayoutY() > listArea.getTopLeft().getY()
-            &&
-            cell.cellGroup.getLayoutY() < listArea.getBottomLeft().getY()
-            ){
-            int distance = Math.min(topDistance, bottomDistance);
-            if (distance < opaqueEdgeSize) {
-                cell.cellGroup.setOpacity((double) distance/ (double) opaqueEdgeSize);
-                cell.cellGroup.setOpacity((double) distance/ (double) opaqueEdgeSize);
-            }
-        }else{
-            cell.cellGroup.setOpacity(0);
-            cell.cellGroup.setOpacity(0);
-        }
-    }
-    public void scrollGrid(ListArea listArea, double deltaX, double deltaY, HBox hBox, VBox vBox, Cell cell) {
-        double xDiff = Math.abs(listArea.getTopLeft().x - listArea.getBottomLeft().x);
-        double yDiff = Math.abs(listArea.getTopLeft().y - listArea.getBottomLeft().y);
-
-        Point topPoint = listArea.getGrid().getGridMap().get(0);
-        Point bottomPoint = listArea.getGrid().getGridMap().get(listArea.getGrid().getGridMap().size()-1);
-
-        boolean listAreaIsAtBottom = topPoint.y >= listArea.getTopLeft().getY();
-        boolean listAreaIsAtTop = bottomPoint.y <= listArea.getBottomLeft().getY();
-
-        listArea.getGrid().scrollActivity.setValue(listArea.getGrid().scrollActivity.get() + currentScrollDirectionY);
-
-    }
-    
 }
