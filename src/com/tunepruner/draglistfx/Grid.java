@@ -27,13 +27,19 @@ public class Grid {
         double yDiff = 1;
 
         /*Calculate the y difference and the x difference between one cell and the next.*/
-        double xGridFactor = ((listArea.getCellHeight() + listArea.getCellPadding()) * xDiff)/yDiff;
+        double xGridFactor = -((listArea.getCellHeight() + listArea.getCellPadding()) * xDiff)/yDiff;
         double yGridFactor = (listArea.getCellHeight() + listArea.getCellPadding());
 
         /*Distribute points on that line.*/
         for (int i = 0; i < listArea.getList().size(); i++) {
-            Point topLeft = listArea.getTopLeft();
-            Point iteratedPoint = new Point(((int) (topLeft.getX())) + ((int) (-xGridFactor) * i), (int)(topLeft.getY()) + ((int) (yGridFactor) * i));
+//            Point topLeft = listArea.getTopLeft();
+            Point bottomLeft = new Point(listArea.getTopLeft().x - listArea.getCellHeight() - listArea.getCellWidth()*2, listArea.getTopLeft().y + listArea.getAreaHeight());
+            Point iteratedPoint = new Point(
+//                    (int) topLeft.getX() + (int) xGridFactor * i,
+//                    (int) topLeft.getY() + (int) yGridFactor * i
+                    (int) bottomLeft.x + (int) xGridFactor * i,
+                    (int) bottomLeft.y + (int) yGridFactor * i
+            );
             gridMap.put(i, iteratedPoint);
         }
 

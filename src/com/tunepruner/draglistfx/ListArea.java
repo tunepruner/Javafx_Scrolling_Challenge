@@ -17,7 +17,7 @@ public class ListArea {
     ListFromFile listFromFile;
     Grid grid;
     Point topLeft, topRight, bottomLeft;
-    int cellHeight, cellWidth, cellPadding;
+    int areaHeight, areaWidth, cellHeight, cellWidth, cellPadding;
     ObservableList<String> list = FXCollections.observableArrayList();
     Stage stage;
 
@@ -28,6 +28,8 @@ public class ListArea {
             Point topLeft,
             Point topRight,
             Point bottomLeft,
+            int areaHeight,
+            int areaWidth,
             int cellHeight,
             int cellWidth,
             int cellPadding,
@@ -40,6 +42,8 @@ public class ListArea {
         this.topLeft = topLeft;
         this.topRight = topRight;
         this.bottomLeft = bottomLeft;
+        this.areaHeight = areaHeight;
+        this.areaWidth = areaWidth;
         this.cellHeight = cellHeight;
         this.cellWidth = cellWidth;
         this.cellPadding = cellPadding;
@@ -47,22 +51,29 @@ public class ListArea {
         this.parentPane = pane;
         this.pane = new Pane();
     }
-
-
     public void setGrid(Grid grid) {
         this.grid = grid;
     }
+
     public String getUniqueID() {
         return uniqueID;
     }
+
     public Pane getPane() {
         return pane;
     }
+
     public ListFromFile getListFromFile() {
         return listFromFile;
     }
     public Grid getGrid() {
         return grid;
+    }
+    public int getAreaHeight() {
+        return areaHeight;
+    }
+    public int getAreaWidth() {
+        return areaWidth;
     }
     public Point getTopLeft() {
         return topLeft;
@@ -72,6 +83,9 @@ public class ListArea {
     }
     public Point getBottomLeft() {
         return bottomLeft;
+    }
+    public Pane getParentPane() {
+        return parentPane;
     }
     public ObservableList<String> getList() {
         return list;
@@ -100,8 +114,8 @@ public class ListArea {
         listArea.handleScrolling();
 
         Rectangle clip = new Rectangle();
-        clip.setHeight(listArea.bottomLeft.y - listArea.topLeft.y);
-        clip.setWidth(listArea.topRight.x - listArea.topLeft.x);
+        clip.setHeight(listArea.getAreaHeight());
+        clip.setWidth(listArea.getAreaWidth());
         clip.setLayoutX(listArea.topLeft.x);
         clip.setLayoutY(listArea.topLeft.y);
 

@@ -34,8 +34,10 @@ public class Main extends Application {
                 planPane,
                 new ListFromFile(),
                 new Point(350, 150),//topLeft
-                new Point(900, 150),//topRight
-                new Point(350, 600),//bottomLeft
+                new Point(850, 150),//topRight
+                new Point(350, 650),//bottomLeft
+                500,
+                500,
                 25,
                 200,
                 10,
@@ -48,7 +50,13 @@ public class Main extends Application {
         root.getChildren().addAll(planPane, rectBackground);
         rectBackground.toBack();
 
-//        animateBackground(planPane);
+        Rectangle rectangle1 = new Rectangle();
+        rectangle1.setLayoutX(350);
+        rectangle1.setLayoutY(450);
+        rectangle1.setHeight(200);
+        rectangle1.setWidth(200);
+        rectangle1.setFill(Color.BLACK);
+        planPane.getChildren().add(rectangle1);
 
         Scene scene = new Scene(root, 1300, 700);
         this.rectBackground.widthProperty().bind(scene.widthProperty());
