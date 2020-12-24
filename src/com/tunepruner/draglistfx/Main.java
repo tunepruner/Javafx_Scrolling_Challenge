@@ -61,29 +61,4 @@ public class Main extends Application {
         launch(args);
     }
 
-
-    public static void animateBackground (Pane pane){
-        for (int i = 0; i < 40; i++) {
-            Line line = new Line();
-            line.setEndX(i * 100 - 2000);
-            line.setEndY(-200);
-            line.setStartX(i * 100 + 500);
-            line.setStartY(2000);
-            line.setStrokeWidth(20);
-            line.setStroke(new Color(0, 0, .2, .2));
-
-
-            line.toBack();
-            pane.getChildren().add(line);
-
-            Timeline timeline = new Timeline();
-            KeyFrame end =
-                    new KeyFrame(Duration.seconds(15),
-                            new KeyValue(line.startXProperty(), line.getStartX() - 500),
-                            new KeyValue(line.endXProperty(), line.getEndX() - 500));
-            timeline.getKeyFrames().add(end);
-            timeline.setCycleCount(Animation.INDEFINITE);
-            timeline.play();
-        }
-    }
 }
