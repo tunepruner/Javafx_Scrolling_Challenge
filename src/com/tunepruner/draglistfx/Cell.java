@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.shape.Polygon;
 
 import java.awt.*;
+import java.sql.Time;
 
 import javafx.scene.control.ProgressBar;
 
@@ -191,12 +192,23 @@ public class Cell {
 
         });
 
-        listArea.getPane().getChildren().add(cellGroup);
+        fadeInForCell(listArea, cellGroup);
 
         handleDragAndDrop(listArea, cellGroup, svgPath, hBox, vBox, currentDraggedFromInt, cell);
-        cueReposition(listArea, hBox, vBox, cell);
-//        listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
 
+        cueReposition(listArea, hBox, vBox, cell);
+
+    }
+
+    private void fadeInForCell(ListArea listArea, Group cellGroup) {
+        cellGroup.setOpacity(0);
+        listArea.getPane().getChildren().add(cellGroup);
+        Timeline timeline = new Timeline();
+        KeyFrame keyFrame = new KeyFrame(
+                new Duration(300),
+                new KeyValue(cellGroup.opacityProperty(), 1));
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.play();
     }
 
     public void handleDragAndDrop(ListArea listArea, Group cellGroup, SVGPath svgPath, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
@@ -240,7 +252,6 @@ public class Cell {
             newPoint = new Point(x, y);
             cell.currentPosition = newPoint;
 
-
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
 
@@ -265,8 +276,7 @@ public class Cell {
             if (!listArea.getList().contains("")) {
                 listArea.getList().add(updatedInsertionInt, "");
             }
-
-//            listArea.getGrid().setCellOpacity(listArea, hBox, vBox, cell);
+            cellGroup.toFront();
         });
 
         cellGroup.setOnMouseReleased(event -> {
@@ -304,7 +314,7 @@ public class Cell {
                     boolean animationPermitted = listArea.getGrid().animationPermitted(listArea,/*maybe add point here*/hBox, cell);
 
                     if (animationPermitted == true) {
-                        cell.executeReposition(listArea, hBox, vBox, cell);
+                        cell.executeReposition(listArea, hBox, cell);
                     }
                 }
             }
@@ -313,7 +323,7 @@ public class Cell {
     }
 
 
-    public void executeReposition(ListArea listArea, HBox hBox, VBox vBox, Cell cell) {
+    public void executeReposition(ListArea listArea, HBox hBox, Cell cell) {
         final Duration SEC_2 = Duration.millis(200);
         Timeline timeline = new Timeline();
         Label lbl = ((Label) hBox.getChildren().get(1));
@@ -337,10 +347,11 @@ public class Cell {
         timeline.setOnFinished(event -> {
         });
     }
+
     public void displayAllCells(ListArea listArea) {
         ObservableList list = listArea.getList();
         listArea.setGrid(new Grid(listArea));
-        for (int i = 0; i < listArea.getList().size(); i++) {
+        for ( int i = 0; i < listArea.getList().size(); i++ ) {
             String string = listArea.getList().get(i);
             listArea.getListFromFile().handleSyncToFile(listArea);
             displayCell(listArea, string, listArea.getGrid());

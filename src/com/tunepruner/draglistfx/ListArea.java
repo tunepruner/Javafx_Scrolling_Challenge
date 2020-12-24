@@ -4,6 +4,8 @@ import  javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.w3c.dom.css.Rect;
+import javafx.scene.shape.Rectangle;
 
 import java.awt.*;
 import java.io.IOException;
@@ -11,10 +13,11 @@ import java.io.IOException;
 public class ListArea {
     String uniqueID;
     Pane pane;
+    Pane parentPane;
     ListFromFile listFromFile;
     Grid grid;
     Point topLeft, topRight, bottomLeft;
-    int cellHeight, cellPadding;
+    int cellHeight, cellWidth, cellPadding;
     ObservableList<String> list = FXCollections.observableArrayList();
     Stage stage;
 
@@ -26,19 +29,23 @@ public class ListArea {
             Point topRight,
             Point bottomLeft,
             int cellHeight,
+            int cellWidth,
             int cellPadding,
-            Stage stage
+            Stage stage,
+            Rectangle clip
     ){
         this.uniqueID = uniqueID;
-        this.pane = pane;
+//        this.pane = pane;
         this.listFromFile = listFromFile;
         this.topLeft = topLeft;
         this.topRight = topRight;
         this.bottomLeft = bottomLeft;
         this.cellHeight = cellHeight;
+        this.cellWidth = cellWidth;
         this.cellPadding = cellPadding;
         this.stage = stage;
-
+        this.parentPane = pane;
+        this.pane = new Pane();
     }
 
 
@@ -75,8 +82,7 @@ public class ListArea {
     public int getCellPadding() {
         return cellPadding;
     }
-    public int getCellWidth(){
-        int cellWidth = topRight.x - topLeft.x;
+    public int getCellWidth() {
         return cellWidth;
     }
     public Stage getStage() {
@@ -89,10 +95,22 @@ public class ListArea {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Cell cell = new Cell();//just so I can use an instance method
+        Cell cell = new Cell();
         cell.displayAllCells(listArea);
         listArea.handleScrolling();
-        return listArea.getPane();
+
+        Rectangle clip = new Rectangle();
+        clip.setHeight(listArea.bottomLeft.y - listArea.topLeft.y);
+        clip.setWidth(listArea.topRight.x - listArea.topLeft.x);
+        clip.setLayoutX(listArea.topLeft.x);
+        clip.setLayoutY(listArea.topLeft.y);
+
+        listArea.parentPane.getChildren().add(listArea.getPane());
+
+        listArea.parentPane.setClip(clip);
+        listArea.parentPane.toFront();
+
+        return listArea.parentPane;
     }
 
     public void handleScrolling(){
@@ -104,11 +122,6 @@ public class ListArea {
 
             pane.setLayoutX(pane.getLayoutX() + grid.currentScrollDirectionY / 8);
             pane.setLayoutY(pane.getLayoutY() - grid.currentScrollDirectionY / 8);
-
         });
     }
-
-
-
-
 }

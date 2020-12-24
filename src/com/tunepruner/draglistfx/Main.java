@@ -33,12 +33,14 @@ public class Main extends Application {
                 "PlanList",
                 planPane,
                 new ListFromFile(),
-                new Point(400, 50),//topLeft
-                new Point(600, 100),//topRight
-                new Point(100, 350),//bottomLeft
+                new Point(350, 150),//topLeft
+                new Point(900, 150),//topRight
+                new Point(350, 600),//bottomLeft
                 25,
+                200,
                 10,
-                primaryStage
+                primaryStage,
+                new Rectangle()
         );
         planPane = listArea.drawListArea(listArea);
 

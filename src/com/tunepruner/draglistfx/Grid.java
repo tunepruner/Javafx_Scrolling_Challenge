@@ -23,9 +23,8 @@ public class Grid {
 
     public Grid(ListArea listArea) {
         /*Calculate the angle of the left edge of the ListArea.*/
-        double xDiff = Math.abs(listArea.getTopLeft().x - listArea.getBottomLeft().x);
-        double yDiff = Math.abs(listArea.getTopLeft().y - listArea.getBottomLeft().y);
-        double angleInRadians = Math.toDegrees(Math.atan2(xDiff, yDiff));
+        double xDiff = 1;
+        double yDiff = 1;
 
         /*Calculate the y difference and the x difference between one cell and the next.*/
         double xGridFactor = ((listArea.getCellHeight() + listArea.getCellPadding()) * xDiff)/yDiff;
