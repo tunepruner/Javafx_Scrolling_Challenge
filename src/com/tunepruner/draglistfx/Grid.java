@@ -32,10 +32,12 @@ public class Grid {
 
         /*Distribute points on that line.*/
         for (int i = 0; i < listArea.getList().size(); i++) {
-            Point bottomLeft = new Point(listArea.getTopLeft().x - listArea.getCellWidth()*2 - listArea.getCellHeight(), listArea.getTopLeft().y + listArea.getAreaHeight());
+            Point startingPoint = new Point(
+                    listArea.getTopLeft().x - listArea.getCellWidth()*2 - listArea.getCellHeight(),
+                    listArea.getTopLeft().y + listArea.getAreaHeight());
             Point iteratedPoint = new Point(
-                    (int) bottomLeft.x + (int) xGridFactor * i,
-                    (int) bottomLeft.y + (int) yGridFactor * i);
+                    (int) startingPoint.x + (int) xGridFactor * i,
+                    (int) startingPoint.y + (int) yGridFactor * i);
             gridMap.put(i, iteratedPoint);
         }
 

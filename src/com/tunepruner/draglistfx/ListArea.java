@@ -20,16 +20,16 @@ public class ListArea {
     public final String uniqueID;
     public Pane pane;
     private Pane parentPane;
+    private Pane clipPane;
     private ListFromFile listFromFile;
     private Grid grid;
     private Point topLeft;
     private int areaHeight, areaWidth, cellHeight, cellWidth, cellPadding;
     private ObservableList<String> list = FXCollections.observableArrayList();
     private Stage stage;
-
     public ListArea (
             String uniqueID,
-            Pane pane,
+            Pane parentPane,
             ListFromFile listFromFile,
             Point topLeft,
             Point topRight,
@@ -43,7 +43,6 @@ public class ListArea {
             Rectangle clip
     ){
         this.uniqueID = uniqueID;
-//        this.pane = pane;
         this.listFromFile = listFromFile;
         this.topLeft = topLeft;
         this.areaHeight = areaHeight;
@@ -52,13 +51,14 @@ public class ListArea {
         this.cellWidth = cellWidth;
         this.cellPadding = cellPadding;
         this.stage = stage;
-        this.parentPane = pane;
+        this.parentPane = parentPane;
         this.pane = new Pane();
+        this.clipPane = new Pane();
     }
+
     public void setGrid(Grid grid) {
         this.grid = grid;
     }
-
     public String getUniqueID() {
         return uniqueID;
     }
@@ -70,8 +70,12 @@ public class ListArea {
     public ListFromFile getListFromFile() {
         return listFromFile;
     }
+
     public Grid getGrid() {
         return grid;
+    }
+    public Pane getClipPane() {
+        return clipPane;
     }
     public int getAreaHeight() {
         return areaHeight;
@@ -117,12 +121,13 @@ public class ListArea {
         clip.setLayoutX(listArea.topLeft.x);
         clip.setLayoutY(listArea.topLeft.y);
 
-        listArea.getParentPane().getChildren().add(listArea.getPane());
+        listArea.getParentPane().getChildren().add(listArea.getClipPane());
+        listArea.getClipPane().getChildren().add(listArea.getPane());
 
-        listArea.getParentPane().setClip(clip);
+        listArea.getClipPane().setClip(clip);
         listArea.getParentPane().toFront();
 
-        listArea.getPane().setBackground(new Background(new BackgroundFill(listArea.COLOR_OF_INNER_PANE, CornerRadii.EMPTY, Insets.EMPTY)));
+        listArea.getClipPane().setBackground(new Background(new BackgroundFill(listArea.COLOR_OF_INNER_PANE, CornerRadii.EMPTY, Insets.EMPTY)));
 
         return listArea.parentPane;
     }
