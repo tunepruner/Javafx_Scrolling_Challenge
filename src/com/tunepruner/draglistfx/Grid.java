@@ -63,13 +63,13 @@ public class Grid {
         boolean isCurrentlyDragging;
         boolean justGotDropped;
         boolean animationPermitted;
-        for ( int i = 0; i < listArea.getGrid().getGridMap().size(); i++) {
+        for ( int i = 0; i < listArea.getGrid().getGridMap().size(); i++ ) {
             if (cell.currentPosition.equals(listArea.getGrid().getGridMap().get(i))) {
                 isOnGrid = true;
             }
         }
-        if (isOnGrid){
-                cell.isInListArea = true;
+        if (isOnGrid) {
+            cell.isInListArea = true;
         }
 
         if (isOnGrid && isInList) {
@@ -78,7 +78,6 @@ public class Grid {
 
             }
         }
-
 
 
         isCurrentlyDragging = !isInList;
@@ -102,15 +101,6 @@ public class Grid {
         cell.isInListArea = false;
 
         return animationPermitted;
-    }
-    public String getListID(){
-
-        //TODO the method getIndexOfXY will need the string that this returns
-        // It will use it to return the list from the correct
-        // listArea so that the D&D can add to the correct one.
-        String listID = "";
-
-        return listID;
     }
 
 
