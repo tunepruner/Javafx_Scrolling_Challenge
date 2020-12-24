@@ -52,10 +52,10 @@ public class Main extends Application {
 
         Rectangle rectangle1 = new Rectangle();
         rectangle1.setLayoutX(350);
-        rectangle1.setLayoutY(450);
-        rectangle1.setHeight(200);
-        rectangle1.setWidth(200);
-        rectangle1.setFill(Color.BLACK);
+        rectangle1.setLayoutY(650 - listArea.getCellHeight() - listArea.getCellWidth());
+        rectangle1.setHeight(listArea.getCellHeight() + listArea.getCellWidth());
+        rectangle1.setWidth(rectangle1.getHeight());
+        rectangle1.setFill(listArea.COLOR_OF_INNER_PANE);
         planPane.getChildren().add(rectangle1);
 
         Scene scene = new Scene(root, 1300, 700);

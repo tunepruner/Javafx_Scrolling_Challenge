@@ -2,7 +2,12 @@ package com.tunepruner.draglistfx;
 
 import  javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.w3c.dom.css.Rect;
 import javafx.scene.shape.Rectangle;
@@ -11,15 +16,16 @@ import java.awt.*;
 import java.io.IOException;
 
 public class ListArea {
-    String uniqueID;
-    Pane pane;
-    Pane parentPane;
-    ListFromFile listFromFile;
-    Grid grid;
-    Point topLeft;
-    int areaHeight, areaWidth, cellHeight, cellWidth, cellPadding;
-    ObservableList<String> list = FXCollections.observableArrayList();
-    Stage stage;
+    public final Color COLOR_OF_INNER_PANE = new Color(0, .2, .3, 1);
+    public final String uniqueID;
+    public Pane pane;
+    private Pane parentPane;
+    private ListFromFile listFromFile;
+    private Grid grid;
+    private Point topLeft;
+    private int areaHeight, areaWidth, cellHeight, cellWidth, cellPadding;
+    private ObservableList<String> list = FXCollections.observableArrayList();
+    private Stage stage;
 
     public ListArea (
             String uniqueID,
@@ -111,23 +117,38 @@ public class ListArea {
         clip.setLayoutX(listArea.topLeft.x);
         clip.setLayoutY(listArea.topLeft.y);
 
-        listArea.parentPane.getChildren().add(listArea.getPane());
+        listArea.getParentPane().getChildren().add(listArea.getPane());
 
-        listArea.parentPane.setClip(clip);
-        listArea.parentPane.toFront();
+        listArea.getParentPane().setClip(clip);
+        listArea.getParentPane().toFront();
+
+        listArea.getPane().setBackground(new Background(new BackgroundFill(listArea.COLOR_OF_INNER_PANE, CornerRadii.EMPTY, Insets.EMPTY)));
 
         return listArea.parentPane;
     }
 
     public void handleScrolling(){
         pane.setOnScroll(event -> {
-            double deltaX = event.getDeltaX();
-            double deltaY = event.getDeltaY();
-            grid.currentScrollDirectionX = deltaX;
-            grid.currentScrollDirectionY = deltaY;
+            if (this.pane.getLayoutX() > 360) {
+                this.pane.setLayoutX(359);
+                this.pane.setLayoutY(-359);
+                /*This number is a magic number unfortunately.
+                * I can't figure out how to relate it to the properties of the listArea. */
+            } else if(this.pane.getLayoutX() < -145) {
+                this.pane.setLayoutX(-144);
+                this.pane.setLayoutY(144);
+                /*This is also a magic number,  found by trial and error.*/
+            } else {
+                double deltaX = event.getDeltaX();
+                double deltaY = event.getDeltaY();
+                grid.currentScrollDirectionX = deltaX;
+                grid.currentScrollDirectionY = deltaY;
 
-            pane.setLayoutX(pane.getLayoutX() + grid.currentScrollDirectionY / 8);
-            pane.setLayoutY(pane.getLayoutY() - grid.currentScrollDirectionY / 8);
+                pane.setLayoutX(pane.getLayoutX() + grid.currentScrollDirectionY / 8);
+                pane.setLayoutY(pane.getLayoutY() - grid.currentScrollDirectionY / 8);
+                System.out.println("this.pane.getLayoutX() = " + this.pane.getLayoutX());
+                System.out.println("this.pane.getLayoutY() = " + this.pane.getLayoutY());
+            }
         });
     }
 }

@@ -86,9 +86,10 @@ public class Cell {
                 0.00 + 100.0, 0.0 + 100.0,
                 0.0 + 100.0, (double) listArea.getCellHeight() + 100.0);
 
-        rightTriangle.getPoints().addAll((double) listArea.getCellWidth() + 100.0, (double) listArea.getCellWidth() + listArea.getCellHeight() + 100.0,
-                (double) listArea.getCellWidth() + 100.0, (double) listArea.getCellWidth() + 100.0,
-                (double) listArea.getCellWidth() + listArea.getCellHeight() + 100.0, (double) listArea.getCellWidth() + 100.0);
+        rightTriangle.getPoints().addAll(
+                (double) listArea.getCellWidth() + 100.0, (double) listArea.getCellWidth() + listArea.getCellHeight() * 2 + 100.0,
+                (double) listArea.getCellWidth() + 100.0, (double) listArea.getCellWidth() + listArea.getCellHeight() + 100.0,
+                (double) listArea.getCellWidth() + listArea.getCellHeight() + 100.0, (double) listArea.getCellWidth() + listArea.getCellHeight() + 100.0);
 
         Cell cell = new Cell(hBox, vBox, label, cellGroup, listArea);
 
@@ -130,8 +131,8 @@ public class Cell {
 
         vBox.setMinWidth(listArea.getCellHeight());
         vBox.setMaxWidth(listArea.getCellHeight());
-        vBox.setMinHeight(listArea.getCellWidth());
-        vBox.setMaxHeight(listArea.getCellWidth());
+        vBox.setMinHeight(listArea.getCellWidth() + listArea.getCellHeight());
+        vBox.setMaxHeight(listArea.getCellWidth() + listArea.getCellHeight());
         vBox.setBackground(hBox.getBackground());
         vBox.setManaged(true);
 
