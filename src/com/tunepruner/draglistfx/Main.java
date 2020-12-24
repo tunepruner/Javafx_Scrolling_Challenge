@@ -29,10 +29,10 @@ public class Main extends Application {
         rectBackground = new Rectangle();
         rectBackground.setFill(new Color(0.1019608f, 0.3519608f, 0.58039216f, 1));
 
-        ListArea planListArea = new PlanListArea(
+        ListArea listArea = new ListArea(
                 "PlanList",
                 planPane,
-                new PlanListFromFile(),
+                new ListFromFile(),
                 new Point(400, 50),//topLeft
                 new Point(600, 100),//topRight
                 new Point(100, 350),//bottomLeft
@@ -40,7 +40,7 @@ public class Main extends Application {
                 10,
                 primaryStage
         );
-        planPane = planListArea.drawListArea(planListArea);
+        planPane = listArea.drawListArea(listArea);
 
         Group root = new Group();
         root.getChildren().addAll(planPane, rectBackground);

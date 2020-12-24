@@ -2,7 +2,7 @@ package com.tunepruner.draglistfx;
 
 import java.io.*;
 
-public abstract class ListFromFile{
+public class ListFromFile{
     File file;
 
     public void syncFromFile(ListArea listArea) throws IOException {
