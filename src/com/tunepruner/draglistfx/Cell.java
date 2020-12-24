@@ -191,19 +191,6 @@ public class Cell {
 
         });
 
-        listArea.getPane().setOnScroll(event -> {
-            double deltaX = event.getDeltaX();
-            double deltaY = event.getDeltaY();
-            grid.currentScrollDirectionX = deltaX;
-            grid.currentScrollDirectionY = deltaY;
-
-            System.out.println("Scrolling");
-
-            listArea.getPane().setLayoutX(listArea.getPane().getLayoutX() + grid.currentScrollDirectionY / 8);
-            listArea.getPane().setLayoutY(listArea.getPane().getLayoutY() - grid.currentScrollDirectionY / 8);
-
-        });
-
         listArea.getPane().getChildren().add(cellGroup);
 
         handleDragAndDrop(listArea, cellGroup, svgPath, hBox, vBox, currentDraggedFromInt, cell);

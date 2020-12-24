@@ -91,7 +91,21 @@ public class ListArea {
         }
         Cell cell = new Cell();//just so I can use an instance method
         cell.displayAllCells(listArea);
+        listArea.handleScrolling();
         return listArea.getPane();
+    }
+
+    public void handleScrolling(){
+        pane.setOnScroll(event -> {
+            double deltaX = event.getDeltaX();
+            double deltaY = event.getDeltaY();
+            grid.currentScrollDirectionX = deltaX;
+            grid.currentScrollDirectionY = deltaY;
+
+            pane.setLayoutX(pane.getLayoutX() + grid.currentScrollDirectionY / 8);
+            pane.setLayoutY(pane.getLayoutY() - grid.currentScrollDirectionY / 8);
+
+        });
     }
 
 

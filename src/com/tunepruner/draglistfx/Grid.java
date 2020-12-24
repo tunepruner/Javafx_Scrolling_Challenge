@@ -113,28 +113,5 @@ public class Grid {
         return listID;
     }
 
-//    public void setCellOpacity(ListArea listArea, HBox hBox, VBox vBox, Cell cell) {
-//        listArea.getTopLeft();
-//        listArea.getBottomLeft();
-//        cell.cellGroup.getLayoutX();
-//
-//        int topDistance = Math.abs((int) (listArea.getTopLeft().getY() - cell.cellGroup.getLayoutY()));
-//        int bottomDistance = Math.abs((int) (listArea.getBottomLeft().getY() - cell.cellGroup.getLayoutY()));
-//        int opaqueEdgeSize = (listArea.getCellHeight() + listArea.getCellPadding()) * 3;
-//
-//        if (cell.cellGroup.getLayoutY() > listArea.getTopLeft().getY()
-//            &&
-//            cell.cellGroup.getLayoutY() < listArea.getBottomLeft().getY()
-//            ){
-//            int distance = Math.min(topDistance, bottomDistance);
-//            if (distance < opaqueEdgeSize) {
-//                cell.cellGroup.setOpacity((double) distance/ (double) opaqueEdgeSize);
-//                cell.cellGroup.setOpacity((double) distance/ (double) opaqueEdgeSize);
-//            }
-//        }else{
-//            cell.cellGroup.setOpacity(0);
-//            cell.cellGroup.setOpacity(0);
-//        }
-//    }
 
 }
