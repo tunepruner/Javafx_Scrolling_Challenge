@@ -64,7 +64,11 @@ public class Cell {
         this.rightTriangle = new Polygon();
     }
 
-    public void displayCell(ListArea listArea, String string, Grid grid) {
+    public Point determineCellPosition(ListArea listArea, String string){
+        return listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string));
+    }
+
+    public void drawCell(ListArea listArea, String string, Grid grid) {
         ObservableList<String> list = listArea.getList();
 
         HBox hBox = new HBox();
@@ -158,10 +162,8 @@ public class Cell {
         vBox.setVgrow(paneInsideVBox2, Priority.ALWAYS);
 
 
-        Point point = listArea.getGrid().getGridMap().get(list.indexOf(string));
+        Point point = determineCellPosition(listArea, string);
 
-//        hBox.relocate(point.x, point.y);
-//        vBox.relocate(point.x + listArea.getCellWidth(), point.y);
         hBox.relocate(100, 100);
         vBox.relocate(listArea.getCellWidth() + 100, 100);
         cellGroup.setLayoutX(point.x);
@@ -354,7 +356,7 @@ public class Cell {
         for ( int i = 0; i < listArea.getList().size(); i++ ) {
             String string = listArea.getList().get(i);
             listArea.getListFromFile().handleSyncToFile(listArea);
-            displayCell(listArea, string, listArea.getGrid());
+            drawCell(listArea, string, listArea.getGrid());
         }
     }
 }

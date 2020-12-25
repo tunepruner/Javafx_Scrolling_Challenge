@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac3e2c89-37d1-41a7-bac6-b3f85d8f1abf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/ListPaneAnimationDemo_V5.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tunepruner/fourwards/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tunepruner/fourwards/Cell.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,53 +61,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="4wards" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="4wards" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -142,38 +96,38 @@
       <screen x="0" y="23" width="1280" height="721" />
     </state>
     <state x="378" y="132" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1280.721@0.23.1280.721" timestamp="1608829972326" />
-    <state width="1238" height="196" key="GridCell.Tab.0.bottom" timestamp="1608855480889">
-      <screen x="0" y="23" width="1280" height="721" />
+    <state width="1238" height="198" key="GridCell.Tab.0.bottom" timestamp="1608862149333">
+      <screen x="0" y="23" width="1280" height="723" />
     </state>
     <state width="1238" height="181" key="GridCell.Tab.0.bottom/0.23.1280.713@0.23.1280.713" timestamp="1608780772414" />
     <state width="1238" height="181" key="GridCell.Tab.0.bottom/0.23.1280.715@0.23.1280.715" timestamp="1608742823186" />
     <state width="1238" height="196" key="GridCell.Tab.0.bottom/0.23.1280.716@0.23.1280.716" timestamp="1608853470846" />
     <state width="1238" height="196" key="GridCell.Tab.0.bottom/0.23.1280.721@0.23.1280.721" timestamp="1608855480889" />
-    <state width="1238" height="196" key="GridCell.Tab.0.bottom/0.23.1280.723@0.23.1280.723" timestamp="1608847537697" />
-    <state width="1238" height="196" key="GridCell.Tab.0.center" timestamp="1608855480889">
-      <screen x="0" y="23" width="1280" height="721" />
+    <state width="1238" height="198" key="GridCell.Tab.0.bottom/0.23.1280.723@0.23.1280.723" timestamp="1608862149333" />
+    <state width="1238" height="198" key="GridCell.Tab.0.center" timestamp="1608862149332">
+      <screen x="0" y="23" width="1280" height="723" />
     </state>
     <state width="1238" height="181" key="GridCell.Tab.0.center/0.23.1280.713@0.23.1280.713" timestamp="1608780772412" />
     <state width="1238" height="181" key="GridCell.Tab.0.center/0.23.1280.715@0.23.1280.715" timestamp="1608742823184" />
     <state width="1238" height="196" key="GridCell.Tab.0.center/0.23.1280.716@0.23.1280.716" timestamp="1608853470845" />
     <state width="1238" height="196" key="GridCell.Tab.0.center/0.23.1280.721@0.23.1280.721" timestamp="1608855480889" />
-    <state width="1238" height="196" key="GridCell.Tab.0.center/0.23.1280.723@0.23.1280.723" timestamp="1608847537696" />
-    <state width="1238" height="196" key="GridCell.Tab.0.left" timestamp="1608855480888">
-      <screen x="0" y="23" width="1280" height="721" />
+    <state width="1238" height="198" key="GridCell.Tab.0.center/0.23.1280.723@0.23.1280.723" timestamp="1608862149332" />
+    <state width="1238" height="198" key="GridCell.Tab.0.left" timestamp="1608862149331">
+      <screen x="0" y="23" width="1280" height="723" />
     </state>
     <state width="1238" height="181" key="GridCell.Tab.0.left/0.23.1280.713@0.23.1280.713" timestamp="1608780772408" />
     <state width="1238" height="181" key="GridCell.Tab.0.left/0.23.1280.715@0.23.1280.715" timestamp="1608742823183" />
     <state width="1238" height="196" key="GridCell.Tab.0.left/0.23.1280.716@0.23.1280.716" timestamp="1608853470844" />
     <state width="1238" height="196" key="GridCell.Tab.0.left/0.23.1280.721@0.23.1280.721" timestamp="1608855480888" />
-    <state width="1238" height="196" key="GridCell.Tab.0.left/0.23.1280.723@0.23.1280.723" timestamp="1608847537695" />
-    <state width="1238" height="196" key="GridCell.Tab.0.right" timestamp="1608855480889">
-      <screen x="0" y="23" width="1280" height="721" />
+    <state width="1238" height="198" key="GridCell.Tab.0.left/0.23.1280.723@0.23.1280.723" timestamp="1608862149331" />
+    <state width="1238" height="198" key="GridCell.Tab.0.right" timestamp="1608862149332">
+      <screen x="0" y="23" width="1280" height="723" />
     </state>
     <state width="1238" height="181" key="GridCell.Tab.0.right/0.23.1280.713@0.23.1280.713" timestamp="1608780772413" />
     <state width="1238" height="181" key="GridCell.Tab.0.right/0.23.1280.715@0.23.1280.715" timestamp="1608742823184" />
     <state width="1238" height="196" key="GridCell.Tab.0.right/0.23.1280.716@0.23.1280.716" timestamp="1608853470845" />
     <state width="1238" height="196" key="GridCell.Tab.0.right/0.23.1280.721@0.23.1280.721" timestamp="1608855480889" />
-    <state width="1238" height="196" key="GridCell.Tab.0.right/0.23.1280.723@0.23.1280.723" timestamp="1608847537696" />
+    <state width="1238" height="198" key="GridCell.Tab.0.right/0.23.1280.723@0.23.1280.723" timestamp="1608862149332" />
     <state width="1238" height="219" key="GridCell.Tab.1.bottom" timestamp="1608740966131">
       <screen x="0" y="23" width="1280" height="716" />
     </state>
