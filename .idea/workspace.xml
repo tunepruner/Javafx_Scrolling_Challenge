@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac3e2c89-37d1-41a7-bac6-b3f85d8f1abf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/tunepruner/draglistfx/topics/TimeContainer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tunepruner/draglistfx/topics/Topics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tunepruner/draglistfx/ListArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tunepruner/draglistfx/ListArea.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tunepruner/draglistfx/Topic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tunepruner/draglistfx/topics/Topic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tunepruner/draglistfx/TopicEntries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tunepruner/draglistfx/topics/TimeContainers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tunepruner/draglistfx/TopicEntry.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ListPaneAnimationDemo_V5.iml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +26,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/com/tunepruner/draglistfx/ListFromFile.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/com/tunepruner/fourwards/ListFromFile.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
@@ -47,9 +41,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.3837072" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
@@ -60,8 +54,55 @@
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="com.tunepruner.draglistfx.Main" />
-      <module name="ListPaneAnimationDemo_V5" />
+      <option name="MAIN_CLASS_NAME" value="com.tunepruner.fourwards.Main" />
+      <module name="4wards" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="4wards" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="4wards" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -161,11 +202,12 @@
       <screen x="0" y="23" width="1280" height="721" />
     </state>
     <state x="350" y="89" width="580" height="570" key="RefactorJ.ExtractClass/0.23.1280.721@0.23.1280.721" timestamp="1608828476563" />
-    <state x="128" y="23" width="997" height="713" key="SettingsEditor" timestamp="1608780744179">
-      <screen x="0" y="23" width="1280" height="713" />
+    <state x="128" y="23" width="997" height="713" key="SettingsEditor" timestamp="1608857359437">
+      <screen x="0" y="23" width="1280" height="721" />
     </state>
     <state x="128" y="23" width="997" height="713" key="SettingsEditor/0.23.1280.713@0.23.1280.713" timestamp="1608780744179" />
     <state x="128" y="23" key="SettingsEditor/0.23.1280.715@0.23.1280.715" timestamp="1608673534586" />
+    <state x="128" y="23" key="SettingsEditor/0.23.1280.721@0.23.1280.721" timestamp="1608857359437" />
     <state width="500" height="445" key="SwitcherDM" timestamp="1608695651893">
       <screen x="0" y="23" width="1280" height="716" />
     </state>
