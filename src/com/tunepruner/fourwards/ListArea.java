@@ -25,6 +25,7 @@ public class ListArea {
     private Point topLeft;
     private int areaHeight, areaWidth, cellHeight, cellWidth, cellPadding;
     private ObservableList<String> list = FXCollections.observableArrayList();/*change this to List<TimeContainer>*/
+    private AdderCell adderCell;
     private Stage stage;
     public ListArea (
             String uniqueID,
@@ -53,6 +54,7 @@ public class ListArea {
         this.parentPane = parentPane;
         this.pane = new Pane();
         this.clipPane = new Pane();
+        this.adderCell = AdderCell.getInstance(this);
     }
 
     public void setGrid(Grid grid) {
