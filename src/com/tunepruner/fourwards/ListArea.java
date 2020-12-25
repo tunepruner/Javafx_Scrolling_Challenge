@@ -15,6 +15,8 @@ import java.awt.*;
 import java.io.IOException;
 
 public class ListArea {
+    public static final int LIST_BOTTOM_X_VALUE = -145;
+    public static final int LIST_TOP_X_VALUE = 386;
     public final Color COLOR_OF_INNER_PANE = new Color(0, .2, .3, 1);
     public final String uniqueID;
     public Pane pane;
@@ -135,14 +137,14 @@ public class ListArea {
 
     public void handleScrolling(){
         pane.setOnScroll(event -> {
-            if (this.pane.getLayoutX() > 360) {
-                this.pane.setLayoutX(359);
-                this.pane.setLayoutY(-359);
+            if (this.pane.getLayoutX() > LIST_TOP_X_VALUE) {
+                this.pane.setLayoutX(LIST_TOP_X_VALUE-1);
+                this.pane.setLayoutY(-LIST_TOP_X_VALUE+1);
                 /*This number is a magic number unfortunately.
                 * I can't figure out how to relate it to the properties of the listArea. */
-            } else if(this.pane.getLayoutX() < -145) {
-                this.pane.setLayoutX(-144);
-                this.pane.setLayoutY(144);
+            } else if(this.pane.getLayoutX() < LIST_BOTTOM_X_VALUE) {
+                this.pane.setLayoutX(LIST_BOTTOM_X_VALUE + 1);
+                this.pane.setLayoutY(-LIST_BOTTOM_X_VALUE-1);
                 /*This is also a magic number,  found by trial and error.*/
             } else {
                 double deltaX = event.getDeltaX();
