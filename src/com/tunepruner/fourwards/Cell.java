@@ -194,7 +194,7 @@ public class Cell {
 
         });
 
-        fadeInForCell(listArea, cellGroup);
+        addWithFadeEffect(listArea, cellGroup);
 
         handleDragAndDrop(listArea, cellGroup, svgPath, hBox, vBox, currentDraggedFromInt, cell);
 
@@ -202,7 +202,7 @@ public class Cell {
 
     }
 
-    private void fadeInForCell(ListArea listArea, Group cellGroup) {
+    public void addWithFadeEffect(ListArea listArea, Group cellGroup) {
         cellGroup.setOpacity(0);
         listArea.getPane().getChildren().add(cellGroup);
         Timeline timeline = new Timeline();
