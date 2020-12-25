@@ -25,7 +25,7 @@ public class ListArea {
     private Grid grid;
     private Point topLeft;
     private int areaHeight, areaWidth, cellHeight, cellWidth, cellPadding;
-    private ObservableList<String> list = FXCollections.observableArrayList();
+    private ObservableList<String> list = FXCollections.observableArrayList();/*change this to List<TopicEntry>*/
     private Stage stage;
     public ListArea (
             String uniqueID,
