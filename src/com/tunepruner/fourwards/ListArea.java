@@ -1,4 +1,4 @@
-package com.tunepruner.draglistfx;
+package com.tunepruner.fourwards;
 
 import  javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,7 +9,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import org.w3c.dom.css.Rect;
 import javafx.scene.shape.Rectangle;
 
 import java.awt.*;
@@ -25,7 +24,7 @@ public class ListArea {
     private Grid grid;
     private Point topLeft;
     private int areaHeight, areaWidth, cellHeight, cellWidth, cellPadding;
-    private ObservableList<String> list = FXCollections.observableArrayList();/*change this to List<TopicEntry>*/
+    private ObservableList<String> list = FXCollections.observableArrayList();/*change this to List<TimeContainer>*/
     private Stage stage;
     public ListArea (
             String uniqueID,

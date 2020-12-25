@@ -1,4 +1,4 @@
-package com.tunepruner.draglistfx;
+package com.tunepruner.fourwards;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -20,7 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.shape.Polygon;
 
 import java.awt.*;
-import java.sql.Time;
 
 import javafx.scene.control.ProgressBar;
 

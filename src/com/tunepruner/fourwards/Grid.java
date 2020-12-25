@@ -1,11 +1,9 @@
-package com.tunepruner.draglistfx;
+package com.tunepruner.fourwards;
 
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 import java.awt.*;
 
