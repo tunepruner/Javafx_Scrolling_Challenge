@@ -227,7 +227,6 @@ public class Cell {
 
             Group d = (Group) (event.getSource());
 
-
             cellGroup.setLayoutX(cellGroup.getLayoutX() + offsetX);
             cellGroup.setLayoutY(cellGroup.getLayoutY() + offsetY);
             /*Report the current position in SimpleDoubleProperty format.*/

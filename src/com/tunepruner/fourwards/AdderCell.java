@@ -3,8 +3,11 @@ package com.tunepruner.fourwards;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.event.Event;
 import javafx.scene.Group;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
 
 import java.awt.*;
@@ -38,8 +41,18 @@ public class AdderCell extends Cell {
         return adderCell;
     }
 
+    @Override
     public void cueReposition(ListArea listArea, HBox hBox, Cell cell) {
         //do nothing
+    }
+
+    @Override
+    public void handleDragAndDrop(ListArea listArea, Group cellGroup, SVGPath svgPath, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
+        cellGroup.setOnMouseClicked(event -> {
+            System.out.println(listArea.getList());
+            listArea.getList().add("testing");
+            System.out.println(listArea.getList());
+        });
     }
 
 }
