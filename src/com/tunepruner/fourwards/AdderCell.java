@@ -37,4 +37,8 @@ public class AdderCell extends Cell {
         return adderCell;
     }
 
+    public void cueReposition(ListArea listArea, HBox hBox, Cell cell) {
+        //do nothing
+    }
+
 }
