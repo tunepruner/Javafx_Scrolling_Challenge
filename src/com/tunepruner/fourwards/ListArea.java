@@ -132,6 +132,7 @@ public class ListArea {
         clip.setLayoutY(listArea.topLeft.y);
 
         listArea.getParentPane().getChildren().addAll(listArea.getClipPane(), listArea.getStartAreaPane());
+        listArea.getStartAreaPane().toFront();
         listArea.getClipPane().getChildren().add(listArea.getPane());
 
         listArea.getClipPane().setClip(clip);
