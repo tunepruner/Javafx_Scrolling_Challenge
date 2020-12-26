@@ -20,7 +20,7 @@ public class ListArea {
     public final Color COLOR_OF_INNER_PANE = new Color(0, .2, .3, 1);
     public final String uniqueID;
     public Pane pane;
-    private Pane parentPane;
+    private Pane listAreaPane;
     private Pane clipPane;
     private Pane startAreaPane;
     private ListFromFile listFromFile;
@@ -32,7 +32,7 @@ public class ListArea {
     private Stage stage;
     public ListArea (
             String uniqueID,
-            Pane parentPane,
+            Pane listAreaPane,
             ListFromFile listFromFile,
             Point topLeft,
             Point topRight,
@@ -55,7 +55,7 @@ public class ListArea {
         this.cellWidth = cellWidth;
         this.cellPadding = cellPadding;
         this.stage = stage;
-        this.parentPane = parentPane;
+        this.listAreaPane = listAreaPane;
         this.pane = new Pane();
         this.startAreaPane = new Pane();
         this.clipPane = new Pane();
@@ -96,8 +96,8 @@ public class ListArea {
     public Point getTopLeft() {
         return topLeft;
     }
-    public Pane getParentPane() {
-        return parentPane;
+    public Pane getListAreaPane() {
+        return listAreaPane;
     }
     public ObservableList<String> getList() {
         return list;
@@ -131,16 +131,30 @@ public class ListArea {
         clip.setLayoutX(listArea.topLeft.x);
         clip.setLayoutY(listArea.topLeft.y);
 
-        listArea.getParentPane().getChildren().addAll(listArea.getClipPane(), listArea.getStartAreaPane());
+        listArea.getListAreaPane().getChildren().addAll(listArea.getClipPane(), listArea.getStartAreaPane());
         listArea.getStartAreaPane().toFront();
         listArea.getClipPane().getChildren().add(listArea.getPane());
 
         listArea.getClipPane().setClip(clip);
-        listArea.getParentPane().toFront();
+        listArea.getListAreaPane().toFront();
 
         listArea.getClipPane().setBackground(new Background(new BackgroundFill(listArea.COLOR_OF_INNER_PANE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        return listArea.parentPane;
+//        Rectangle rectangle1 = new Rectangle();
+//        rectangle1.setLayoutX(0);
+//        rectangle1.setLayoutY(0);
+////        rectangle1.setLayoutX(350);
+////        rectangle1.setLayoutY(650 - listArea.getCellHeight() - listArea.getCellWidth());
+//        rectangle1.setHeight(listArea.getCellHeight() + listArea.getCellWidth());
+//        rectangle1.setWidth(rectangle1.getHeight());
+//        rectangle1.setFill(listArea.COLOR_OF_INNER_PANE);
+//        listArea.getStartAreaPane().getChildren().add(rectangle1);
+
+        listArea.startAreaPane.relocate(350, 400);
+
+        listArea.getStartAreaPane().setBackground(new Background(new BackgroundFill(listArea.COLOR_OF_INNER_PANE, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        return listArea.listAreaPane;
     }
 
     public void handleScrolling(){

@@ -16,15 +16,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Pane planPane = new Pane();
-        planPane.toFront();
+        Pane listAreaPane = new Pane();
+        listAreaPane.toFront();
 
         rectBackground = new Rectangle();
         rectBackground.setFill(new Color(0.1019608f, 0.3519608f, 0.58039216f, 1));
 
         ListArea listArea = new ListArea(
                 "PlanList",
-                planPane,
+                listAreaPane,
                 new ListFromFile(),
                 new Point(350, 150),//topLeft
                 new Point(850, 150),//topRight
@@ -37,19 +37,11 @@ public class Main extends Application {
                 primaryStage,
                 new Rectangle()
         );
-        planPane = listArea.drawListArea(listArea);
+        listAreaPane = listArea.drawListArea(listArea);
 
         Group root = new Group();
-        root.getChildren().addAll(planPane, rectBackground);
+        root.getChildren().addAll(listAreaPane, rectBackground);
         rectBackground.toBack();
-
-        Rectangle rectangle1 = new Rectangle();
-        rectangle1.setLayoutX(350);
-        rectangle1.setLayoutY(650 - listArea.getCellHeight() - listArea.getCellWidth());
-        rectangle1.setHeight(listArea.getCellHeight() + listArea.getCellWidth());
-        rectangle1.setWidth(rectangle1.getHeight());
-        rectangle1.setFill(listArea.COLOR_OF_INNER_PANE);
-        planPane.getChildren().add(rectangle1);
 
         Scene scene = new Scene(root, 1300, 700);
         this.rectBackground.widthProperty().bind(scene.widthProperty());
