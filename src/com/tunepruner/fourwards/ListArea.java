@@ -22,6 +22,7 @@ public class ListArea {
     public Pane pane;
     private Pane parentPane;
     private Pane clipPane;
+    private Pane startAreaPane;
     private ListFromFile listFromFile;
     private Grid grid;
     private Point topLeft;
@@ -43,6 +44,7 @@ public class ListArea {
             int cellPadding,
             Stage stage,
             Rectangle clip
+
     ){
         this.uniqueID = uniqueID;
         this.listFromFile = listFromFile;
@@ -55,6 +57,7 @@ public class ListArea {
         this.stage = stage;
         this.parentPane = parentPane;
         this.pane = new Pane();
+        this.startAreaPane = new Pane();
         this.clipPane = new Pane();
         this.adderCell = AdderCell.getInstance(this);
     }
@@ -62,10 +65,10 @@ public class ListArea {
     public void setGrid(Grid grid) {
         this.grid = grid;
     }
+
     public String getUniqueID() {
         return uniqueID;
     }
-
     public Pane getPane() {
         return pane;
     }
@@ -77,8 +80,12 @@ public class ListArea {
     public Grid getGrid() {
         return grid;
     }
+
     public Pane getClipPane() {
         return clipPane;
+    }
+    public Pane getStartAreaPane() {
+        return startAreaPane;
     }
     public int getAreaHeight() {
         return areaHeight;
@@ -124,7 +131,7 @@ public class ListArea {
         clip.setLayoutX(listArea.topLeft.x);
         clip.setLayoutY(listArea.topLeft.y);
 
-        listArea.getParentPane().getChildren().add(listArea.getClipPane());
+        listArea.getParentPane().getChildren().addAll(listArea.getClipPane(), listArea.getStartAreaPane());
         listArea.getClipPane().getChildren().add(listArea.getPane());
 
         listArea.getClipPane().setClip(clip);
