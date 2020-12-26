@@ -43,7 +43,7 @@ public class AdderCell extends Cell {
     }
 
     @Override
-    public void cueReposition(ListArea listArea, HBox hBox, Cell cell) {
+    public void cueReposition(ListArea listArea, HBox hBox) {
         //do nothing
     }
 

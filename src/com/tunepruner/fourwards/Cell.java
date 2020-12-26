@@ -180,7 +180,7 @@ public class Cell {
 
         handleDragAndDrop(listArea, cellGroup);
 
-        cueReposition(listArea, hBox, this);
+        cueReposition(listArea, hBox);
 
     }
 
@@ -272,7 +272,7 @@ public class Cell {
         });
     }
 
-    public void cueReposition(ListArea listArea, HBox hBox, Cell cell) {
+    public void cueReposition(ListArea listArea, HBox hBox) {
         /*(Everything enclosed in listener to the ObservableList)
          * Animate a timeline transform for HBox, then for VBox.
          */
@@ -285,10 +285,10 @@ public class Cell {
 
                 if (c.wasAdded()) {
 //                    Point currentPoint = new Point((int) hBox.getLayoutX(), (int) hBox.getLayoutY());
-                    boolean animationPermitted = listArea.getGrid().animationPermitted(listArea,/*maybe add point here*/hBox, cell);
+                    boolean animationPermitted = listArea.getGrid().animationPermitted(listArea,/*maybe add point here*/hBox, this);
 
                     if (animationPermitted == true) {
-                        cell.executeReposition(listArea, hBox, cell);
+                        executeReposition(listArea, hBox, this);
                     }
                 }
             }
