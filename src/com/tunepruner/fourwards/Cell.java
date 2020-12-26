@@ -66,18 +66,18 @@ public class Cell {
     }
 
     public void designCell(ListArea listArea, String string, Cell cell) {
-        HBox hBox = new HBox();
-        VBox vBox = new VBox();
-        Polygon leftTriangle = new Polygon();
-        Polygon rightTriangle = new Polygon();
+        hBox = new HBox();
+        vBox = new VBox();
+        leftTriangle = new Polygon();
+        rightTriangle = new Polygon();
+        cellGroup = new Group();
+        label = new Label(string);
         Pane paneInsideHBox1 = new Pane();
         Pane paneInsideHBox2 = new Pane();
         Pane paneInsideVBox1 = new Pane();
         Pane paneInsideVBox2 = new Pane();
-        Label label = new Label(string);
         Button btn = new Button();
         ProgressBar progressBar = new ProgressBar(1);
-        Group cellGroup = new Group();
         cellGroup.getChildren().addAll(hBox, vBox, leftTriangle, rightTriangle);
 
         leftTriangle.getPoints().addAll((double) -listArea.getCellHeight() + 100.0, listArea.getCellHeight() + 100.0,
@@ -172,22 +172,16 @@ public class Cell {
         cellGroup.setLayoutY(point.y);
         cellGroup.setEffect(new DropShadow(2, Color.BLACK));
 
-        cell.followableX = new SimpleDoubleProperty();
-        cell.followableY = new SimpleDoubleProperty();
-        cell.followableX.set(point.x);
-        cell.followableY.set(point.y);
+        followableX = new SimpleDoubleProperty();
+        followableY = new SimpleDoubleProperty();
+        followableX.set(point.x);
+        followableY.set(point.y);
 
 
         handleDragAndDrop(listArea, cellGroup);
 
         cueReposition(listArea, hBox, cell);
 
-        cell.hBox = hBox;
-        cell.vBox = vBox;
-        cell.label = label;
-        cell.cellGroup = cellGroup;
-        cell.leftTriangle = leftTriangle;
-        cell.rightTriangle = rightTriangle;
     }
 
     public void revealCell(Pane pane) {cellGroup.setOpacity(0);
