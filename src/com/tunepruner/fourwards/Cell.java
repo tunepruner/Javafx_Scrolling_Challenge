@@ -65,7 +65,7 @@ public class Cell {
         return listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string));
     }
 
-    public void designCell(ListArea listArea, String string, Cell cell) {
+    public void designCell(ListArea listArea, String string) {
         hBox = new HBox();
         vBox = new VBox();
         leftTriangle = new Polygon();
@@ -180,7 +180,7 @@ public class Cell {
 
         handleDragAndDrop(listArea, cellGroup);
 
-        cueReposition(listArea, hBox, cell);
+        cueReposition(listArea, hBox, this);
 
     }
 

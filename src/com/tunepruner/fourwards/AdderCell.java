@@ -37,7 +37,7 @@ public class AdderCell extends Cell {
 
     public static AdderCell getInstance(ListArea listArea) {
         if (adderCell == null) adderCell = new AdderCell();
-        adderCell.designCell(listArea, "Drag to add new", adderCell);
+        adderCell.designCell(listArea, "Drag to add new");
         adderCell.revealCell(listArea.getStartAreaPane());
         return adderCell;
     }
@@ -51,7 +51,7 @@ public class AdderCell extends Cell {
     public void handleDragAndDrop(ListArea listArea, Group cellGroup) {
         cellGroup.setOnMouseClicked(event -> {
             listArea.getList().add("testing");
-            super.designCell(listArea, "testing", this);
+            super.designCell(listArea, "testing");
         });
 
         cellGroup.setOnMousePressed(event -> {

@@ -182,7 +182,7 @@ public class ListArea {
             String string = listArea.getList().get(i);
             listArea.getListFromFile().handleSyncToFile(listArea);
             Cell cell = new Cell();
-            cell.designCell(listArea, string, cell);
+            cell.designCell(listArea, string);
             cell.revealCell(listArea.getPane());
         }
     }
