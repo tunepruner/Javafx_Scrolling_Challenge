@@ -48,7 +48,7 @@ public class AdderCell extends Cell {
     }
 
     @Override
-    public void handleDragAndDrop(ListArea listArea, Group cellGroup) {
+    public void handleDragAndDrop(ListArea listArea) {
         cellGroup.setOnMouseClicked(event -> {
             listArea.getList().add("testing");
             super.designCell(listArea, "testing");
