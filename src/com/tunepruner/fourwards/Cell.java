@@ -64,11 +64,11 @@ public class Cell {
         this.rightTriangle = new Polygon();
     }
 
-    public Point determineCellPosition(ListArea listArea, String string){
+    public Point determineCellPosition(ListArea listArea, String string) {
         return listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string));
     }
 
-    public void drawCell(ListArea listArea, String string) {
+    public void drawCell(ListArea listArea, String string, Cell cell) {
         HBox hBox = new HBox();
         VBox vBox = new VBox();
         Polygon leftTriangle = new Polygon();
@@ -82,6 +82,11 @@ public class Cell {
         ProgressBar progressBar = new ProgressBar(1);
         Group cellGroup = new Group();
         cellGroup.getChildren().addAll(hBox, vBox, leftTriangle, rightTriangle);
+
+        cell.hBox = hBox;
+        cell.vBox = vBox;
+        cell.label = label;
+        cell.cellGroup = cellGroup;
 
         leftTriangle.getPoints().addAll((double) -listArea.getCellHeight() + 100.0, listArea.getCellHeight() + 100.0,
                 0.00 + 100.0, 0.0 + 100.0,
@@ -102,8 +107,7 @@ public class Cell {
         hBox.setMaxWidth(listArea.getCellWidth());
         hBox.setMinHeight(listArea.getCellHeight());
         hBox.setMaxHeight(listArea.getCellHeight());
-        Color color = new Color(0.3084314f, .5, .6, 1);
-        hBox.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+        hBox.setBackground(new Background(new BackgroundFill(listArea.COLOR_OF_CELLS, CornerRadii.EMPTY, Insets.EMPTY)));
         hBox.setManaged(true);
 
         progressBar.setRotate(-90);
@@ -129,8 +133,8 @@ public class Cell {
         label.setTextFill(Color.WHITE);
 //        label.setOpaqueInsets(new Insets(10));
 
-        leftTriangle.setFill(color);
-        rightTriangle.setFill(color);
+        leftTriangle.setFill(listArea.COLOR_OF_CELLS);
+        rightTriangle.setFill(listArea.COLOR_OF_CELLS);
 
         hBox.getChildren().add(paneInsideHBox1);
         hBox.setHgrow(paneInsideHBox1, Priority.ALWAYS);
@@ -176,7 +180,6 @@ public class Cell {
         cellGroup.setLayoutY(point.y);
         cellGroup.setEffect(new DropShadow(2, Color.BLACK));
 
-        Cell cell = new Cell(hBox, vBox, label, cellGroup, listArea);
 
         cell.followableX = new SimpleDoubleProperty();
         cell.followableY = new SimpleDoubleProperty();
@@ -187,7 +190,7 @@ public class Cell {
 
         handleDragAndDrop(listArea, cellGroup, svgPath, hBox, vBox, currentDraggedFromInt, cell);
 
-        cueReposition(listArea, hBox,cell);
+        cueReposition(listArea, hBox, cell);
     }
 
     public void addWithFadeEffect(ListArea listArea, Group cellGroup) {
@@ -343,7 +346,8 @@ public class Cell {
         for ( int i = 0; i < listArea.getList().size(); i++ ) {
             String string = listArea.getList().get(i);
             listArea.getListFromFile().handleSyncToFile(listArea);
-            drawCell(listArea, string);
+            Cell cell = new Cell();
+            drawCell(listArea, string, cell);
         }
     }
 }

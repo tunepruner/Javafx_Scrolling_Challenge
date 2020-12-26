@@ -18,6 +18,7 @@ public class ListArea {
     public static final int LIST_BOTTOM_X_VALUE = -145;
     public static final int LIST_TOP_X_VALUE = 386;
     public final Color COLOR_OF_INNER_PANE = new Color(0, .2, .3, 1);
+    public final Color COLOR_OF_CELLS = new Color(0.3084314f, .5, .6, 1);
     public final String uniqueID;
     public Pane pane;
     private Pane listAreaPane;
@@ -131,6 +132,7 @@ public class ListArea {
         clip.setLayoutX(listArea.topLeft.x);
         clip.setLayoutY(listArea.topLeft.y);
 
+
         listArea.getListAreaPane().getChildren().addAll(listArea.getClipPane(), listArea.getStartAreaPane());
         listArea.getStartAreaPane().toFront();
         listArea.getClipPane().getChildren().add(listArea.getPane());
@@ -140,19 +142,9 @@ public class ListArea {
 
         listArea.getClipPane().setBackground(new Background(new BackgroundFill(listArea.COLOR_OF_INNER_PANE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-//        Rectangle rectangle1 = new Rectangle();
-//        rectangle1.setLayoutX(0);
-//        rectangle1.setLayoutY(0);
-////        rectangle1.setLayoutX(350);
-////        rectangle1.setLayoutY(650 - listArea.getCellHeight() - listArea.getCellWidth());
-//        rectangle1.setHeight(listArea.getCellHeight() + listArea.getCellWidth());
-//        rectangle1.setWidth(rectangle1.getHeight());
-//        rectangle1.setFill(listArea.COLOR_OF_INNER_PANE);
-//        listArea.getStartAreaPane().getChildren().add(rectangle1);
-
         listArea.startAreaPane.relocate(350, 400);
 
-        listArea.getStartAreaPane().setBackground(new Background(new BackgroundFill(listArea.COLOR_OF_INNER_PANE, CornerRadii.EMPTY, Insets.EMPTY)));
+        listArea.getStartAreaPane().setBackground(new Background(new BackgroundFill(listArea.COLOR_OF_CELLS, new CornerRadii(0, 0, 0, 60, false), Insets.EMPTY)));
 
         return listArea.listAreaPane;
     }
@@ -180,5 +172,8 @@ public class ListArea {
                 System.out.println("this.pane.getLayoutY() = " + this.pane.getLayoutY());
             }
         });
+    }
+    public void updateList(){
+
     }
 }
