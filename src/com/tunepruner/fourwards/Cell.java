@@ -180,7 +180,7 @@ public class Cell {
 
         handleDragAndDrop(listArea, cellGroup);
 
-        cueReposition(listArea, hBox);
+        cueReposition(listArea);
 
     }
 
@@ -272,7 +272,7 @@ public class Cell {
         });
     }
 
-    public void cueReposition(ListArea listArea, HBox hBox) {
+    public void cueReposition(ListArea listArea) {
         /*(Everything enclosed in listener to the ObservableList)
          * Animate a timeline transform for HBox, then for VBox.
          */
