@@ -192,14 +192,16 @@ public class Cell {
         cell.rightTriangle = rightTriangle;
     }
 
-    public void revealCell(Cell cell, Pane pane) {
-        cell.cellGroup.setOpacity(0);
-        System.out.println(cell.cellIdentifier);
-        pane.getChildren().add(cell.cellGroup);
+    public void revealCell(Pane pane) {
+        System.out.println(this);
+
+        cellGroup.setOpacity(0);
+        System.out.println(cellIdentifier);
+        pane.getChildren().add(cellGroup);
         Timeline timeline = new Timeline();
         KeyFrame keyFrame = new KeyFrame(
                 new Duration(300),
-                new KeyValue(cell.cellGroup.opacityProperty(), 1));
+                new KeyValue(cellGroup.opacityProperty(), 1));
         timeline.getKeyFrames().add(keyFrame);
         timeline.play();
     }
@@ -340,14 +342,4 @@ public class Cell {
         });
     }
 
-    public void displayAllCells(ListArea listArea) {
-        listArea.setGrid(new Grid(listArea));
-        for ( int i = 0; i < listArea.getList().size(); i++ ) {
-            String string = listArea.getList().get(i);
-            listArea.getListFromFile().handleSyncToFile(listArea);
-            Cell cell = new Cell();
-            designCell(listArea, string, cell);
-            revealCell(cell, listArea.getPane());
-        }
-    }
 }

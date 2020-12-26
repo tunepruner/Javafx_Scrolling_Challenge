@@ -23,13 +23,13 @@ public class AdderCell extends Cell {
     }
 
     @Override
-    public void revealCell(Cell cell, Pane pane) {
-        cell.cellGroup.setOpacity(0);
-        pane.getChildren().add(cell.cellGroup);
+    public void revealCell(Pane pane) {
+        cellGroup.setOpacity(0);
+        pane.getChildren().add(cellGroup);
         Timeline timeline = new Timeline();
         KeyFrame keyFrame = new KeyFrame(
                 new Duration(300),
-                new KeyValue(cell.cellGroup.opacityProperty(), 1));
+                new KeyValue(cellGroup.opacityProperty(), 1));
         timeline.getKeyFrames().add(keyFrame);
         timeline.play();
     }
@@ -37,7 +37,7 @@ public class AdderCell extends Cell {
     public static AdderCell getInstance(ListArea listArea) {
         if (adderCell == null) adderCell = new AdderCell();
         adderCell.designCell(listArea, "Drag to add new", adderCell);
-        adderCell.revealCell(adderCell, listArea.getStartAreaPane());
+        adderCell.revealCell(listArea.getStartAreaPane());
         return adderCell;
     }
 

@@ -116,14 +116,14 @@ public class ListArea {
         return stage;
     }
 
-    public static Pane drawListArea(ListArea listArea) {
+    public Pane drawListArea(ListArea listArea) {
         try {
             listArea.listFromFile.syncFromFile(listArea);
         } catch (IOException e) {
             e.printStackTrace();
         }
         Cell cell = new Cell();
-        cell.displayAllCells(listArea);
+        displayAllCells(listArea);
         listArea.handleScrolling();
 
         Rectangle clip = new Rectangle();
@@ -175,5 +175,17 @@ public class ListArea {
     }
     public void updateList(){
 
+    }
+
+
+    public void displayAllCells(ListArea listArea) {
+        listArea.setGrid(new Grid(listArea));
+        for ( int i = 0; i < listArea.getList().size(); i++ ) {
+            String string = listArea.getList().get(i);
+            listArea.getListFromFile().handleSyncToFile(listArea);
+            Cell cell = new Cell();
+            cell.designCell(listArea, string, cell);
+            cell.revealCell(listArea.getPane());
+        }
     }
 }
