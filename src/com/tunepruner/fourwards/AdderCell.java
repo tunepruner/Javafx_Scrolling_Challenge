@@ -48,10 +48,10 @@ public class AdderCell extends Cell {
     }
 
     @Override
-    public void handleDragAndDrop(ListArea listArea, Group cellGroup, SVGPath svgPath, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
+    public void handleDragAndDrop(ListArea listArea, Group cellGroup, SVGPath svgPath) {
         cellGroup.setOnMouseClicked(event -> {
             listArea.getList().add("testing");
-            super.designCell(listArea, "testing", cell);
+            super.designCell(listArea, "testing", this);
         });
 
         cellGroup.setOnMousePressed(event -> {
@@ -59,8 +59,7 @@ public class AdderCell extends Cell {
 
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
-            Group d = (Group) (event.getSource());
-            cell.isInListArea = false;
+            this.isInListArea = false;
 
         });
     }

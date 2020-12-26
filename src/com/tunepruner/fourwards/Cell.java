@@ -42,7 +42,6 @@ public class Cell {
     private static int cellCount = 0;
     double preCalcSceneX, preCalcSceneY;
     private static boolean currentlyAnimating;
-    int currentDraggedFromInt;
 
     private static int currentDraggedThroughInt;
     //this value is assigned in the ListArea method call, because the Grid also needs it.
@@ -179,7 +178,7 @@ public class Cell {
         cell.followableY.set(point.y);
 
 
-        handleDragAndDrop(listArea, cellGroup, svgPath, hBox, vBox, currentDraggedFromInt, cell);
+        handleDragAndDrop(listArea, cellGroup, svgPath);
 
         cueReposition(listArea, hBox, cell);
 
@@ -201,7 +200,7 @@ public class Cell {
         timeline.play();
     }
 
-    public void handleDragAndDrop(ListArea listArea, Group cellGroup, SVGPath svgPath, HBox hBox, VBox vBox, int currentDraggedFromInt, Cell cell) {
+    public void handleDragAndDrop(ListArea listArea, Group cellGroup, SVGPath svgPath) {
         cellGroup.setOnMouseEntered(event -> {
 
         });
@@ -210,7 +209,7 @@ public class Cell {
 
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
-            cell.isInListArea = false;
+            this.isInListArea = false;
 
         });
         cellGroup.setOnMouseExited(event -> cellGroup.toBack());
@@ -227,8 +226,8 @@ public class Cell {
             cellGroup.setLayoutX(cellGroup.getLayoutX() + offsetX);
             cellGroup.setLayoutY(cellGroup.getLayoutY() + offsetY);
             /*Report the current position in SimpleDoubleProperty format.*/
-            cell.followableX.setValue(cellGroup.getLayoutX() + offsetX);
-            cell.followableY.setValue(cellGroup.getLayoutY() + offsetY);
+            this.followableX.setValue(cellGroup.getLayoutX() + offsetX);
+            this.followableY.setValue(cellGroup.getLayoutY() + offsetY);
 
             /*Report the current position in Point format,
              * for use by the animation algorithm.*/
@@ -236,7 +235,7 @@ public class Cell {
             int x = (int) (d.getLayoutX() + offsetX);
             int y = (int) (d.getLayoutY() + offsetY);
             newPoint = new Point(x, y);
-            cell.currentPosition = newPoint;
+            this.currentPosition = newPoint;
 
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
@@ -252,7 +251,7 @@ public class Cell {
             }
 
             if (listArea.getList().contains("")) {
-                updatedInsertionInt = listArea.getGrid().getIndexOfXY(listArea, cell.currentPosition);
+                updatedInsertionInt = listArea.getGrid().getIndexOfXY(listArea, this.currentPosition);
                 listArea.getList().remove("");
             }
 
@@ -263,9 +262,7 @@ public class Cell {
         });
 
         cellGroup.setOnMouseReleased(event -> {
-            Group d = (Group) (event.getSource());
-            Label lbl = new Label();
-            lbl = ((Label) hBox.getChildren().get(1));
+            Label lbl = ((Label) hBox.getChildren().get(1));
             String stringToAdd = (String) lbl.getText();
             int indexToInsert = 0;
 
@@ -275,7 +272,7 @@ public class Cell {
                     listArea.getList().remove("");
                     listArea.getList().add(indexToInsert, stringToAdd);
                 }
-                cell.isInListArea = false;
+                this.isInListArea = false;
             }
 
         });
