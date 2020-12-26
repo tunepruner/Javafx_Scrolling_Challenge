@@ -68,9 +68,7 @@ public class Cell {
         return listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string));
     }
 
-    public void drawCell(ListArea listArea, String string, Grid grid) {
-        ObservableList<String> list = listArea.getList();
-
+    public void drawCell(ListArea listArea, String string) {
         HBox hBox = new HBox();
         VBox vBox = new VBox();
         Polygon leftTriangle = new Polygon();
@@ -79,7 +77,7 @@ public class Cell {
         Pane paneInsideHBox2 = new Pane();
         Pane paneInsideVBox1 = new Pane();
         Pane paneInsideVBox2 = new Pane();
-        javafx.scene.control.Label label = new Label(string);
+        Label label = new Label(string);
         Button btn = new Button();
         ProgressBar progressBar = new ProgressBar(1);
         Group cellGroup = new Group();
@@ -94,8 +92,6 @@ public class Cell {
                 (double) listArea.getCellWidth() + 100.0, (double) listArea.getCellWidth() + listArea.getCellHeight() + 100.0,
                 (double) listArea.getCellWidth() + listArea.getCellHeight() + 100.0, (double) listArea.getCellWidth() + listArea.getCellHeight() + 100.0);
 
-        Cell cell = new Cell(hBox, vBox, label, cellGroup, listArea);
-
         SVGPath svgPath = new SVGPath();
         svgPath.setContent("M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z");
         svgPath.setRotate(90);
@@ -109,22 +105,12 @@ public class Cell {
         Color color = new Color(0.3084314f, .5, .6, 1);
         hBox.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
         hBox.setManaged(true);
-//        cellGroup.setBorder(new Border(new BorderStroke(new Color(0.1584314f, 0.18705883f, 0.5019608f, .5),
-//                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        cellGroup.setEffect(new DropShadow(2, Color.BLACK));
 
         progressBar.setRotate(-90);
         progressBar.setScaleX(3.5);
-//        progressBar.setBackground(new Background(new BackgroundFill(new Color(0.9584314f, 0.98705883f, 0.5019608f, .5), new CornerRadii((0)), Insets.EMPTY)));
         progressBar.setOpacity(1);
-//        progressBar.setMinWidth(listArea.getCellWidth() * .8);
-//        progressBar.setMaxWidth(listArea.getCellWidth() * .8);
         progressBar.setManaged(true);
-//        progressBar.setStyle("-fx-background: black");
-//        progressBar.setStyle("-fx-accent: black");
-//        progressBar.setStyle("-fx-text-box-border: forestgreen");
         progressBar.setStyle("-fx-control-inner-background: rgb(1, 500, 500); -fx-text-box-border: rgb(100, 200, 250); -fx-background: rgb(1, 500, 500); -fx-accent: rgb(100, 200, 250); ");
-//        progressBar.setBackground(new Background(new BackgroundFill(new Color(50,30,100, 50), new CornerRadii(0), new Insets(0))));
 
         btn.setOpaqueInsets(new Insets(0));
         btn.setScaleX(.6);
@@ -154,25 +140,15 @@ public class Cell {
         hBox.getChildren().add(btn);
         hBox.getChildren().add(svgPath);
 
+        hBox.relocate(100, 100);
+        vBox.relocate(listArea.getCellWidth() + 100, 100);
+
         vBox.getChildren().add(paneInsideVBox1);
         vBox.setVgrow(paneInsideVBox1, Priority.ALWAYS);
         vBox.getChildren().add(progressBar);
 //        vBox.setVgrow(progressBar, Priority.ALWAYS);
         vBox.getChildren().add(paneInsideVBox2);
         vBox.setVgrow(paneInsideVBox2, Priority.ALWAYS);
-
-
-        Point point = determineCellPosition(listArea, string);
-
-        hBox.relocate(100, 100);
-        vBox.relocate(listArea.getCellWidth() + 100, 100);
-        cellGroup.setLayoutX(point.x);
-        cellGroup.setLayoutY(point.y);
-
-        cell.followableX = new SimpleDoubleProperty();
-        cell.followableY = new SimpleDoubleProperty();
-        cell.followableX.set(point.x);
-        cell.followableY.set(point.y);
 
         btn.setOnAction(event -> {
             Popup popup = new Popup();
@@ -194,12 +170,24 @@ public class Cell {
 
         });
 
+        Point point = determineCellPosition(listArea, string);
+
+        cellGroup.setLayoutX(point.x);
+        cellGroup.setLayoutY(point.y);
+        cellGroup.setEffect(new DropShadow(2, Color.BLACK));
+
+        Cell cell = new Cell(hBox, vBox, label, cellGroup, listArea);
+
+        cell.followableX = new SimpleDoubleProperty();
+        cell.followableY = new SimpleDoubleProperty();
+        cell.followableX.set(point.x);
+        cell.followableY.set(point.y);
+
         addWithFadeEffect(listArea, cellGroup);
 
         handleDragAndDrop(listArea, cellGroup, svgPath, hBox, vBox, currentDraggedFromInt, cell);
 
-        cueReposition(listArea, hBox, vBox, cell);
-
+        cueReposition(listArea, hBox,cell);
     }
 
     public void addWithFadeEffect(ListArea listArea, Group cellGroup) {
@@ -300,7 +288,7 @@ public class Cell {
         });
     }
 
-    public void cueReposition(ListArea listArea, HBox hBox, VBox vBox, Cell cell) {
+    public void cueReposition(ListArea listArea, HBox hBox, Cell cell) {
         /*(Everything enclosed in listener to the ObservableList)
          * Animate a timeline transform for HBox, then for VBox.
          */
@@ -356,7 +344,7 @@ public class Cell {
         for ( int i = 0; i < listArea.getList().size(); i++ ) {
             String string = listArea.getList().get(i);
             listArea.getListFromFile().handleSyncToFile(listArea);
-            drawCell(listArea, string, listArea.getGrid());
+            drawCell(listArea, string);
         }
     }
 }

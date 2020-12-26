@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
+import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
 import java.awt.*;
@@ -11,19 +12,10 @@ import java.awt.*;
 public class AdderCell extends Cell {
     private static AdderCell adderCell = new AdderCell();
 
-    private AdderCell() {
-//        this.drawCell(listArea, "Drag to add new", listArea.getGrid());
-    }
-
     @Override
     public Point determineCellPosition(ListArea listArea, String string) {
         Point point = new Point();
         point.setLocation(275, 300);
-        //Will do something similar to the following:
-//        Point point = new Point();
-//        point.setLocation(
-//                listArea.getTopLeft().x,
-//                listArea.getTopLeft().y + listArea.getStartArea().getHeight() - listArea.getStartAreaHeight);
         return point;
     }
 
@@ -37,11 +29,12 @@ public class AdderCell extends Cell {
                 new KeyValue(cellGroup.opacityProperty(), 1));
         timeline.getKeyFrames().add(keyFrame);
         timeline.play();
-        cellGroup.toFront();
     }
 
     public static AdderCell getInstance(ListArea listArea) {
         if (adderCell == null) adderCell = new AdderCell();
+        adderCell.drawCell(listArea, "Drag to add new");
         return adderCell;
     }
+
 }
