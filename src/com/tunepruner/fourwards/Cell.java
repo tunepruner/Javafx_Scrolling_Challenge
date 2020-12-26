@@ -5,7 +5,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -68,7 +67,7 @@ public class Cell {
         return listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string));
     }
 
-    public void drawCell(ListArea listArea, String string, Cell cell) {
+    public void designCell(ListArea listArea, String string, Cell cell) {
         HBox hBox = new HBox();
         VBox vBox = new VBox();
         Polygon leftTriangle = new Polygon();
@@ -82,11 +81,6 @@ public class Cell {
         ProgressBar progressBar = new ProgressBar(1);
         Group cellGroup = new Group();
         cellGroup.getChildren().addAll(hBox, vBox, leftTriangle, rightTriangle);
-
-        cell.hBox = hBox;
-        cell.vBox = vBox;
-        cell.label = label;
-        cell.cellGroup = cellGroup;
 
         leftTriangle.getPoints().addAll((double) -listArea.getCellHeight() + 100.0, listArea.getCellHeight() + 100.0,
                 0.00 + 100.0, 0.0 + 100.0,
@@ -180,26 +174,32 @@ public class Cell {
         cellGroup.setLayoutY(point.y);
         cellGroup.setEffect(new DropShadow(2, Color.BLACK));
 
-
         cell.followableX = new SimpleDoubleProperty();
         cell.followableY = new SimpleDoubleProperty();
         cell.followableX.set(point.x);
         cell.followableY.set(point.y);
 
-        addWithFadeEffect(listArea, cellGroup);
 
         handleDragAndDrop(listArea, cellGroup, svgPath, hBox, vBox, currentDraggedFromInt, cell);
 
         cueReposition(listArea, hBox, cell);
+
+        cell.hBox = hBox;
+        cell.vBox = vBox;
+        cell.label = label;
+        cell.cellGroup = cellGroup;
+        cell.leftTriangle = leftTriangle;
+        cell.rightTriangle = rightTriangle;
     }
 
-    public void addWithFadeEffect(ListArea listArea, Group cellGroup) {
-        cellGroup.setOpacity(0);
-        listArea.getPane().getChildren().add(cellGroup);
+    public void revealCell(Cell cell, Pane pane) {
+        cell.cellGroup.setOpacity(0);
+        System.out.println(cell.cellIdentifier);
+        pane.getChildren().add(cell.cellGroup);
         Timeline timeline = new Timeline();
         KeyFrame keyFrame = new KeyFrame(
                 new Duration(300),
-                new KeyValue(cellGroup.opacityProperty(), 1));
+                new KeyValue(cell.cellGroup.opacityProperty(), 1));
         timeline.getKeyFrames().add(keyFrame);
         timeline.play();
     }
@@ -341,13 +341,13 @@ public class Cell {
     }
 
     public void displayAllCells(ListArea listArea) {
-        ObservableList list = listArea.getList();
         listArea.setGrid(new Grid(listArea));
         for ( int i = 0; i < listArea.getList().size(); i++ ) {
             String string = listArea.getList().get(i);
             listArea.getListFromFile().handleSyncToFile(listArea);
             Cell cell = new Cell();
-            drawCell(listArea, string, cell);
+            designCell(listArea, string, cell);
+            revealCell(cell, listArea.getPane());
         }
     }
 }
