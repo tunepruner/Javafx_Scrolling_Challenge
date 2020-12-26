@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -51,6 +52,16 @@ public class AdderCell extends Cell {
         cellGroup.setOnMouseClicked(event -> {
             listArea.getList().add("testing");
             super.designCell(listArea, "testing", cell);
+        });
+
+        cellGroup.setOnMousePressed(event -> {
+            listArea.getGrid().currentDraggedFromIndex = listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
+
+            preCalcSceneX = event.getSceneX();
+            preCalcSceneY = event.getSceneY();
+            Group d = (Group) (event.getSource());
+            cell.isInListArea = false;
+
         });
     }
 

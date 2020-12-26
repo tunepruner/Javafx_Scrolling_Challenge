@@ -40,8 +40,7 @@ public class Cell {
     SimpleDoubleProperty followableX;
     SimpleDoubleProperty followableY;
     private static int cellCount = 0;
-    private static double preCalcSceneX, preCalcSceneY, originalSceneX, originalSceneY;
-    private static double originalSceneOffsetX, originalSceneOffsetY;
+    double preCalcSceneX, preCalcSceneY;
     private static boolean currentlyAnimating;
     int currentDraggedFromInt;
 
@@ -192,11 +191,7 @@ public class Cell {
         cell.rightTriangle = rightTriangle;
     }
 
-    public void revealCell(Pane pane) {
-        System.out.println(this);
-
-        cellGroup.setOpacity(0);
-        System.out.println(cellIdentifier);
+    public void revealCell(Pane pane) {cellGroup.setOpacity(0);
         pane.getChildren().add(cellGroup);
         Timeline timeline = new Timeline();
         KeyFrame keyFrame = new KeyFrame(
@@ -215,9 +210,6 @@ public class Cell {
 
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
-            originalSceneX = event.getSceneX();
-            originalSceneY = event.getSceneY();
-            Group d = (Group) (event.getSource());
             cell.isInListArea = false;
 
         });
@@ -248,9 +240,6 @@ public class Cell {
 
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
-
-            originalSceneOffsetX = originalSceneX - preCalcSceneX;
-            originalSceneOffsetY = originalSceneY - preCalcSceneY;
 
             Label lbl = ((Label) hBox.getChildren().get(1));
             String itemToRemove = lbl.getText();
@@ -315,7 +304,6 @@ public class Cell {
         });
 
     }
-
 
     public void executeReposition(ListArea listArea, HBox hBox, Cell cell) {
         final Duration SEC_2 = Duration.millis(200);

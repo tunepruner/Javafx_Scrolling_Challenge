@@ -168,15 +168,13 @@ public class ListArea {
 
                 pane.setLayoutX(pane.getLayoutX() + grid.currentScrollDirectionY / 8);
                 pane.setLayoutY(pane.getLayoutY() - grid.currentScrollDirectionY / 8);
-                System.out.println("this.pane.getLayoutX() = " + this.pane.getLayoutX());
-                System.out.println("this.pane.getLayoutY() = " + this.pane.getLayoutY());
             }
         });
     }
+
     public void updateList(){
 
     }
-
 
     public void displayAllCells(ListArea listArea) {
         listArea.setGrid(new Grid(listArea));
