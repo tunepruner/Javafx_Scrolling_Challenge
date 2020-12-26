@@ -288,7 +288,7 @@ public class Cell {
                     boolean animationPermitted = listArea.getGrid().animationPermitted(listArea,/*maybe add point here*/hBox, this);
 
                     if (animationPermitted == true) {
-                        executeReposition(listArea, hBox, this);
+                        executeReposition(listArea);
                     }
                 }
             }
@@ -296,7 +296,7 @@ public class Cell {
 
     }
 
-    public void executeReposition(ListArea listArea, HBox hBox, Cell cell) {
+    public void executeReposition(ListArea listArea) {
         final Duration SEC_2 = Duration.millis(200);
         Timeline timeline = new Timeline();
         Label lbl = ((Label) hBox.getChildren().get(1));
@@ -310,13 +310,13 @@ public class Cell {
         }
 
         KeyFrame end = new KeyFrame(SEC_2,
-                new KeyValue(cell.cellGroup.layoutXProperty(), listArea.getGrid().getGridMap().get(targetIndex).x),
-                new KeyValue(cell.cellGroup.layoutYProperty(), listArea.getGrid().getGridMap().get(targetIndex).y));
+                new KeyValue(cellGroup.layoutXProperty(), listArea.getGrid().getGridMap().get(targetIndex).x),
+                new KeyValue(cellGroup.layoutYProperty(), listArea.getGrid().getGridMap().get(targetIndex).y));
 
         timeline.getKeyFrames().add(end);
         timeline.play();
-        cell.currentPosition.x = listArea.getGrid().getGridMap().get(targetIndex).x;
-        cell.currentPosition.y = listArea.getGrid().getGridMap().get(targetIndex).y;
+        currentPosition.x = listArea.getGrid().getGridMap().get(targetIndex).x;
+        currentPosition.y = listArea.getGrid().getGridMap().get(targetIndex).y;
         timeline.setOnFinished(event -> {
         });
     }
