@@ -178,7 +178,7 @@ public class Cell {
         cell.followableY.set(point.y);
 
 
-        handleDragAndDrop(listArea, cellGroup, svgPath);
+        handleDragAndDrop(listArea, cellGroup);
 
         cueReposition(listArea, hBox, cell);
 
@@ -200,7 +200,7 @@ public class Cell {
         timeline.play();
     }
 
-    public void handleDragAndDrop(ListArea listArea, Group cellGroup, SVGPath svgPath) {
+    public void handleDragAndDrop(ListArea listArea, Group cellGroup) {
         cellGroup.setOnMouseEntered(event -> {
 
         });
