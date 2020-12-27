@@ -34,6 +34,16 @@ public class Cell {
     Polygon leftTriangle;
     Polygon rightTriangle;
     Group cellGroup;
+
+    public Cell(String string) {
+        this.hBox = new HBox();
+        this.vBox = new VBox();
+        this.leftTriangle = new Polygon();
+        this.rightTriangle = new Polygon();
+        this.cellGroup = new Group();
+        this.label = new Label(string);
+    }
+
     Label label;
     boolean isInListArea = false;
     Point currentPosition = new Point();
@@ -43,13 +53,9 @@ public class Cell {
         return listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string));
     }
 
+
+
     public void designCell(ListArea listArea, String string) {
-        hBox = new HBox();
-        vBox = new VBox();
-        leftTriangle = new Polygon();
-        rightTriangle = new Polygon();
-        cellGroup = new Group();
-        label = new Label(string);
         Pane paneInsideHBox1 = new Pane();
         Pane paneInsideHBox2 = new Pane();
         Pane paneInsideVBox1 = new Pane();

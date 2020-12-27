@@ -122,7 +122,6 @@ public class ListArea {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Cell cell = new Cell();
         displayAllCells(listArea);
         listArea.handleScrolling();
 
@@ -181,7 +180,7 @@ public class ListArea {
         for ( int i = 0; i < listArea.getList().size(); i++ ) {
             String string = listArea.getList().get(i);
             listArea.getListFromFile().handleSyncToFile(listArea);
-            Cell cell = new Cell();
+            Cell cell = new Cell(string);
             cell.designCell(listArea, string);
             cell.revealCell(listArea.getPane());
         }

@@ -7,7 +7,7 @@ public class TimeContainer {
     private final Topic topic;
 
     public TimeContainer(String topicName) {
-        this.cell = new Cell();
+        this.cell = new Cell("asdfasdf");
         this.topic = new Topic(topicName);
     }
 }

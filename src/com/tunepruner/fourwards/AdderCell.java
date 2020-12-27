@@ -14,7 +14,11 @@ import javafx.util.Duration;
 import java.awt.*;
 
 public class AdderCell extends Cell {
-    private static AdderCell adderCell = new AdderCell();
+    private static AdderCell adderCell;
+
+    public AdderCell(String string) {
+        super(string);
+    }
 
     @Override
     public Point determineCellPosition(ListArea listArea, String string) {
@@ -36,7 +40,7 @@ public class AdderCell extends Cell {
     }
 
     public static AdderCell getInstance(ListArea listArea) {
-        if (adderCell == null) adderCell = new AdderCell();
+        adderCell = new AdderCell("Drag to add new");
         adderCell.designCell(listArea, "Drag to add new");
         adderCell.revealCell(listArea.getStartAreaPane());
         return adderCell;
