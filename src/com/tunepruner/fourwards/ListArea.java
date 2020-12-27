@@ -1,5 +1,7 @@
 package com.tunepruner.fourwards;
 
+import com.tunepruner.fourwards.topics.TimeContainer;
+import com.tunepruner.fourwards.topics.TimeContainers;
 import  javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -13,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.awt.*;
 import java.io.IOException;
+import java.sql.Time;
 
 public class ListArea {
     public static final int LIST_BOTTOM_X_VALUE = -145;
@@ -25,10 +28,11 @@ public class ListArea {
     private Pane clipPane;
     private Pane startAreaPane;
     private ListFromFile listFromFile;
+    private ObservableList<String> list = FXCollections.observableArrayList();/*change this to List<TimeContainer>*/
+    private TimeContainers timeContainers = new TimeContainers(this);
     private Grid grid;
     private Point topLeft;
     private int areaHeight, areaWidth, cellHeight, cellWidth, cellPadding;
-    private ObservableList<String> list = FXCollections.observableArrayList();/*change this to List<TimeContainer>*/
     private AdderCell adderCell;
     private Stage stage;
 
@@ -173,12 +177,17 @@ public class ListArea {
 
     public void displayAllCells(ListArea listArea) {
         listArea.setGrid(new Grid(listArea));
-        for ( int i = 0; i < listArea.getList().size(); i++ ) {
-            String string = listArea.getList().get(i);
-            listArea.getListFromFile().handleSyncToFile(listArea);
-            Cell cell = new Cell(this, string);
-            cell.designCell(string);
-            cell.revealCell(listArea.getPane());
+        ObservableList<TimeContainer> listOfTC = timeContainers.getListOfTimeContainers();
+        for ( int i = 0; i < listOfTC.size(); i++ ) {
+            listOfTC.get(i).getCell().designCell(listOfTC.get(i).getTopic().getName());
+            listOfTC.get(i).getCell().revealCell(pane);
         }
+//        for ( int i = 0; i < listArea.getList().size(); i++ ) {
+//            String string = listArea.getList().get(i);
+//            listArea.getListFromFile().handleSyncToFile(listArea);
+//            Cell cell = new Cell(this, string);
+//            cell.designCell(string);
+//            cell.revealCell(listArea.getPane());
+//        }
     }
 }
