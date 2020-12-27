@@ -39,13 +39,7 @@ public class Cell {
     Point currentPosition = new Point();
     SimpleDoubleProperty followableX;
     SimpleDoubleProperty followableY;
-    private static int cellCount = 0;
     double preCalcSceneX, preCalcSceneY;
-    private static boolean currentlyAnimating;
-
-    private static int currentDraggedThroughInt;
-    //this value is assigned in the ListArea method call, because the Grid also needs it.
-    private int cellIdentifier;
 
 
     public Point determineCellPosition(ListArea listArea, String string) {
@@ -164,14 +158,13 @@ public class Cell {
         followableX.set(point.x);
         followableY.set(point.y);
 
-
         handleDragAndDrop(listArea);
 
         cueReposition(listArea);
-
     }
 
-    public void revealCell(Pane pane) {cellGroup.setOpacity(0);
+    public void revealCell(Pane pane) {
+        cellGroup.setOpacity(0);
         pane.getChildren().add(cellGroup);
         Timeline timeline = new Timeline();
         KeyFrame keyFrame = new KeyFrame(
@@ -255,7 +248,6 @@ public class Cell {
                 }
                 this.isInListArea = false;
             }
-
         });
     }
 
@@ -280,7 +272,6 @@ public class Cell {
                 }
             }
         });
-
     }
 
     public void executeReposition(ListArea listArea) {
@@ -307,5 +298,4 @@ public class Cell {
         timeline.setOnFinished(event -> {
         });
     }
-
 }
