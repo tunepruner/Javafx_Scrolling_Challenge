@@ -59,7 +59,7 @@ public class AdderCell extends Cell {
 
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
-            this.isInListArea = false;
+            isInListArea = false;
 
         });
     }

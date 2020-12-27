@@ -101,7 +101,6 @@ public class Cell {
 
         label.setAlignment(Pos.BOTTOM_CENTER);
         label.setTextFill(Color.WHITE);
-//        label.setOpaqueInsets(new Insets(10));
 
         leftTriangle.setFill(listArea.COLOR_OF_CELLS);
         rightTriangle.setFill(listArea.COLOR_OF_CELLS);
@@ -120,7 +119,6 @@ public class Cell {
         vBox.getChildren().add(paneInsideVBox1);
         vBox.setVgrow(paneInsideVBox1, Priority.ALWAYS);
         vBox.getChildren().add(progressBar);
-//        vBox.setVgrow(progressBar, Priority.ALWAYS);
         vBox.getChildren().add(paneInsideVBox2);
         vBox.setVgrow(paneInsideVBox2, Priority.ALWAYS);
 
@@ -175,7 +173,7 @@ public class Cell {
 
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
-            this.isInListArea = false;
+            isInListArea = false;
 
         });
         cellGroup.setOnMouseExited(event -> cellGroup.toBack());
@@ -198,7 +196,7 @@ public class Cell {
             int x = (int) (d.getLayoutX() + offsetX);
             int y = (int) (d.getLayoutY() + offsetY);
             newPoint = new Point(x, y);
-            this.currentPosition = newPoint;
+            currentPosition = newPoint;
 
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
@@ -214,7 +212,7 @@ public class Cell {
             }
 
             if (listArea.getList().contains("")) {
-                updatedInsertionInt = listArea.getGrid().getIndexOfXY(listArea, this.currentPosition);
+                updatedInsertionInt = listArea.getGrid().getIndexOfXY(listArea, currentPosition);
                 listArea.getList().remove("");
             }
 
@@ -235,7 +233,7 @@ public class Cell {
                     listArea.getList().remove("");
                     listArea.getList().add(indexToInsert, stringToAdd);
                 }
-                this.isInListArea = false;
+                isInListArea = false;
             }
         });
     }
