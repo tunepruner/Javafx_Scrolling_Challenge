@@ -53,8 +53,6 @@ public class Cell {
         return listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string));
     }
 
-
-
     public void designCell(ListArea listArea, String string) {
         Pane paneInsideHBox1 = new Pane();
         Pane paneInsideHBox2 = new Pane();
@@ -152,7 +150,7 @@ public class Cell {
 
         cellGroup.setLayoutX(point.x);
         cellGroup.setLayoutY(point.y);
-        cellGroup.setEffect(new DropShadow(2, Color.BLACK));
+        cellGroup.setEffect(new DropShadow(3, Color.BLACK));
 
         handleDragAndDrop(listArea);
 

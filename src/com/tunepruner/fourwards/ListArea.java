@@ -18,7 +18,7 @@ public class ListArea {
     public static final int LIST_BOTTOM_X_VALUE = -145;
     public static final int LIST_TOP_X_VALUE = 386;
     public final Color COLOR_OF_INNER_PANE = new Color(0, .2, .3, 1);
-    public final Color COLOR_OF_CELLS = new Color(0.3084314f, .5, .6, 1);
+    public final Color COLOR_OF_CELLS = new Color(0.3084314f, .4, .5, 1);
     public final String uniqueID;
     public Pane pane;
     private Pane listAreaPane;
@@ -31,13 +31,12 @@ public class ListArea {
     private ObservableList<String> list = FXCollections.observableArrayList();/*change this to List<TimeContainer>*/
     private AdderCell adderCell;
     private Stage stage;
+
     public ListArea (
             String uniqueID,
             Pane listAreaPane,
             ListFromFile listFromFile,
             Point topLeft,
-            Point topRight,
-            Point bottomLeft,
             int areaHeight,
             int areaWidth,
             int cellHeight,
@@ -153,12 +152,9 @@ public class ListArea {
             if (this.pane.getLayoutX() > LIST_TOP_X_VALUE) {
                 this.pane.setLayoutX(LIST_TOP_X_VALUE-1);
                 this.pane.setLayoutY(-LIST_TOP_X_VALUE+1);
-                /*This number is a magic number unfortunately.
-                * I can't figure out how to relate it to the properties of the listArea. */
             } else if(this.pane.getLayoutX() < LIST_BOTTOM_X_VALUE) {
                 this.pane.setLayoutX(LIST_BOTTOM_X_VALUE + 1);
                 this.pane.setLayoutY(-LIST_BOTTOM_X_VALUE-1);
-                /*This is also a magic number,  found by trial and error.*/
             } else {
                 double deltaX = event.getDeltaX();
                 double deltaY = event.getDeltaY();

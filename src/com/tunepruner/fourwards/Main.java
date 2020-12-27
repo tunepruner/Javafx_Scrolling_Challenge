@@ -19,16 +19,12 @@ public class Main extends Application {
         Pane listAreaPane = new Pane();
         listAreaPane.toFront();
 
-        rectBackground = new Rectangle();
-        rectBackground.setFill(new Color(0.1019608f, 0.3519608f, 0.58039216f, 1));
 
         ListArea listArea = new ListArea(
                 "PlanList",
                 listAreaPane,
                 new ListFromFile(),
                 new Point(350, 150),//topLeft
-                new Point(850, 150),//topRight
-                new Point(350, 650),//bottomLeft
                 500,
                 500,
                 25,
@@ -37,6 +33,9 @@ public class Main extends Application {
                 primaryStage,
                 new Rectangle()
         );
+        rectBackground = new Rectangle();
+        rectBackground.setFill(listArea.COLOR_OF_INNER_PANE);
+
         listAreaPane = listArea.drawListArea(listArea);
 
         Group root = new Group();
