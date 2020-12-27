@@ -37,10 +37,7 @@ public class Cell {
     Label label;
     boolean isInListArea = false;
     Point currentPosition = new Point();
-    SimpleDoubleProperty followableX;
-    SimpleDoubleProperty followableY;
     double preCalcSceneX, preCalcSceneY;
-
 
     public Point determineCellPosition(ListArea listArea, String string) {
         return listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string));
@@ -153,11 +150,6 @@ public class Cell {
         cellGroup.setLayoutY(point.y);
         cellGroup.setEffect(new DropShadow(2, Color.BLACK));
 
-        followableX = new SimpleDoubleProperty();
-        followableY = new SimpleDoubleProperty();
-        followableX.set(point.x);
-        followableY.set(point.y);
-
         handleDragAndDrop(listArea);
 
         cueReposition(listArea);
@@ -199,9 +191,6 @@ public class Cell {
 
             cellGroup.setLayoutX(cellGroup.getLayoutX() + offsetX);
             cellGroup.setLayoutY(cellGroup.getLayoutY() + offsetY);
-            /*Report the current position in SimpleDoubleProperty format.*/
-            this.followableX.setValue(cellGroup.getLayoutX() + offsetX);
-            this.followableY.setValue(cellGroup.getLayoutY() + offsetY);
 
             /*Report the current position in Point format,
              * for use by the animation algorithm.*/
