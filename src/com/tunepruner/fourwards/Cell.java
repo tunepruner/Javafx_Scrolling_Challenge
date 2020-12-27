@@ -47,19 +47,6 @@ public class Cell {
     //this value is assigned in the ListArea method call, because the Grid also needs it.
     private int cellIdentifier;
 
-    public Cell() {
-    }
-
-    public Cell(HBox hBox, VBox vBox, Label label, Group cellGroup, ListArea listArea) {
-        cellCount++;
-        cellIdentifier = cellCount;
-        this.hBox = hBox;
-        this.vBox = vBox;
-        this.label = label;
-        this.cellGroup = cellGroup;
-        this.leftTriangle = new Polygon();
-        this.rightTriangle = new Polygon();
-    }
 
     public Point determineCellPosition(ListArea listArea, String string) {
         return listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string));
