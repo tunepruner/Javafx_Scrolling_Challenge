@@ -16,12 +16,12 @@ import java.awt.*;
 public class AdderCell extends Cell {
     private static AdderCell adderCell;
 
-    public AdderCell(String string) {
-        super(string);
+    public AdderCell(ListArea listArea, String string) {
+        super(listArea, string);
     }
 
     @Override
-    public Point determineCellPosition(ListArea listArea, String string) {
+    public Point determineCellPosition(String string) {
         Point point = new Point();
         point.setLocation(-75, -100);
         return point;
@@ -40,8 +40,8 @@ public class AdderCell extends Cell {
     }
 
     public static AdderCell getInstance(ListArea listArea) {
-        adderCell = new AdderCell("Drag to add new");
-        adderCell.designCell(listArea, "Drag to add new");
+        adderCell = new AdderCell(listArea, "Drag to add new");
+        adderCell.designCell("Drag to add new");
         adderCell.revealCell(listArea.getStartAreaPane());
         return adderCell;
     }
@@ -52,10 +52,10 @@ public class AdderCell extends Cell {
     }
 
     @Override
-    public void handleDragAndDrop(ListArea listArea) {
+    public void handleDragAndDrop() {
         cellGroup.setOnMouseClicked(event -> {
             listArea.getList().add("testing");
-            super.designCell(listArea, "testing");
+            super.designCell("testing");
         });
 
         cellGroup.setOnMousePressed(event -> {

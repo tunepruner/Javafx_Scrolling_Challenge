@@ -176,8 +176,8 @@ public class ListArea {
         for ( int i = 0; i < listArea.getList().size(); i++ ) {
             String string = listArea.getList().get(i);
             listArea.getListFromFile().handleSyncToFile(listArea);
-            Cell cell = new Cell(string);
-            cell.designCell(listArea, string);
+            Cell cell = new Cell(this, string);
+            cell.designCell(string);
             cell.revealCell(listArea.getPane());
         }
     }
