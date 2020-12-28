@@ -23,7 +23,7 @@ public class Main extends Application {
         ListArea listArea = new ListArea(
                 "PlanList",
                 listAreaPane,
-                new ListFromFile(),
+                new ListFromTextFile(),
                 new Point(350, 150),//topLeft
                 500,
                 500,

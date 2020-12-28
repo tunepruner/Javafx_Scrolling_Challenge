@@ -56,7 +56,7 @@ Grid <|--PlanGrid
 class ListArea{
 String uniqueID
 Pane pane
-ListFromFile listFromFile
+ListFromFile listFromTextFile
 Grid grid
 Point topLeft, topRight, bottomLeft
 int cellHeight, cellPadding

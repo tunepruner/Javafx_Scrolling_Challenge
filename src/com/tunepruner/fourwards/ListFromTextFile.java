@@ -4,7 +4,7 @@ import com.tunepruner.fourwards.gui.ListArea;
 
 import java.io.*;
 
-public class ListFromFile{
+public class ListFromTextFile {
     File file;
 
     public void syncFromFile(ListArea listArea) throws IOException {

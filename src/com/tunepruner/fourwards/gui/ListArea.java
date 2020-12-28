@@ -1,6 +1,6 @@
 package com.tunepruner.fourwards.gui;
 
-import com.tunepruner.fourwards.ListFromFile;
+import com.tunepruner.fourwards.ListFromTextFile;
 import com.tunepruner.fourwards.data.TimeContainer;
 import com.tunepruner.fourwards.data.TimeContainers;
 import  javafx.collections.FXCollections;
@@ -27,7 +27,7 @@ public class ListArea {
     private Pane listAreaPane;
     private Pane clipPane;
     private Pane startAreaPane;
-    private ListFromFile listFromFile;
+    private ListFromTextFile listFromTextFile;
     private ObservableList<String> list = FXCollections.observableArrayList();/*change this to List<TimeContainer>*/
     private TimeContainers timeContainers = new TimeContainers(this);
     private Grid grid;
@@ -39,7 +39,7 @@ public class ListArea {
     public ListArea (
             String uniqueID,
             Pane listAreaPane,
-            ListFromFile listFromFile,
+            ListFromTextFile listFromTextFile,
             Point topLeft,
             int areaHeight,
             int areaWidth,
@@ -51,7 +51,7 @@ public class ListArea {
 
     ){
         this.uniqueID = uniqueID;
-        this.listFromFile = listFromFile;
+        this.listFromTextFile = listFromTextFile;
         this.topLeft = topLeft;
         this.areaHeight = areaHeight;
         this.areaWidth = areaWidth;
@@ -77,8 +77,8 @@ public class ListArea {
         return pane;
     }
 
-    public ListFromFile getListFromFile() {
-        return listFromFile;
+    public ListFromTextFile getListFromFile() {
+        return listFromTextFile;
     }
 
     public Grid getGrid() {
@@ -121,7 +121,7 @@ public class ListArea {
 
     public Pane drawListArea(ListArea listArea) {
         try {
-            listArea.listFromFile.syncFromFile(listArea);
+            listArea.listFromTextFile.syncFromFile(listArea);
         } catch (IOException e) {
             e.printStackTrace();
         }
