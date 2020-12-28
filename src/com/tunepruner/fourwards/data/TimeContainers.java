@@ -23,8 +23,7 @@ public class TimeContainers {
         createListOfTimeContainersForTesting(listArea);
     }
 
-    public void createListOfTimeContainersForTesting(ListArea listArea){
-
+    public void createListOfTimeContainersForTesting(ListArea listArea) {
         List<String> listOfStrings = Arrays.asList("The strings", "seen here", "are persisted", "in a text file!", "-------", "The cells", "are made of", "custom shapes!", "--------", "The positioning", "is determined", "in a custom", "grid of points!", "---------", "It supports", "SCROLLING!", "----------", "It also", "supports", "DROP", "DRAG AND", "REORDERING!");
         for ( String string : listOfStrings ) {
             TimeContainer timeContainer = new TimeContainer(listArea, string);
@@ -32,4 +31,16 @@ public class TimeContainers {
         }
 
     }
+
+    public int getIndex(TimeContainer timeContainerToEvaluate) {
+        int indexOfTimeContainer = 0;
+        for ( int i = 0; i > listOfTimeContainers.size(); i++ ) {
+            if (timeContainerToEvaluate == listOfTimeContainers.get(i)) {
+                indexOfTimeContainer = i;
+                break;
+            }
+        }
+        return indexOfTimeContainer;
+    }
+
 }

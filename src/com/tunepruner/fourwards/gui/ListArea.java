@@ -3,7 +3,6 @@ package com.tunepruner.fourwards.gui;
 import com.tunepruner.fourwards.data.ListFromTextFile;
 import com.tunepruner.fourwards.data.TimeContainer;
 import com.tunepruner.fourwards.data.TimeContainers;
-import  javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
@@ -28,7 +27,6 @@ public class ListArea {
     private Pane clipPane;
     private Pane startAreaPane;
     private ListFromTextFile listFromTextFile;
-    private ObservableList<String> list = FXCollections.observableArrayList();/*change this to List<TimeContainer>*/
     private TimeContainers timeContainers = new TimeContainers(this);
     private Grid grid;
     private Point topLeft;
@@ -46,8 +44,7 @@ public class ListArea {
             int cellHeight,
             int cellWidth,
             int cellPadding,
-            Stage stage,
-            Rectangle clip
+            Stage stage
 
     ){
         this.uniqueID = uniqueID;
@@ -77,10 +74,6 @@ public class ListArea {
         return pane;
     }
 
-    public ListFromTextFile getListFromFile() {
-        return listFromTextFile;
-    }
-
     public Grid getGrid() {
         return grid;
     }
@@ -104,7 +97,7 @@ public class ListArea {
         return listAreaPane;
     }
     public ObservableList<String> getList() {
-        return list;
+        return ListFromTextFile.list;
     }
     public int getCellHeight() {
         return cellHeight;

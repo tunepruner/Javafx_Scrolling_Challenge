@@ -1,10 +1,13 @@
 package com.tunepruner.fourwards.data;
 
 import com.tunepruner.fourwards.gui.ListArea;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.*;
 
 public class ListFromTextFile {
+    public static ObservableList<String> list = FXCollections.observableArrayList();/*change this to List<TimeContainer>*/
     File file;
 
     public void syncFromFile(ListArea listArea) throws IOException {

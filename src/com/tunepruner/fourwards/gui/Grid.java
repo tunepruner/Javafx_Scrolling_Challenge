@@ -80,7 +80,6 @@ public class Grid {
             }
         }
 
-
         isCurrentlyDragging = !isInList;
 
         justGotDropped = false;
@@ -103,6 +102,5 @@ public class Grid {
 
         return animationPermitted;
     }
-
 
 }

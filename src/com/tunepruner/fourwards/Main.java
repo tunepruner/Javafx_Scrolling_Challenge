@@ -1,5 +1,6 @@
 package com.tunepruner.fourwards;
 
+import com.sun.javafx.binding.StringFormatter;
 import com.tunepruner.fourwards.data.ListFromTextFile;
 import com.tunepruner.fourwards.gui.ListArea;
 import javafx.application.Application;
@@ -31,8 +32,7 @@ public class Main extends Application {
                 25,
                 200,
                 10,
-                primaryStage,
-                new Rectangle()
+                primaryStage
         );
         rectBackground = new Rectangle();
         rectBackground.setFill(listArea.COLOR_OF_INNER_PANE);
