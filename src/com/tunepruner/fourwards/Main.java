@@ -1,10 +1,9 @@
 package com.tunepruner.fourwards;
 
-import com.tunepruner.fourwards.topics.TimeContainers;
+import com.tunepruner.fourwards.gui.ListArea;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;

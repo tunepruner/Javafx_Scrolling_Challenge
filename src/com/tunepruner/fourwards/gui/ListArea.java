@@ -1,7 +1,8 @@
-package com.tunepruner.fourwards;
+package com.tunepruner.fourwards.gui;
 
-import com.tunepruner.fourwards.topics.TimeContainer;
-import com.tunepruner.fourwards.topics.TimeContainers;
+import com.tunepruner.fourwards.ListFromFile;
+import com.tunepruner.fourwards.data.TimeContainer;
+import com.tunepruner.fourwards.data.TimeContainers;
 import  javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -15,11 +16,10 @@ import javafx.scene.shape.Rectangle;
 
 import java.awt.*;
 import java.io.IOException;
-import java.sql.Time;
 
 public class ListArea {
-    public static final int LIST_BOTTOM_X_VALUE = -145;
-    public static final int LIST_TOP_X_VALUE = 386;
+    public final int LIST_BOTTOM_X_VALUE = -145;
+    public final int LIST_TOP_X_VALUE = 386;
     public final Color COLOR_OF_INNER_PANE = new Color(0, .2, .3, 1);
     public final Color COLOR_OF_CELLS = new Color(0.3084314f, .4, .5, 1);
     public final String uniqueID;

@@ -1,5 +1,7 @@
 package com.tunepruner.fourwards;
 
+import com.tunepruner.fourwards.gui.ListArea;
+
 import java.io.*;
 
 public class ListFromFile{

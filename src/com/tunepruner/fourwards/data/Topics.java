@@ -1,4 +1,4 @@
-package com.tunepruner.fourwards.topics;
+package com.tunepruner.fourwards.data;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

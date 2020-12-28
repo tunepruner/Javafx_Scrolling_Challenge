@@ -1,7 +1,7 @@
-package com.tunepruner.fourwards.topics;
+package com.tunepruner.fourwards.data;
 
-import com.tunepruner.fourwards.Cell;
-import com.tunepruner.fourwards.ListArea;
+import com.tunepruner.fourwards.gui.Cell;
+import com.tunepruner.fourwards.gui.ListArea;
 
 public class TimeContainer {
 

@@ -1,6 +1,6 @@
-package com.tunepruner.fourwards.topics;
+package com.tunepruner.fourwards.data;
 
-import com.tunepruner.fourwards.ListArea;
+import com.tunepruner.fourwards.gui.ListArea;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

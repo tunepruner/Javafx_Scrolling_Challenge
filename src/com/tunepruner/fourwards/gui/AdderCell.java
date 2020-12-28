@@ -1,14 +1,10 @@
-package com.tunepruner.fourwards;
+package com.tunepruner.fourwards.gui;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.scene.Group;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
 
 import java.awt.*;

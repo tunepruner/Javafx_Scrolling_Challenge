@@ -1,4 +1,4 @@
-package com.tunepruner.fourwards.topics;
+package com.tunepruner.fourwards.data;
 
 public class Topic {
     private final String name;

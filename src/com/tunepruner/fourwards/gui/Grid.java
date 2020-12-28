@@ -1,4 +1,4 @@
-package com.tunepruner.fourwards;
+package com.tunepruner.fourwards.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
