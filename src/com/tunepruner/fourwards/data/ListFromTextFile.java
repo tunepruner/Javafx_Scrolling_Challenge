@@ -1,4 +1,4 @@
-package com.tunepruner.fourwards;
+package com.tunepruner.fourwards.data;
 
 import com.tunepruner.fourwards.gui.ListArea;
 
