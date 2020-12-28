@@ -4,23 +4,25 @@ import com.tunepruner.fourwards.gui.ListArea;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 public class TimeContainers {
-    private ObservableList<TimeContainer> listOfTimeContainers = FXCollections.observableArrayList();
-    private Calendar dateOfList;
-
+    private static ObservableList<TimeContainer> listOfTimeContainers = FXCollections.observableArrayList();
+    private LocalDate dateOfList;
     public ObservableList<TimeContainer> getListOfTimeContainers() {
         return listOfTimeContainers;
     }
 
     public TimeContainers(ListArea listArea) {
         createListOfTimeContainersForTesting(listArea);
-        this.dateOfList = Calendar.getInstance();
-        this.dateOfList.set(Calendar.HOUR_OF_DAY, 0);
+        this.dateOfList = LocalDate.now();
         createListOfTimeContainersForTesting(listArea);
+    }
+
+    public LocalDate getDateOfList() {
+        return dateOfList;
     }
 
     public void createListOfTimeContainersForTesting(ListArea listArea) {
@@ -30,10 +32,11 @@ public class TimeContainers {
             listOfTimeContainers.add(timeContainer);
         }
 
+
     }
 
-    public int getIndex(TimeContainer timeContainerToEvaluate) {
-        int indexOfTimeContainer = 0;
+    public Integer getIndex(TimeContainer timeContainerToEvaluate) {
+        Integer indexOfTimeContainer = null;
         for ( int i = 0; i > listOfTimeContainers.size(); i++ ) {
             if (timeContainerToEvaluate == listOfTimeContainers.get(i)) {
                 indexOfTimeContainer = i;
@@ -43,4 +46,41 @@ public class TimeContainers {
         return indexOfTimeContainer;
     }
 
+    public Integer getIndex(String topicName) {
+        Integer indexOfTimeContainer = null;
+        for ( int i = 0; i < listOfTimeContainers.size(); i++ ) {
+            if (listOfTimeContainers.get(i).getTopic().equals(topicName)) {
+                indexOfTimeContainer = i;
+                break;
+            }
+        }
+        return indexOfTimeContainer;
+    }
+
+    public void add(TimeContainer timeContainerToAdd) {
+        listOfTimeContainers.add(timeContainerToAdd);
+    }
+
+    public void add(ListArea listArea, String topicNameToAdd) {
+        TimeContainer timeContainer = new TimeContainer(listArea, topicNameToAdd);
+        add(timeContainer);
+    }
+
+    public void remove(TimeContainer timeContainerToRemove) {
+        listOfTimeContainers.remove(timeContainerToRemove);
+    }
+
+    public void remove(String topicNameToRemove) {
+        listOfTimeContainers.remove(getIndex(topicNameToRemove));
+    }
+
+    public boolean contains(TimeContainer timeContainerToQuery) {
+        return listOfTimeContainers.contains(timeContainerToQuery);
+    }
+
+    public boolean contains(String topicNameToQuery) {
+        return listOfTimeContainers
+                .stream()
+                .anyMatch(timeContainer -> timeContainer.getTopic().equals(topicNameToQuery));
+    }
 }
