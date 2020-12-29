@@ -25,7 +25,6 @@ public class Main extends Application {
         ListArea listArea = new ListArea(
                 "PlanList",
                 listAreaPane,
-                new ListFromTextFile(),
                 new Point(350, 150),//topLeft
                 500,
                 500,
@@ -37,7 +36,7 @@ public class Main extends Application {
         rectBackground = new Rectangle();
         rectBackground.setFill(listArea.COLOR_OF_INNER_PANE);
 
-        listAreaPane = listArea.drawListArea(listArea);
+        listAreaPane = listArea.drawListArea();
 
         Group root = new Group();
         root.getChildren().addAll(listAreaPane, rectBackground);

@@ -26,7 +26,6 @@ public class ListArea {
     private Pane listAreaPane;
     private Pane clipPane;
     private Pane startAreaPane;
-    private ListFromTextFile listFromTextFile;
     private Grid grid;
     private Point topLeft;
     private int areaHeight, areaWidth, cellHeight, cellWidth, cellPadding;
@@ -36,7 +35,6 @@ public class ListArea {
     public ListArea (
             String uniqueID,
             Pane listAreaPane,
-            ListFromTextFile listFromTextFile,
             Point topLeft,
             int areaHeight,
             int areaWidth,
@@ -47,7 +45,6 @@ public class ListArea {
 
     ){
         this.uniqueID = uniqueID;
-        this.listFromTextFile = listFromTextFile;
         this.topLeft = topLeft;
         this.areaHeight = areaHeight;
         this.areaWidth = areaWidth;
@@ -66,18 +63,15 @@ public class ListArea {
     public void setGrid(Grid grid) {
         this.grid = grid;
     }
-
     public String getUniqueID() {
         return uniqueID;
     }
     public Pane getPane() {
         return pane;
     }
-
     public Grid getGrid() {
         return grid;
     }
-
     public Pane getClipPane() {
         return clipPane;
     }
@@ -96,9 +90,6 @@ public class ListArea {
     public Pane getListAreaPane() {
         return listAreaPane;
     }
-    public ObservableList<String> getList() {
-        return ListFromTextFile.list;
-    }
     public int getCellHeight() {
         return cellHeight;
     }
@@ -112,36 +103,31 @@ public class ListArea {
         return stage;
     }
 
-    public Pane drawListArea(ListArea listArea) {
-        try {
-            listArea.listFromTextFile.syncFromFile(listArea);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        displayAllCells(listArea);
-        listArea.handleScrolling();
+    public Pane drawListArea() {
+        displayAllCells();
+        handleScrolling();
 
         Rectangle clip = new Rectangle();
-        clip.setHeight(listArea.getAreaHeight());
-        clip.setWidth(listArea.getAreaWidth());
-        clip.setLayoutX(listArea.topLeft.x);
-        clip.setLayoutY(listArea.topLeft.y);
+        clip.setHeight(areaHeight);
+        clip.setWidth(areaWidth);
+        clip.setLayoutX(topLeft.x);
+        clip.setLayoutY(topLeft.y);
 
 
-        listArea.getListAreaPane().getChildren().addAll(listArea.getClipPane(), listArea.getStartAreaPane());
-        listArea.getStartAreaPane().toFront();
-        listArea.getClipPane().getChildren().add(listArea.getPane());
+        listAreaPane.getChildren().addAll(clipPane, startAreaPane);
+        startAreaPane.toFront();
+        clipPane.getChildren().add(pane);
 
-        listArea.getClipPane().setClip(clip);
-        listArea.getListAreaPane().toFront();
+        clipPane.setClip(clip);
+        listAreaPane.toFront();
 
-        listArea.getClipPane().setBackground(new Background(new BackgroundFill(listArea.COLOR_OF_INNER_PANE, CornerRadii.EMPTY, Insets.EMPTY)));
+        clipPane.setBackground(new Background(new BackgroundFill(COLOR_OF_INNER_PANE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        listArea.startAreaPane.relocate(350, 400);
+        startAreaPane.relocate(350, 400);
 
-        listArea.getStartAreaPane().setBackground(new Background(new BackgroundFill(listArea.COLOR_OF_CELLS, new CornerRadii(0, 0, 0, 60, false), Insets.EMPTY)));
+        startAreaPane.setBackground(new Background(new BackgroundFill(COLOR_OF_CELLS, new CornerRadii(0, 0, 0, 60, false), Insets.EMPTY)));
 
-        return listArea.listAreaPane;
+        return listAreaPane;
     }
 
     public void handleScrolling(){
@@ -164,23 +150,12 @@ public class ListArea {
         });
     }
 
-    public void updateList(){
-
-    }
-
-    public void displayAllCells(ListArea listArea) {
-        listArea.setGrid(new Grid(listArea));
+    public void displayAllCells() {
+        setGrid(new Grid(this));
         ObservableList<TimeContainer> listOfTC = TimeContainers.getListOfTimeContainers();
         for ( int i = 0; i < listOfTC.size(); i++ ) {
             listOfTC.get(i).getCell().designCell(listOfTC.get(i).getTopic().getName());
             listOfTC.get(i).getCell().revealCell(pane);
         }
-//        for ( int i = 0; i < listArea.getList().size(); i++ ) {
-//            String string = listArea.getList().get(i);
-//            listArea.getListFromFile().handleSyncToFile(listArea);
-//            Cell cell = new Cell(this, string);
-//            cell.designCell(string);
-//            cell.revealCell(listArea.getPane());
-//        }
     }
 }
