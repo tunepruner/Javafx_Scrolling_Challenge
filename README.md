@@ -1,14 +1,14 @@
 # Fancy List
-README updated at commit 7207ebe1
+README updated at commit d9b216634
 
 ![](Scroll.gif)
 
 ![](DragAndDrop.gif)
 
-This is a list view of strings, implemented in JavaFX, 
-without using any of the built-in JavaFX listview features or scrolling. 
-It is an experiment, dealing with custom cell design, angled list orientation, 
-and other visual effects, such as edge fading.
+This project is written in Java 1.8 with JavaFX.  
+It doesn't use any of the built-in JavaFX listview features or scrolling. 
+The cells are made from scratch out of composite shapes. 
+Data is serialized in xml format using JAXB.
 
 It features drag and drop reorder, single-dimensional scrolling, and data persistence. 
 
