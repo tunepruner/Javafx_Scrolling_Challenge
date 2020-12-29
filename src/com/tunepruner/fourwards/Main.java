@@ -1,7 +1,6 @@
 package com.tunepruner.fourwards;
 
 import com.sun.javafx.binding.StringFormatter;
-import com.tunepruner.fourwards.data.ListFromTextFile;
 import com.tunepruner.fourwards.gui.ListArea;
 import javafx.application.Application;
 import javafx.scene.Group;

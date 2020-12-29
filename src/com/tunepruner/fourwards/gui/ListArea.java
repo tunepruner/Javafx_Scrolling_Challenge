@@ -1,6 +1,5 @@
 package com.tunepruner.fourwards.gui;
 
-import com.tunepruner.fourwards.data.ListFromTextFile;
 import com.tunepruner.fourwards.data.TimeContainer;
 import com.tunepruner.fourwards.data.TimeContainers;
 import javafx.collections.ObservableList;

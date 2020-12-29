@@ -50,16 +50,16 @@ public class AdderCell extends Cell {
     @Override
     public void handleDragAndDrop() {
         cellGroup.setOnMouseClicked(event -> {
-            listArea.getList().add("testing");
-            super.designCell("testing");
+//            listArea.getList().add("testing");
+//            super.designCell("testing");
         });
 
         cellGroup.setOnMousePressed(event -> {
-            listArea.getGrid().currentDraggedFromIndex = listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
-
-            preCalcSceneX = event.getSceneX();
-            preCalcSceneY = event.getSceneY();
-            isInListArea = false;
+//            listArea.getGrid().currentDraggedFromIndex = listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
+//
+//            preCalcSceneX = event.getSceneX();
+//            preCalcSceneY = event.getSceneY();
+//            isInListArea = false;
 
         });
     }
