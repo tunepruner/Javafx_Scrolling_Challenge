@@ -18,11 +18,8 @@ import javafx.stage.Popup;
 import javafx.util.Duration;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Polygon;
-
 import java.awt.*;
-
 import javafx.scene.control.ProgressBar;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -36,6 +33,7 @@ public class Cell {
     Polygon rightTriangle;
     Group cellGroup;
     Label label;
+    String string;
     boolean isInListArea = false;
     Point currentPosition = new Point();
     double preCalcSceneX, preCalcSceneY;
@@ -48,10 +46,11 @@ public class Cell {
         this.rightTriangle = new Polygon();
         this.cellGroup = new Group();
         this.label = new Label(string);
+        this.string = string;
         this.listArea = listArea;
     }
 
-    public Point determineCellPosition(String string) {
+    public Point determineCellPosition() {
         return listArea.getGrid().getGridMap().get(TimeContainers.indexOf(string));
     }
 
@@ -148,7 +147,7 @@ public class Cell {
 
         });
 
-        Point point = determineCellPosition(string);
+        Point point = determineCellPosition();
 
         cellGroup.setLayoutX(point.x);
         cellGroup.setLayoutY(point.y);
@@ -175,7 +174,7 @@ public class Cell {
 
         });
         cellGroup.setOnMousePressed(event -> {
-            listArea.getGrid().currentDraggedFromIndex = TimeContainers.indexOf(((Label) hBox.getChildren().get(1)).getText());
+            listArea.getGrid().currentDraggedFromIndex = TimeContainers.indexOf(string);
 
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
@@ -207,13 +206,12 @@ public class Cell {
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
 
-            Label lbl = ((Label) hBox.getChildren().get(1));
-            String itemToRemove = lbl.getText();
             int localCurrentDraggedFromInt = listArea.getGrid().currentDraggedFromIndex;
             int updatedInsertionInt = listArea.getGrid().currentDraggedFromIndex;
 
-            if (TimeContainers.contains(itemToRemove)) {
-                TimeContainers.remove(itemToRemove);
+            if (TimeContainers.contains(string)) {
+                TimeContainers.remove(string);
+
                 TimeContainers.add(localCurrentDraggedFromInt, listArea, "");
             }
 
@@ -229,15 +227,13 @@ public class Cell {
         });
 
         cellGroup.setOnMouseReleased(event -> {
-            Label lbl = ((Label) hBox.getChildren().get(1));
-            String stringToAdd = (String) lbl.getText();
             int indexToInsert = 0;
 
             if (TimeContainers.contains("")) {
-                if (!TimeContainers.contains(stringToAdd)) {
+                if (!TimeContainers.contains(string)) {
                     indexToInsert = TimeContainers.indexOf("");
                     TimeContainers.remove("");
-                    TimeContainers.add(indexToInsert, listArea, stringToAdd);
+                    TimeContainers.add(indexToInsert, listArea, string);
                 }
                 isInListArea = false;
             }
@@ -256,8 +252,7 @@ public class Cell {
             while (c.next()) {
 
                 if (c.wasAdded()) {
-//                    Point currentPoint = new Point((int) hBox.getLayoutX(), (int) hBox.getLayoutY());
-                    boolean animationPermitted = listArea.getGrid().animationPermitted(listArea,/*maybe add point here*/hBox, this);
+                    boolean animationPermitted = listArea.getGrid().animationPermitted(listArea,/*maybe add point here*/ this);
 
                     if (animationPermitted == true) {
                         executeReposition(listArea);
@@ -270,8 +265,6 @@ public class Cell {
     public void executeReposition(ListArea listArea) {
         final Duration SEC_2 = Duration.millis(200);
         Timeline timeline = new Timeline();
-        Label lbl = ((Label) hBox.getChildren().get(1));
-        String string = lbl.getText();
         int targetIndex;
 
         if (TimeContainers.contains(string)) {

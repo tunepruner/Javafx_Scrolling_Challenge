@@ -17,7 +17,7 @@ public class AdderCell extends Cell {
     }
 
     @Override
-    public Point determineCellPosition(String string) {
+    public Point determineCellPosition() {
         Point point = new Point();
         point.setLocation(-75, -100);
         return point;

@@ -56,9 +56,8 @@ public class Grid {
     }
 
 
-    public boolean animationPermitted(ListArea listArea, HBox hBox, Cell cell) {
-        String hBoxContent = (((Label) hBox.getChildren().get(1)).getText());
-        boolean isInList = TimeContainers.contains(hBoxContent);
+    public boolean animationPermitted(ListArea listArea, Cell cell) {
+        boolean isInList = TimeContainers.contains(cell.string);
         boolean isOnGrid = false;
         boolean isAtCorrectIndex;
         boolean needsAnUpdate = false;
@@ -75,7 +74,7 @@ public class Grid {
         }
 
         if (isOnGrid && isInList) {
-            if (TimeContainers.indexOf(hBoxContent) != listArea.getGrid().getIndexOfXY(listArea, cell.currentPosition)) {
+            if (TimeContainers.indexOf(cell.string) != listArea.getGrid().getIndexOfXY(listArea, cell.currentPosition)) {
                 needsAnUpdate = true;
 
             }

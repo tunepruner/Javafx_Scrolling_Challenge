@@ -78,7 +78,10 @@ public class TimeContainers {
     }
 
     public static void remove(String topicNameToRemove) {
-        listOfTimeContainers.remove(indexOf(topicNameToRemove));
+        TimeContainers.printAllContent();
+        int indexOf = indexOf(topicNameToRemove);
+        listOfTimeContainers.remove(indexOf);
+        TimeContainers.printAllContent();
     }
 
     public static boolean contains(TimeContainer timeContainerToQuery) {
@@ -89,5 +92,11 @@ public class TimeContainers {
         return listOfTimeContainers
                 .stream()
                 .anyMatch(timeContainer -> timeContainer.getTopic().getName().equals(topicNameToQuery));
+    }
+
+    public static void printAllContent(){
+        for ( TimeContainer timeContainer : listOfTimeContainers ) {
+            System.out.println(timeContainer.getTopic().getName());
+        }
     }
 }
