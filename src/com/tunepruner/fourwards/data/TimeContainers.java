@@ -33,7 +33,7 @@ public class TimeContainers {
         }
     }
 
-    public static Integer getIndex(TimeContainer timeContainerToEvaluate) {
+    public static Integer indexOf(TimeContainer timeContainerToEvaluate) {
         Integer indexOfTimeContainer = null;
         for ( int i = 0; i > listOfTimeContainers.size(); i++ ) {
             if (timeContainerToEvaluate == listOfTimeContainers.get(i)) {
@@ -44,10 +44,10 @@ public class TimeContainers {
         return indexOfTimeContainer;
     }
 
-    public static Integer getIndex(String topicName) {
+    public static Integer indexOf(String topicName) {
         Integer indexOfTimeContainer = null;
         for ( int i = 0; i < listOfTimeContainers.size(); i++ ) {
-            if (listOfTimeContainers.get(i).getTopic().equals(topicName)) {
+            if (listOfTimeContainers.get(i).getTopic().getName().equals(topicName)) {
                 indexOfTimeContainer = i;
                 break;
             }
@@ -59,9 +59,18 @@ public class TimeContainers {
         listOfTimeContainers.add(timeContainerToAdd);
     }
 
+    public static void add(int index, TimeContainer timeContainerToAdd) {
+        listOfTimeContainers.add(index, timeContainerToAdd);
+    }
+
     public static void add(ListArea listArea, String topicNameToAdd) {
         TimeContainer timeContainer = new TimeContainer(listArea, topicNameToAdd);
         add(timeContainer);
+    }
+
+    public static void add(int index, ListArea listArea, String topicNameToAdd) {
+        TimeContainer timeContainer = new TimeContainer(listArea, topicNameToAdd);
+        add(index, timeContainer);
     }
 
     public static void remove(TimeContainer timeContainerToRemove) {
@@ -69,7 +78,7 @@ public class TimeContainers {
     }
 
     public static void remove(String topicNameToRemove) {
-        listOfTimeContainers.remove(getIndex(topicNameToRemove));
+        listOfTimeContainers.remove(indexOf(topicNameToRemove));
     }
 
     public static boolean contains(TimeContainer timeContainerToQuery) {
@@ -79,6 +88,6 @@ public class TimeContainers {
     public static boolean contains(String topicNameToQuery) {
         return listOfTimeContainers
                 .stream()
-                .anyMatch(timeContainer -> timeContainer.getTopic().equals(topicNameToQuery));
+                .anyMatch(timeContainer -> timeContainer.getTopic().getName().equals(topicNameToQuery));
     }
 }

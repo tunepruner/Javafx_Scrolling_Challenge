@@ -1,5 +1,7 @@
 package com.tunepruner.fourwards.gui;
 
+import com.tunepruner.fourwards.data.TimeContainer;
+import com.tunepruner.fourwards.data.TimeContainers;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -50,7 +52,7 @@ public class Cell {
     }
 
     public Point determineCellPosition(String string) {
-        return listArea.getGrid().getGridMap().get(listArea.getList().indexOf(string));
+        return listArea.getGrid().getGridMap().get(TimeContainers.indexOf(string));
     }
 
     public void designCell(String string) {
@@ -173,7 +175,7 @@ public class Cell {
 
         });
         cellGroup.setOnMousePressed(event -> {
-            listArea.getGrid().currentDraggedFromIndex = listArea.getList().indexOf(((Label) hBox.getChildren().get(1)).getText());
+            listArea.getGrid().currentDraggedFromIndex = TimeContainers.indexOf(((Label) hBox.getChildren().get(1)).getText());
 
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
@@ -210,18 +212,18 @@ public class Cell {
             int localCurrentDraggedFromInt = listArea.getGrid().currentDraggedFromIndex;
             int updatedInsertionInt = listArea.getGrid().currentDraggedFromIndex;
 
-            if (listArea.getList().contains(itemToRemove)) {
-                listArea.getList().remove(itemToRemove);
-                listArea.getList().add(localCurrentDraggedFromInt, "");
+            if (TimeContainers.contains(itemToRemove)) {
+                TimeContainers.remove(itemToRemove);
+                TimeContainers.add(localCurrentDraggedFromInt, listArea, "");
             }
 
-            if (listArea.getList().contains("")) {
+            if (TimeContainers.contains("")) {
                 updatedInsertionInt = listArea.getGrid().getIndexOfXY(listArea, currentPosition);
-                listArea.getList().remove("");
+                TimeContainers.remove("");
             }
 
-            if (!listArea.getList().contains("")) {
-                listArea.getList().add(updatedInsertionInt, "");
+            if (!TimeContainers.contains("")) {
+                TimeContainers.add(updatedInsertionInt, listArea, "");
             }
             cellGroup.toFront();
         });
@@ -231,11 +233,11 @@ public class Cell {
             String stringToAdd = (String) lbl.getText();
             int indexToInsert = 0;
 
-            if (listArea.getList().contains("")) {
-                if (!listArea.getList().contains(stringToAdd)) {
-                    indexToInsert = listArea.getList().indexOf("");
-                    listArea.getList().remove("");
-                    listArea.getList().add(indexToInsert, stringToAdd);
+            if (TimeContainers.contains("")) {
+                if (!TimeContainers.contains(stringToAdd)) {
+                    indexToInsert = TimeContainers.indexOf("");
+                    TimeContainers.remove("");
+                    TimeContainers.add(indexToInsert, listArea, stringToAdd);
                 }
                 isInListArea = false;
             }
@@ -250,7 +252,7 @@ public class Cell {
         // While making them mutually exclusive would be easier,
         // the product will feel much more complete if they
         // can both happen at once.
-        listArea.getList().addListener((ListChangeListener.Change<? extends String> c) -> {
+        TimeContainers.getListOfTimeContainers().addListener((ListChangeListener.Change<? extends TimeContainer> c) -> {
             while (c.next()) {
 
                 if (c.wasAdded()) {
@@ -272,10 +274,10 @@ public class Cell {
         String string = lbl.getText();
         int targetIndex;
 
-        if (listArea.getList().contains(string)) {
-            targetIndex = listArea.getList().indexOf(string);
+        if (TimeContainers.contains(string)) {
+            targetIndex = TimeContainers.indexOf(string);
         } else {
-            targetIndex = listArea.getList().indexOf("");
+            targetIndex = TimeContainers.indexOf("");
         }
 
         KeyFrame end = new KeyFrame(SEC_2,
