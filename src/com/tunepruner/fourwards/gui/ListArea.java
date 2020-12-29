@@ -1,7 +1,7 @@
 package com.tunepruner.fourwards.gui;
 
 import com.tunepruner.fourwards.data.TimeContainer;
-import com.tunepruner.fourwards.data.TimeContainers;
+import com.tunepruner.fourwards.data.Data;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
@@ -12,8 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.shape.Rectangle;
 
+import javax.xml.bind.JAXBException;
 import java.awt.*;
-import java.io.IOException;
 
 public class ListArea {
     public final int LIST_BOTTOM_X_VALUE = -145;
@@ -42,7 +42,7 @@ public class ListArea {
             int cellPadding,
             Stage stage
 
-    ){
+    ) throws JAXBException {
         this.uniqueID = uniqueID;
         this.topLeft = topLeft;
         this.areaHeight = areaHeight;
@@ -56,7 +56,7 @@ public class ListArea {
         this.startAreaPane = new Pane();
         this.clipPane = new Pane();
         this.adderCell = AdderCell.getInstance(this);
-        TimeContainers.createListOfTimeContainersForTesting(this);
+        Data.readFromFile();
     }
 
     public void setGrid(Grid grid) {
@@ -151,10 +151,12 @@ public class ListArea {
 
     public void displayAllCells() {
         setGrid(new Grid(this));
-        ObservableList<TimeContainer> listOfTC = TimeContainers.getListOfTimeContainers();
+        ObservableList<TimeContainer> listOfTC = Data.getList();
         for ( int i = 0; i < listOfTC.size(); i++ ) {
-            listOfTC.get(i).getCell().designCell(listOfTC.get(i).getTopic().getName());
-            listOfTC.get(i).getCell().revealCell(pane);
+            String stringAtIndex = listOfTC.get(i).getTopic().getName();
+            Cell cell = new Cell(this, stringAtIndex);
+            cell.designCell(stringAtIndex);
+            cell.revealCell(pane);
         }
     }
 }

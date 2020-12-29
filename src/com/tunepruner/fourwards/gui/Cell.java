@@ -1,7 +1,7 @@
 package com.tunepruner.fourwards.gui;
 
 import com.tunepruner.fourwards.data.TimeContainer;
-import com.tunepruner.fourwards.data.TimeContainers;
+import com.tunepruner.fourwards.data.Data;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -20,12 +20,8 @@ import javafx.scene.control.Button;
 import javafx.scene.shape.Polygon;
 import java.awt.*;
 import javafx.scene.control.ProgressBar;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Cell {
     HBox hBox;
     VBox vBox;
@@ -51,7 +47,7 @@ public class Cell {
     }
 
     public Point determineCellPosition() {
-        return listArea.getGrid().getGridMap().get(TimeContainers.indexOf(string));
+        return listArea.getGrid().getGridMap().get(Data.indexOf(string));
     }
 
     public void designCell(String string) {
@@ -174,7 +170,7 @@ public class Cell {
 
         });
         cellGroup.setOnMousePressed(event -> {
-            listArea.getGrid().currentDraggedFromIndex = TimeContainers.indexOf(string);
+            listArea.getGrid().currentDraggedFromIndex = Data.indexOf(string);
 
             preCalcSceneX = event.getSceneX();
             preCalcSceneY = event.getSceneY();
@@ -209,19 +205,19 @@ public class Cell {
             int localCurrentDraggedFromInt = listArea.getGrid().currentDraggedFromIndex;
             int updatedInsertionInt = listArea.getGrid().currentDraggedFromIndex;
 
-            if (TimeContainers.contains(string)) {
-                TimeContainers.remove(string);
+            if (Data.contains(string)) {
+                Data.remove(string);
 
-                TimeContainers.add(localCurrentDraggedFromInt, listArea, "");
+                Data.add(localCurrentDraggedFromInt, listArea, "");
             }
 
-            if (TimeContainers.contains("")) {
+            if (Data.contains("")) {
                 updatedInsertionInt = listArea.getGrid().getIndexOfXY(listArea, currentPosition);
-                TimeContainers.remove("");
+                Data.remove("");
             }
 
-            if (!TimeContainers.contains("")) {
-                TimeContainers.add(updatedInsertionInt, listArea, "");
+            if (!Data.contains("")) {
+                Data.add(updatedInsertionInt, listArea, "");
             }
             cellGroup.toFront();
         });
@@ -229,11 +225,11 @@ public class Cell {
         cellGroup.setOnMouseReleased(event -> {
             int indexToInsert = 0;
 
-            if (TimeContainers.contains("")) {
-                if (!TimeContainers.contains(string)) {
-                    indexToInsert = TimeContainers.indexOf("");
-                    TimeContainers.remove("");
-                    TimeContainers.add(indexToInsert, listArea, string);
+            if (Data.contains("")) {
+                if (!Data.contains(string)) {
+                    indexToInsert = Data.indexOf("");
+                    Data.remove("");
+                    Data.add(indexToInsert, listArea, string);
                 }
                 isInListArea = false;
             }
@@ -248,7 +244,7 @@ public class Cell {
         // While making them mutually exclusive would be easier,
         // the product will feel much more complete if they
         // can both happen at once.
-        TimeContainers.getListOfTimeContainers().addListener((ListChangeListener.Change<? extends TimeContainer> c) -> {
+        Data.getList().addListener((ListChangeListener.Change<? extends TimeContainer> c) -> {
             while (c.next()) {
 
                 if (c.wasAdded()) {
@@ -267,10 +263,10 @@ public class Cell {
         Timeline timeline = new Timeline();
         int targetIndex;
 
-        if (TimeContainers.contains(string)) {
-            targetIndex = TimeContainers.indexOf(string);
+        if (Data.contains(string)) {
+            targetIndex = Data.indexOf(string);
         } else {
-            targetIndex = TimeContainers.indexOf("");
+            targetIndex = Data.indexOf("");
         }
 
         KeyFrame end = new KeyFrame(SEC_2,

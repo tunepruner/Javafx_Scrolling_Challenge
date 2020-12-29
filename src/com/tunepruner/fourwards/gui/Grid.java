@@ -1,10 +1,8 @@
 package com.tunepruner.fourwards.gui;
 
-import com.tunepruner.fourwards.data.TimeContainers;
+import com.tunepruner.fourwards.data.Data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 
 import java.awt.*;
 
@@ -30,7 +28,7 @@ public class Grid {
         double yGridFactor = -(listArea.getCellHeight() + listArea.getCellPadding());
 
         /*Distribute points on that line.*/
-        for (int i = 0; i < TimeContainers.getListOfTimeContainers().size(); i++) {
+        for ( int i = 0; i < Data.getList().size(); i++) {
             Point startingPoint = new Point(
                     listArea.getTopLeft().x - listArea.getCellWidth()*2 - listArea.getCellHeight(),
                     listArea.getTopLeft().y + listArea.getAreaHeight());
@@ -57,7 +55,7 @@ public class Grid {
 
 
     public boolean animationPermitted(ListArea listArea, Cell cell) {
-        boolean isInList = TimeContainers.contains(cell.string);
+        boolean isInList = Data.contains(cell.string);
         boolean isOnGrid = false;
         boolean isAtCorrectIndex;
         boolean needsAnUpdate = false;
@@ -74,7 +72,7 @@ public class Grid {
         }
 
         if (isOnGrid && isInList) {
-            if (TimeContainers.indexOf(cell.string) != listArea.getGrid().getIndexOfXY(listArea, cell.currentPosition)) {
+            if (Data.indexOf(cell.string) != listArea.getGrid().getIndexOfXY(listArea, cell.currentPosition)) {
                 needsAnUpdate = true;
 
             }
