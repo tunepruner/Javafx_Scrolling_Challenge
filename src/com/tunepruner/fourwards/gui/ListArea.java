@@ -27,7 +27,6 @@ public class ListArea {
     private Pane clipPane;
     private Pane startAreaPane;
     private ListFromTextFile listFromTextFile;
-    private TimeContainers timeContainers = new TimeContainers(this);
     private Grid grid;
     private Point topLeft;
     private int areaHeight, areaWidth, cellHeight, cellWidth, cellPadding;
@@ -61,6 +60,7 @@ public class ListArea {
         this.startAreaPane = new Pane();
         this.clipPane = new Pane();
         this.adderCell = AdderCell.getInstance(this);
+        TimeContainers.createListOfTimeContainersForTesting(this);
     }
 
     public void setGrid(Grid grid) {
@@ -170,7 +170,7 @@ public class ListArea {
 
     public void displayAllCells(ListArea listArea) {
         listArea.setGrid(new Grid(listArea));
-        ObservableList<TimeContainer> listOfTC = timeContainers.getListOfTimeContainers();
+        ObservableList<TimeContainer> listOfTC = TimeContainers.getListOfTimeContainers();
         for ( int i = 0; i < listOfTC.size(); i++ ) {
             listOfTC.get(i).getCell().designCell(listOfTC.get(i).getTopic().getName());
             listOfTC.get(i).getCell().revealCell(pane);
