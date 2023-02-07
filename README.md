@@ -1,15 +1,9 @@
-# 4wards_POC1.b_editor
-README updated at commit d9b216634
+# JavaFX scrolling challenge
 
 ![](Scroll.gif)
 
 ![](DragAndDrop.gif)
 
-This project is a demo of functionality I'm working on with the ![4wards project](github.com/tunepruner/4wards). It's written in Java 1.8 with JavaFX.  
-It doesn't use any of the built-in JavaFX listview features or scrolling. 
-The cells are made from scratch out of composite shapes. 
-Data is serialized in xml format using JAXB.
+I made this at a time in which I was workshopping a concept for an app which I called "4wards". I wanted to make a scrolling and drag/drop capable list which felt different from the apps available at the time. Since I was learning software development in the Java ecosystem, and since I wanted to make a desktop app, I chose JavaFX to develop this. Later, the "4wards" concept evolved into a mobile-first design which you can learn more about [here](https://github.com/tunepruner/4wards). 
 
-It features drag and drop reorder and single-dimensional scrolling. 
-
-The progress bar, and other elements seen on each cell have no functionality yet; they're included here to demonstrate one way that the unique shape of these cells could be used.
+This is a very naive implementation, made by a very novice version of myself. It's an extremely inefficient algorithm that re-calculates the x-y position of each item on the screen according to the movement of the scroll wheel and mouse drag. Consider this a chance to see what somebody comes up with for concepts like these when they've never actually seen those things implemented correctly.
